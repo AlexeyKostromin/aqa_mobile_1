@@ -1,15 +1,16 @@
 package tests;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
 import java.util.List;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class Lesson3Tests extends TestBase {
 
     @Test
+//    @Order(1)
     void verifyTextInSearchFieldTest() {
         final String expectedText = "Search Wikipedia";
 
@@ -33,6 +34,20 @@ public class Lesson3Tests extends TestBase {
     }
 
     @Test
+    void searchArticleInBackgroundTest() {
+        final String searchText = "Kotlin";
+        final String expectedResult = "General-purpose programming language derived from Java";
+
+        waitWelcomePageLoaded();
+        skipWelcomePage();
+        performSearchWithText(searchText);
+        verifySearchResultsContains(expectedResult);
+
+        runAppInBackground(Duration.ofSeconds(3));
+        verifySearchResultsContains(expectedResult);
+    }
+
+    @Test
     void searchAllResultsTest() {
         final String searchText = "Java";
 
@@ -40,7 +55,7 @@ public class Lesson3Tests extends TestBase {
         skipWelcomePage();
         performSearchWithText(searchText);
         var searchResultsList = getAllSearchResultsByTitle();
-        verifyResultsContainsTextInTitle(searchResultsList, searchText);
+        assertResultsContainsTextInTitle(searchResultsList, searchText);
     }
 
     @Test
@@ -52,48 +67,82 @@ public class Lesson3Tests extends TestBase {
         skipWelcomePage();
 
         performSearchWithText(searchText1);
-        tapItemByText(expectedResult1);
+        openArticle(expectedResult1);
         swipeUpToTheEndOfArticle();
     }
 
     @Test
     void saveTwoArticlesToListTest() {
         final String searchText1 = "Java";
-        final String expectedResult1 = "Java (programming language)";
+        final String expectedTitle1 = "Java (programming language)";
         final String searchText2 = "Kotlin";
-        final String expectedResult2 = "Kotlin (programming language)";
+        final String expectedTitle2 = "Kotlin (programming language)";
 
         waitWelcomePageLoaded();
         skipWelcomePage();
 
         performSearchWithText(searchText1);
-        tapItemByText(expectedResult1);
+        openArticle(expectedTitle1);
 
         final String listName = "my list1";
         saveArticleToNewList(listName);
         clickNavigateUp();
 
         sendKeysToSearchTextBox(searchText2);
-        tapItemByText(expectedResult2);
+        openArticle(expectedTitle2);
         saveArticleToExistingList(listName);
 
         clickNavigateUp();
         clickNavigateUp();
 
         goToSavedItems();
-        tapItemByText(listName);
+        clickElementByText(listName);
         submitTooltipGotIt();
 
-        verifyArticleDisplays(expectedResult1);
-        verifyArticleDisplays(expectedResult2);
+        verifyArticleDisplays(expectedTitle1);
+        verifyArticleDisplays(expectedTitle2);
 
-        swipeElementToLeft(getElementByText(expectedResult1));
-        waitArticleNotDisplays(expectedResult1);
-        verifyArticleDisplays(expectedResult2);
+        swipeElementToLeft(getElementByText(expectedTitle1));
+        waitArticleNotDisplays(expectedTitle1);
+        verifyArticleDisplays(expectedTitle2);
 
-        tapItemByText(expectedResult2);
-        waitArticlePageLoaded();
-        verifyArticleTitle(expectedResult2);
+        openArticle(expectedTitle2);
+        assertArticleTitle(expectedTitle2);
+    }
+
+    @Test
+    public void assertTitlePresentInstantlyTest() {
+        final String searchText = "Java";
+        final String expectedTitle = "Java (programming language)";
+
+        waitWelcomePageLoaded();
+        skipWelcomePage();
+
+        performSearchWithText(searchText);
+        openArticle(expectedTitle);
+        assertArticleTitlePresentInstantly(expectedTitle);
+    }
+
+    @Test
+    public void assertTitleAfterRotationTest() {
+        final String searchText = "Java";
+        final String expectedTitle = "Java (programming language)";
+
+        waitWelcomePageLoaded();
+        skipWelcomePage();
+
+        performSearchWithText(searchText);
+        openArticle(expectedTitle);
+        var title_before_rotation = getArticleTitle();
+
+        rotateDeviceToLandscape();
+        var title_after_rotation = getArticleTitle();
+
+        Assertions.assertEquals(title_before_rotation, title_after_rotation, "Title after rotation differs from title before rotation");
+    }
+
+    public void openArticle(String article) {
+        clickElementByText(article);
     }
 
     public void saveArticleToNewList(String listName) {
@@ -105,7 +154,7 @@ public class Lesson3Tests extends TestBase {
     public void saveArticleToExistingList(String listName) {
         clickSaveArticle();
         clickAddToList();
-        tapItemByText(listName);
+        clickElementByText(listName);
     }
 
     public void waitArticlePageLoaded() {
@@ -158,6 +207,8 @@ public class Lesson3Tests extends TestBase {
                 By.id("org.wikipedia.alpha:id/search_src_text"),
                 expectedText
         );
+
+
     }
 
     public void waitWelcomePageLoaded() {
@@ -275,7 +326,7 @@ public class Lesson3Tests extends TestBase {
         getElementByText(article);
     }
 
-    public WebElement verifyResultsContainsTextInTitle(List<WebElement> elements, String expectedText) {
+    public WebElement assertResultsContainsTextInTitle(List<WebElement> elements, String expectedText) {
         var element = findElementByTextInList(elements, expectedText);
 
         Assertions.assertTrue(element.getText().contains(expectedText),
@@ -285,8 +336,27 @@ public class Lesson3Tests extends TestBase {
         return element;
     }
 
-    public void verifyArticleTitle(String title) {
-        getElementByText(title);
+    public String getArticleTitle() {
+        var element = waitForElementPresent(
+                By.xpath("//*[@resource-id='pcs-edit-section-title-description']/preceding-sibling::android.widget.TextView[1]"),
+                "Title of opened article was not present",
+                15);
+
+        return element.getText();
+    }
+
+    public void assertArticleTitle(String title) {
+        var titleActual = getArticleTitle();
+
+        Assertions.assertEquals(title, titleActual, "Title of opened article is wrong");
+    }
+
+    public void assertArticleTitlePresentInstantly(String title) {
+        var element = waitForElementPresent(
+                By.xpath("//*[@resource-id='pcs-edit-section-title-description']/preceding-sibling::android.widget.TextView[1]"),
+                "Title of opened article was not present instantly",
+                0);
+        Assertions.assertEquals(title, element.getText());
     }
 
 }

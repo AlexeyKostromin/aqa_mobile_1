@@ -1,11 +1,11 @@
 package tests;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestBase {
 
-    public AppiumDriver driver;
+    public AndroidDriver driver;
 
 
     @BeforeEach
@@ -40,6 +40,8 @@ public class TestBase {
         capabilities.setCapability("app", getAppPath());
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), capabilities);
+
+        setPortraitOrientation();
     }
 
     @AfterEach
@@ -97,6 +99,11 @@ public class TestBase {
         return element;
     }
 
+    public String waitForElementAndGetAttribute(By by, String attribute, String errorMessage, long timeoutInSeconds) {
+        WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
+        return element.getAttribute(attribute);
+    }
+
     public WebElement getElementByText(String text) {
         String xpathWithName = String.format("//*[@text='%s']", text);
         return waitForElementPresent(By.xpath(xpathWithName),
@@ -104,7 +111,7 @@ public class TestBase {
                 10);
     }
 
-    public void tapItemByText(String text) {
+    public void clickElementByText(String text) {
         String xpathWithName = String.format("//*[@text='%s']", text);
         waitForElementAndClick(
                 By.xpath(xpathWithName),
@@ -236,6 +243,26 @@ public class TestBase {
         driver.perform(Arrays.asList(finger1Sequence, finger2Sequence));
     }
 
+    public void rotateDeviceToLandscape() {
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+    }
+
+    public void rotateDeviceToPortrait() {
+        driver.rotate(ScreenOrientation.PORTRAIT);
+    }
+
+    private void setPortraitOrientation() {
+        ScreenOrientation currentOrientation = driver.getOrientation();
+        if (currentOrientation != ScreenOrientation.PORTRAIT) {
+            System.out.println("The device orientation was not Portrait, rotating device to Portrait");
+            rotateDeviceToPortrait();
+        }
+    }
+
+    public void runAppInBackground(Duration duration) {
+        driver.runAppInBackground(duration);
+    }
+
     public void assertElementHasText(By by, String expectedText) {
         WebElement element = waitForElementPresent(by, "Failed to locate element");
         String elementText = element.getAttribute("text");
@@ -243,7 +270,6 @@ public class TestBase {
                 expectedText, elementText,
                 "Expected text for element is: " + expectedText + " but was: " + elementText);
     }
-
 
 
 }
