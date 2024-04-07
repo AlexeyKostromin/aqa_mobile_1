@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.text.Normalizer;
 import java.util.List;
 
 public class SearchPage extends MainPage {
@@ -19,10 +20,18 @@ public class SearchPage extends MainPage {
             SEARCH_TOOLBAR_TEXT = "org.wikipedia.alpha:id/search_src_text",
             PAGE_LIST_ITEM_TITLE = "org.wikipedia.alpha:id/page_list_item_title",
             NAVIGATE_UP = "//android.widget.ImageButton[@content-desc='Navigate up']",
+            ALL_SEARCH_RESULTS = "//*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup",
+            SEARCH_RESULTS_BY_TEXT_TPL = "//*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']",
+            SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL = "//*[@resource-id='org.wikipedia.alpha:id/page_list_item_title' " +
+                    "and @text=\"{TITLE}\"" +
+                    "and following-sibling::*[@resource-id='org.wikipedia.alpha:id/page_list_item_description'" +
+                    "and @text=\"{DESCRIPTION}\"]]";
 
-    ALL_SEARCH_RESULTS = "//*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup",
-            SEARCH_RESULTS_BY_TEXT_TPL = "//*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']";
-
+    private static String getXpathForResultsByTitleAndDescription(String title, String description) {
+        return SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL
+                .replace("{TITLE}", title)
+                .replace("{DESCRIPTION}", description);
+    }
 
     public SearchPage(AndroidDriver driver) {
         super(driver);
@@ -60,9 +69,18 @@ public class SearchPage extends MainPage {
         return waitForElementsPresent(By.xpath(ALL_SEARCH_RESULTS), "Could not get search results", 151);
     }
 
+    public WebElement waitForElementByTitleAndDescription(String title, String description) {
+        var xpathFull = getXpathForResultsByTitleAndDescription(title, description);
+        return waitForElementPresent(
+                By.xpath(xpathFull),
+                "No results found with provided title and description , " +
+                        "expected title was: " + title + " and expected description was: " + description,
+                15);
+    }
+
     public void verifySearchResultsContainsText(String expectedText) {
         var xpathFull = SEARCH_RESULTS_BY_TEXT_TPL.replace("{EXPECTED_TEXT}", expectedText);
-        waitForElementPresent(By.xpath(xpathFull), "No results with provided text found, text was: "+expectedText, 15);
+        waitForElementPresent(By.xpath(xpathFull), "No results found with provided text, text was: " + expectedText, 15);
     }
 
     public void clickArticleTitleWithText(List<WebElement> elements, String text) {

@@ -38,7 +38,7 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
-    void searchAllResultsTest() {
+    void searchResultsHasSearchItemTest() {
         final String searchText = "Java";
 
         SearchPage searchPage = new SearchPage(driver);
@@ -48,5 +48,29 @@ public class SearchTests extends CoreTestCase {
         searchPage.performSearchWithText(searchText);
         var searchResultsList = searchPage.getAllSearchResultsByTitle();
         searchPage.assertResultsContainsTextInTitle(searchResultsList, searchText);
+    }
+
+    @Test
+    void searchResultsHasSearchItemByTitleAndDescriptionTest() {
+        final String searchText = "facebook";
+
+        final String expectedTitleResult1 = "Facebook";
+        final String expectedDescriptionResult1 = "Social-networking service owned by Meta Platforms";
+
+        final String expectedTitleResult2 = "Facebook Platform";
+        final String expectedDescriptionResult2 = "Application platform accessing Facebook's social network";
+
+        final String expectedTitleResult3 = "Facebook F8";
+        final String expectedDescriptionResult3 = "Mostly-annual conference held by Facebook, intended for developers and entrepreneurs";
+
+        SearchPage searchPage = new SearchPage(driver);
+
+        searchPage.waitWelcomePageLoaded();
+        searchPage.skipWelcomePage();
+        searchPage.performSearchWithText(searchText);
+
+        searchPage.waitForElementByTitleAndDescription(expectedTitleResult1, expectedDescriptionResult1);
+        searchPage.waitForElementByTitleAndDescription(expectedTitleResult2, expectedDescriptionResult2);
+        searchPage.waitForElementByTitleAndDescription(expectedTitleResult3, expectedDescriptionResult3);
     }
 }
