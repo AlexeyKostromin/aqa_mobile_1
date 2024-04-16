@@ -1,5 +1,6 @@
 package lib;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class CoreTestCase {
-    protected AndroidDriver driver;
+//    protected AndroidDriver driver;
+    protected AppiumDriver driver;
     private static String appiumURL = "http://127.0.0.1:4723/";
 
     @BeforeEach

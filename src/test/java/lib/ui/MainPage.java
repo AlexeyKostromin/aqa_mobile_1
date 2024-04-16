@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MainPage {
 
     protected AndroidDriver driver;
+//    protected AppiumDriver driver;
 
     public MainPage(AndroidDriver driver) {
         this.driver = driver;

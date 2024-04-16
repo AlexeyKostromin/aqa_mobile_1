@@ -13,7 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class iOSTestBase {
-    protected AppiumDriver driver;
+
+    protected IOSDriver driver;
     private static String appiumURL = "http://127.0.0.1:4723/";
 
     @BeforeEach
