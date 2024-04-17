@@ -2,10 +2,7 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,10 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPage {
 
-    protected AndroidDriver driver;
-//    protected AppiumDriver driver;
+//    protected AndroidDriver driver;
+//    protected WebDriver driver;
+    protected AppiumDriver driver;
 
-    public MainPage(AndroidDriver driver) {
+    public MainPage(AppiumDriver driver) {
         this.driver = driver;
     }
 
@@ -210,24 +208,24 @@ public class MainPage {
         driver.perform(Arrays.asList(finger1Sequence, finger2Sequence));
     }
 
-    public void rotateDeviceToLandscape() {
-        driver.rotate(ScreenOrientation.LANDSCAPE);
-    }
+//    public void rotateDeviceToLandscape() {
+//        driver.rotate(ScreenOrientation.LANDSCAPE);
+//    }
+//
+//    public void rotateDeviceToPortrait() {
+//        driver.rotate(ScreenOrientation.PORTRAIT);
+//    }
+//
+//    public void runAppInBackground(Duration duration) {
+//        driver.runAppInBackground(duration);
+//    }
 
-    public void rotateDeviceToPortrait() {
-        driver.rotate(ScreenOrientation.PORTRAIT);
-    }
-
-    public void runAppInBackground(Duration duration) {
-        driver.runAppInBackground(duration);
-    }
-
-    public void assertElementHasText(By by, String expectedText) {
-        WebElement element = waitForElementPresent(by, "Failed to locate element");
-        String elementText = element.getAttribute("text");
-        assertEquals(
-                expectedText, elementText,
-                "Expected text for element is: " + expectedText + " but was: " + elementText);
-    }
+//    public void assertElementHasText(By by, String expectedText) {
+//        WebElement element = waitForElementPresent(by, "Failed to locate element");
+//        String elementText = element.getAttribute("text");
+//        assertEquals(
+//                expectedText, elementText,
+//                "Expected text for element is: " + expectedText + " but was: " + elementText);
+//    }
 
 }

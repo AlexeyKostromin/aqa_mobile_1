@@ -2,13 +2,13 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.ui.SearchPage;
+import lib.ui.TestBase;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class SearchTests extends CoreTestCase {
+public class SearchTests extends TestBase {
     @Test
 //    @Order(1)
     void verifyTextInSearchFieldTest() {
@@ -19,7 +19,7 @@ public class SearchTests extends CoreTestCase {
         searchPage.waitWelcomePageLoaded();
         searchPage.skipWelcomePage();
         searchPage.clickSearchTextBox();
-        searchPage.verifySearchBoxHasText(expectedText);
+        searchPage.assertSearchBoxHasText(expectedText);
     }
 
     @Test

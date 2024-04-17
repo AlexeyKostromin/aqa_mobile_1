@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -15,7 +16,7 @@ public class ArticlePage extends MainPage {
             OK_BTN = "//android.widget.Button[@text='OK']",
             SNACK_BAR = "org.wikipedia.alpha:id/snackbar_action";
 
-    public ArticlePage(AndroidDriver driver) {
+    public ArticlePage(AppiumDriver driver) {
         super(driver);
     }
 

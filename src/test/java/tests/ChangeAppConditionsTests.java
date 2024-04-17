@@ -1,16 +1,18 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.SpecialActionsHelper;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
+import lib.ui.TestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-public class ChangeAppConditionsTests extends CoreTestCase {
+public class ChangeAppConditionsTests extends TestBase {
     @Test
-    void searchArticleInBackgroundTest() {
+    void searchArticleInBackgroundTest() throws Exception {
         final String searchText = "Kotlin";
         final String expectedResult = "General-purpose programming language derived from Java";
 
@@ -21,12 +23,15 @@ public class ChangeAppConditionsTests extends CoreTestCase {
         searchPage.performSearchWithText(searchText);
         searchPage.verifySearchResultsContainsText(expectedResult);
 
-        searchPage.runAppInBackground(Duration.ofSeconds(3));
+
+        SpecialActionsHelper specialActionsHelper = new SpecialActionsHelper();
+        specialActionsHelper.runAppInBackground(Duration.ofSeconds(3));
+//        searchPage.runAppInBackground(Duration.ofSeconds(3));
         searchPage.verifySearchResultsContainsText(expectedResult);
     }
 
     @Test
-    public void assertTitleAfterRotationTest() {
+    public void assertTitleAfterRotationTest() throws Exception {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";
 
@@ -40,7 +45,10 @@ public class ChangeAppConditionsTests extends CoreTestCase {
         ArticlePage articlePage = new ArticlePage(driver);
         var title_before_rotation = articlePage.getArticleTitle();
 
-        searchPage.rotateDeviceToLandscape();
+
+        SpecialActionsHelper specialActionsHelper = new SpecialActionsHelper();
+        specialActionsHelper.setLandscapeOrientation();
+//        searchPage.rotateDeviceToLandscape();
         var title_after_rotation = articlePage.getArticleTitle();
 
         Assertions.assertEquals(title_before_rotation, title_after_rotation, "Title after rotation differs from title before rotation");

@@ -3,9 +3,10 @@ package tests;
 import lib.CoreTestCase;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
+import lib.ui.TestBase;
 import org.junit.jupiter.api.Test;
 
-public class ArticleTests extends CoreTestCase {
+public class ArticleTests extends TestBase {
     @Test
     void swipeArticleTest() {
         final String searchText1 = "Intellij IDEA";

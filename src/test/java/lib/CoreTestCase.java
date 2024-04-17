@@ -12,8 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class CoreTestCase {
-//    protected AndroidDriver driver;
-    protected AppiumDriver driver;
+    protected AndroidDriver driver;
+//    protected AppiumDriver driver;
     private static String appiumURL = "http://127.0.0.1:4723/";
 
     @BeforeEach

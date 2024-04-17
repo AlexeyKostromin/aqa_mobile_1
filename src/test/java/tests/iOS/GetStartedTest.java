@@ -9,5 +9,9 @@ public class GetStartedTest extends iOSTestBase {
     @Test
     public void PassWelcomePageTest(){
         WelcomePage welcomePage = new WelcomePage(driver);
+        welcomePage
+                .WaitForFreeEncyclopediaScreenLoaded()
+                .ClickNext();
+
     }
 }

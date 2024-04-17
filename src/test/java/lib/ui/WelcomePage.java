@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 
 public class WelcomePage extends MainPage {
@@ -20,6 +21,11 @@ public class WelcomePage extends MainPage {
     public WelcomePage(AppiumDriver driver) {
         super(driver);
     }
+
+//    public WelcomePage(AppiumDriver driver) {
+//        super(driver);
+//    }
+
 
 
     public WelcomePage WaitForFreeEncyclopediaScreenLoaded() {

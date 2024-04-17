@@ -1,12 +1,14 @@
 package lib.ui;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.text.Normalizer;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchPage extends MainPage {
 
@@ -33,7 +35,7 @@ public class SearchPage extends MainPage {
                 .replace("{DESCRIPTION}", description);
     }
 
-    public SearchPage(AndroidDriver driver) {
+    public SearchPage(AppiumDriver driver) {
         super(driver);
     }
 
@@ -100,19 +102,20 @@ public class SearchPage extends MainPage {
         waitForElementAndClick(By.id(SEARCH_CLOSE_BTN), "Cannot click on X button", 5);
     }
 
-    public void verifySearchCloseButtonNotVisible() {
-        waitForElementNotPresent(By.id(SEARCH_CLOSE_BTN), "No results found", 5);
-    }
-
-    public void verifySearchBoxHasText(String expectedText) {
-        assertElementHasText(By.id(SEARCH_TOOLBAR_TEXT), expectedText);
-    }
-
-
     public void clickNavigateUp() {
         waitForElementAndClick(By.xpath(NAVIGATE_UP), "Could not press Navigate Up", 5);
     }
 
+    public void verifySearchCloseButtonNotVisible() {
+        waitForElementNotPresent(By.id(SEARCH_CLOSE_BTN), "No results found", 5);
+    }
+
+    public void assertSearchBoxHasText(String expectedText) {
+            var elementText = waitForElementAndGetAttribute(By.id(SEARCH_TOOLBAR_TEXT), "text", "Could not get text attribute", 5);
+        assertEquals(
+                expectedText, elementText,
+                "Expected text for element is: " + expectedText + " but was: " + elementText);
+    }
 
     public void verifyArticleDisplays(String article) {
         getElementByText(article);

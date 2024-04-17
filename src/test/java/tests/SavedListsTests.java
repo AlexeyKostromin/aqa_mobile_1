@@ -1,13 +1,10 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.ui.ArticlePage;
-import lib.ui.NavigationUi;
-import lib.ui.SavedListsPage;
-import lib.ui.SearchPage;
+import lib.ui.*;
 import org.junit.jupiter.api.Test;
 
-public class SavedListsTests extends CoreTestCase {
+public class SavedListsTests extends TestBase {
     @Test
     void saveTwoArticlesToListTest() {
         final String searchText1 = "Java";
