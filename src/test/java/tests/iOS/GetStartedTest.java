@@ -14,8 +14,9 @@ public class GetStartedTest extends TestBase {
                 .ClickNext()
                 .WaitForNewWaysScreenLoaded()
                 .ClickNext()
-                .WaitSearchLanguagesScreenLoaded();
-
-
+                .WaitSearchLanguagesScreenLoaded()
+                .ClickNext()
+                .WaitHelpAppBetterScreenLoaded()
+                .ClickGetStarted();
     }
 }
