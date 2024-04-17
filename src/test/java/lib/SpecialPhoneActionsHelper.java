@@ -7,10 +7,10 @@ import org.openqa.selenium.ScreenOrientation;
 
 import java.time.Duration;
 
-public class SpecialActionsHelper {
+public class SpecialPhoneActionsHelper {
     protected AppiumDriver driver;
 
-    public SpecialActionsHelper() throws Exception {
+    public SpecialPhoneActionsHelper() throws Exception {
         Platform platform = new Platform();
         driver = platform.getAppiumDriver();
     }

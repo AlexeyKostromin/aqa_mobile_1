@@ -1,20 +1,8 @@
-package lib.ui;
+package lib;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
-import lib.Platform;
-import lib.SpecialActionsHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class TestBase {
 
@@ -24,8 +12,8 @@ public class TestBase {
     public void setUp() throws Exception {
         Platform platform = new Platform();
         driver = platform.getAppiumDriver();
-        SpecialActionsHelper specialActionsHelper = new SpecialActionsHelper();
-        specialActionsHelper.setPortraitOrientation();
+//        SpecialPhoneActionsHelper specialPhoneActionsHelper = new SpecialPhoneActionsHelper();
+//        specialPhoneActionsHelper.setPortraitOrientation();
     }
 
     @AfterEach

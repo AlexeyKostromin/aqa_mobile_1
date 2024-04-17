@@ -1,10 +1,9 @@
 package tests;
 
-import lib.CoreTestCase;
-import lib.SpecialActionsHelper;
+import lib.SpecialPhoneActionsHelper;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
-import lib.ui.TestBase;
+import lib.TestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +23,8 @@ public class ChangeAppConditionsTests extends TestBase {
         searchPage.verifySearchResultsContainsText(expectedResult);
 
 
-        SpecialActionsHelper specialActionsHelper = new SpecialActionsHelper();
-        specialActionsHelper.runAppInBackground(Duration.ofSeconds(3));
+        SpecialPhoneActionsHelper specialPhoneActionsHelper = new SpecialPhoneActionsHelper();
+        specialPhoneActionsHelper.runAppInBackground(Duration.ofSeconds(3));
 //        searchPage.runAppInBackground(Duration.ofSeconds(3));
         searchPage.verifySearchResultsContainsText(expectedResult);
     }
@@ -46,8 +45,8 @@ public class ChangeAppConditionsTests extends TestBase {
         var title_before_rotation = articlePage.getArticleTitle();
 
 
-        SpecialActionsHelper specialActionsHelper = new SpecialActionsHelper();
-        specialActionsHelper.setLandscapeOrientation();
+        SpecialPhoneActionsHelper specialPhoneActionsHelper = new SpecialPhoneActionsHelper();
+        specialPhoneActionsHelper.setLandscapeOrientation();
 //        searchPage.rotateDeviceToLandscape();
         var title_after_rotation = articlePage.getArticleTitle();
 

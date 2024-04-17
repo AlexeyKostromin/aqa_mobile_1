@@ -1,8 +1,7 @@
 package tests;
 
-import lib.CoreTestCase;
 import lib.ui.SearchPage;
-import lib.ui.TestBase;
+import lib.TestBase;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;

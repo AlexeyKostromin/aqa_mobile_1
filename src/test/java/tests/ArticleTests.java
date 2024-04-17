@@ -1,9 +1,8 @@
 package tests;
 
-import lib.CoreTestCase;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
-import lib.ui.TestBase;
+import lib.TestBase;
 import org.junit.jupiter.api.Test;
 
 public class ArticleTests extends TestBase {

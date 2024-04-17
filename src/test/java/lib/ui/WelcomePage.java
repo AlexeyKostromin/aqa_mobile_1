@@ -27,7 +27,6 @@ public class WelcomePage extends MainPage {
 //    }
 
 
-
     public WelcomePage WaitForFreeEncyclopediaScreenLoaded() {
         waitForElementPresent(By.id(STEP_TRY_FREE_ENCYCLOPEDIA), "Free encyclopedia screen not loaded", 10);
         return new WelcomePage(driver);

@@ -1,6 +1,6 @@
 package tests;
 
-import lib.CoreTestCase;
+import lib.TestBase;
 import lib.ui.*;
 import org.junit.jupiter.api.Test;
 

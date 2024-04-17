@@ -18,19 +18,20 @@ public class Platform {
     public AppiumDriver getAppiumDriver() throws Exception {
         URL url = new URL(APPIUM_LOCALHOST_URL);
 
-        if (isAndroid()){
+        if (isAndroid()) {
             return new AndroidDriver(url, getCapabilitiesAndroid());
         } else if (isIOS()) {
             return new IOSDriver(url, getCapabilitiesIOS());
-        }else {
+        } else {
             throw new Exception("Cannot detect type of driver. Platform env is: " + getPlatformEnv());
         }
     }
 
-    public Boolean isAndroid(){
+    public Boolean isAndroid() {
         return isPlatform(PLATFORM_ANDROID);
     }
-    public Boolean isIOS(){
+
+    public Boolean isIOS() {
         return isPlatform(PLATFORM_IOS);
     }
 
@@ -43,7 +44,7 @@ public class Platform {
         return platform;
     }
 
-    private Boolean isPlatform(String expectedPlatform){
+    private Boolean isPlatform(String expectedPlatform) {
         String platform = getPlatformEnv();
         return platform.equals(expectedPlatform);
     }
