@@ -9,12 +9,12 @@ import org.openqa.selenium.By;
 public class ArticlePage extends MainPage {
 
     private static final String
-            ARTICLE_TITLE = "//*[@resource-id='pcs-edit-section-title-description']/preceding-sibling::android.widget.TextView[1]",
-            SAVE_ARTICLE_BNT = "org.wikipedia.alpha:id/page_save",
-            ADD_TO_LIST = "//*[@text='Add to list']",
-            NEW_LIST_NAME_INPUT = "org.wikipedia.alpha:id/text_input",
-            OK_BTN = "//android.widget.Button[@text='OK']",
-            SNACK_BAR = "org.wikipedia.alpha:id/snackbar_action";
+            ARTICLE_TITLE = "xpath://*[@resource-id='pcs-edit-section-title-description']/preceding-sibling::android.widget.TextView[1]",
+            SAVE_ARTICLE_BNT = "id:org.wikipedia.alpha:id/page_save",
+            ADD_TO_LIST = "xpath://*[@text='Add to list']",
+            NEW_LIST_NAME_INPUT = "id:org.wikipedia.alpha:id/text_input",
+            OK_BTN = "xpath://android.widget.Button[@text='OK']",
+            SNACK_BAR = "id:org.wikipedia.alpha:id/snackbar_action";
 
     public ArticlePage(AppiumDriver driver) {
         super(driver);
@@ -42,24 +42,24 @@ public class ArticlePage extends MainPage {
     }
 
     public void clickSaveArticle() {
-        waitForElementAndClick(By.id(SAVE_ARTICLE_BNT), "Could not click add save article", 5);
+        waitForElementAndClick(SAVE_ARTICLE_BNT, "Could not click add save article", 5);
     }
 
     public void clickSnackBarAction() {
-        waitForElementAndClick(By.id(SNACK_BAR), "Could not click snackbar action", 5);
+        waitForElementAndClick(SNACK_BAR, "Could not click snackbar action", 5);
     }
 
     public void clickAddToList() {
-        waitForElementAndClick(By.xpath(ADD_TO_LIST), "Could not click add to list", 5);
+        waitForElementAndClick(ADD_TO_LIST, "Could not click add to list", 5);
     }
 
     public void setNewListName(String text) {
-        waitForElementAndSendKeys(By.id(NEW_LIST_NAME_INPUT), text, "Could not set name for a new list", 10);
-        waitForElementAndClick(By.xpath(OK_BTN), "Could not press OK in new list dialog", 10);
+        waitForElementAndSendKeys(NEW_LIST_NAME_INPUT, text, "Could not set name for a new list", 10);
+        waitForElementAndClick(OK_BTN, "Could not press OK in new list dialog", 10);
     }
 
     public String getArticleTitle() {
-        var element = waitForElementPresent(By.xpath(ARTICLE_TITLE), "Title of opened article was not present", 15);
+        var element = waitForElementPresent(ARTICLE_TITLE, "Title of opened article was not present", 15);
         return element.getText();
     }
 
@@ -70,7 +70,7 @@ public class ArticlePage extends MainPage {
 
     public void assertArticleTitlePresentInstantly(String title) {
         var element = waitForElementPresent(
-                By.xpath("//*[@resource-id='pcs-edit-section-title-description']/preceding-sibling::android.widget.TextView[1]"),
+                ARTICLE_TITLE,
                 "Title of opened article was not present instantly",
                 0);
         Assertions.assertEquals(title, element.getText());

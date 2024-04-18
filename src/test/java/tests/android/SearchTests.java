@@ -1,14 +1,16 @@
-package tests;
+package tests.android;
 
 import lib.ui.SearchPage;
 import lib.TestBase;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SearchTests extends TestBase {
     @Test
+    @Tag("android")
 //    @Order(1)
     void verifyTextInSearchFieldTest() {
         final String expectedText = "Search Wikipedia";
@@ -22,6 +24,7 @@ public class SearchTests extends TestBase {
     }
 
     @Test
+    @Tag("android")
     void cancelSearchTest() {
         final String searchText = "Kotlin";
         final String expectedResult = "General-purpose programming language derived from Java";
@@ -37,6 +40,7 @@ public class SearchTests extends TestBase {
     }
 
     @Test
+    @Tag("android")
     void searchResultsHasSearchItemTest() {
         final String searchText = "Java";
 
@@ -50,6 +54,7 @@ public class SearchTests extends TestBase {
     }
 
     @Test
+    @Tag("android")
     void searchResultsHasSearchItemByTitleAndDescriptionTest() {
         final String searchText = "facebook";
 

@@ -1,12 +1,14 @@
-package tests;
+package tests.android;
 
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
 import lib.TestBase;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 public class ArticleTests extends TestBase {
     @Test
+    @Tag("android")
     void swipeArticleTest() {
         final String searchText1 = "Intellij IDEA";
         final String expectedResult1 = "Integrated development environment";
@@ -23,6 +25,7 @@ public class ArticleTests extends TestBase {
     }
 
     @Test
+    @Tag("android")
     public void assertTitlePresentInstantlyTest() {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";

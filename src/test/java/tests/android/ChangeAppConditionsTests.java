@@ -1,4 +1,4 @@
-package tests;
+package tests.android;
 
 import lib.SpecialPhoneActionsHelper;
 import lib.ui.ArticlePage;

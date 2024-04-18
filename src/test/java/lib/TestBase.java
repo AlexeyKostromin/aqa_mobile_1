@@ -21,45 +21,4 @@ public class TestBase {
         driver.quit();
     }
 
-//    private void setPortraitOrientation() {
-//        if (driver instanceof AppiumDriver) {
-//            ((AndroidDriver) driver).rotate(ScreenOrientation.PORTRAIT);
-//        } else if (driver instanceof IOSDriver) {
-//            ((IOSDriver) driver).rotate(ScreenOrientation.PORTRAIT);
-//        } else {
-//            System.out.println("Driver is not an instance of AppiumDriver or IOSDriver, cannot set orientation.");
-//        }
-//    }
-
-//    private void setPortraitOrientation() {
-//        ScreenOrientation currentOrientation = driver.getOrientation();
-//        if (currentOrientation != ScreenOrientation.PORTRAIT) {
-//            System.out.println("The device orientation was not Portrait, rotating device to Portrait");
-//            driver.rotate(ScreenOrientation.PORTRAIT);
-//        }
-//    }
-
-
-//    private void setPortraitOrientation() {
-//        String platform = System.getenv("PLATFORM");
-//
-//        if (platform.equals(PLATFORM_ANDROID)) {
-//            ScreenOrientation currentOrientation = ((AndroidDriver) driver).getOrientation();
-//            if (currentOrientation != ScreenOrientation.PORTRAIT) {
-//                System.out.println("The device orientation was not Portrait, rotating device to Portrait");
-//                ((AndroidDriver) driver).rotate(ScreenOrientation.PORTRAIT);
-//            }
-//
-//        } else if (platform.equals(PLATFORM_IOS)) {
-//            ScreenOrientation currentOrientation = ((IOSDriver) driver).getOrientation();
-//            if (currentOrientation != ScreenOrientation.PORTRAIT) {
-//                System.out.println("The device orientation was not Portrait, rotating device to Portrait");
-//                ((IOSDriver) driver).rotate(ScreenOrientation.PORTRAIT);
-//            }
-//        } else {
-//
-//            System.out.println("Driver is not an instance of AppiumDriver or IOSDriver, cannot set orientation.");
-//        }
-//    }
-
 }

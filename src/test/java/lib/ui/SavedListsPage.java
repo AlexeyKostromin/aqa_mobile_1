@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class SavedListsPage extends MainPage {
 
     private static final String
-            TOOLTIP_GOT_IT = "//*[@resource-id='org.wikipedia.alpha:id/balloon_card']//*[@text='Got it']";
+            TOOLTIP_GOT_IT = "xpath://*[@resource-id='org.wikipedia.alpha:id/balloon_card']//*[@text='Got it']";
 
     public SavedListsPage(AppiumDriver driver) {
         super(driver);
@@ -18,7 +18,7 @@ public class SavedListsPage extends MainPage {
     }
 
     public void submitTooltipGotIt() {
-        waitForElementAndClick(By.xpath(TOOLTIP_GOT_IT), "Could not submit Got it", 5);
+        waitForElementAndClick(TOOLTIP_GOT_IT, "Could not submit Got it", 5);
     }
 
     public void verifyArticleDisplays(String article) {
@@ -26,8 +26,8 @@ public class SavedListsPage extends MainPage {
     }
 
     public void waitArticleNotDisplays(String article) {
-        String xpathFull = String.format("//*[@text='%s']", article);
-        waitForElementNotPresent(By.xpath(xpathFull),
+        String xpathFull = String.format("xpath://*[@text='%s']", article);
+        waitForElementNotPresent(xpathFull,
                 "Article with text: " + article + " was displayed, but should not",
                 10);
     }

@@ -13,18 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SearchPage extends MainPage {
 
     private static final String
-            WELCOME_PAGE_IMAGE = "org.wikipedia.alpha:id/imageViewCentered",
-            ONBOARDING_SKIP_BTN = "org.wikipedia.alpha:id/fragment_onboarding_skip_button",
-            SEARCH_WIKI_MAIN_TOOLBAR = "//*[@text='Search Wikipedia']",
-            SEARCH_TOOLBAR = "org.wikipedia.alpha:id/page_toolbar_button_search",
-            SEARCH_INPUT = "org.wikipedia.alpha:id/search_src_text",
-            SEARCH_CLOSE_BTN = "org.wikipedia.alpha:id/search_close_btn",
-            SEARCH_TOOLBAR_TEXT = "org.wikipedia.alpha:id/search_src_text",
-            PAGE_LIST_ITEM_TITLE = "org.wikipedia.alpha:id/page_list_item_title",
-            NAVIGATE_UP = "//android.widget.ImageButton[@content-desc='Navigate up']",
-            ALL_SEARCH_RESULTS = "//*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup",
-            SEARCH_RESULTS_BY_TEXT_TPL = "//*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']",
-            SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL = "//*[@resource-id='org.wikipedia.alpha:id/page_list_item_title' " +
+            WELCOME_PAGE_IMAGE = "id:org.wikipedia.alpha:id/imageViewCentered",
+            ONBOARDING_SKIP_BTN = "id:org.wikipedia.alpha:id/fragment_onboarding_skip_button",
+            SEARCH_WIKI_MAIN_TOOLBAR = "xpath://*[@text='Search Wikipedia']",
+            SEARCH_TOOLBAR = "id:org.wikipedia.alpha:id/page_toolbar_button_search",
+            SEARCH_INPUT = "id:org.wikipedia.alpha:id/search_src_text",
+            SEARCH_CLOSE_BTN = "id:org.wikipedia.alpha:id/search_close_btn",
+            SEARCH_TOOLBAR_TEXT = "id:org.wikipedia.alpha:id/search_src_text",
+            PAGE_LIST_ITEM_TITLE = "id:org.wikipedia.alpha:id/page_list_item_title",
+            NAVIGATE_UP = "xpath://android.widget.ImageButton[@content-desc='Navigate up']",
+            ALL_SEARCH_RESULTS = "xpath://*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup",
+            SEARCH_RESULTS_BY_TEXT_TPL = "xpath://*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']",
+            SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL = "xpath://*[@resource-id='org.wikipedia.alpha:id/page_list_item_title' " +
                     "and @text=\"{TITLE}\"" +
                     "and following-sibling::*[@resource-id='org.wikipedia.alpha:id/page_list_item_description'" +
                     "and @text=\"{DESCRIPTION}\"]]";
@@ -40,12 +40,11 @@ public class SearchPage extends MainPage {
     }
 
     public void waitWelcomePageLoaded() {
-        waitForElementPresent(By.id(WELCOME_PAGE_IMAGE), "Welcome image page not visible");
+        waitForElementPresent(WELCOME_PAGE_IMAGE, "Welcome image page not visible");
     }
 
     public void skipWelcomePage() {
-        waitForElementAndClick(
-                By.id(ONBOARDING_SKIP_BTN), "Could not click 'Skip' button", 5);
+        waitForElementAndClick(ONBOARDING_SKIP_BTN, "Could not click 'Skip' button", 5);
     }
 
     public void performSearchWithText(String value) {
@@ -54,27 +53,26 @@ public class SearchPage extends MainPage {
     }
 
     public void sendKeysToSearchTextBox(String value) {
-        waitForElementAndSendKeys(By.id(SEARCH_INPUT), value, "Could not send keys in search window", 5);
+        waitForElementAndSendKeys(SEARCH_INPUT, value, "Could not send keys in search window", 5);
     }
 
     public void clickSearchTextBox() {
-        waitForElementAndClick(
-                By.xpath(SEARCH_WIKI_MAIN_TOOLBAR), "Could not click 'Search Wikipedia' text box", 5
+        waitForElementAndClick(SEARCH_WIKI_MAIN_TOOLBAR, "Could not click 'Search Wikipedia' text box", 5
         );
     }
 
     public List<WebElement> getAllSearchResultsByTitle() {
-        return waitForElementsPresent(By.id(PAGE_LIST_ITEM_TITLE), "Could not get search results", 15);
+        return waitForElementsPresent(PAGE_LIST_ITEM_TITLE, "Could not get search results", 15);
     }
 
     public List<WebElement> getAllSearchResults() {
-        return waitForElementsPresent(By.xpath(ALL_SEARCH_RESULTS), "Could not get search results", 151);
+        return waitForElementsPresent(ALL_SEARCH_RESULTS, "Could not get search results", 151);
     }
 
     public WebElement waitForElementByTitleAndDescription(String title, String description) {
         var xpathFull = getXpathForResultsByTitleAndDescription(title, description);
         return waitForElementPresent(
-                By.xpath(xpathFull),
+                xpathFull,
                 "No results found with provided title and description , " +
                         "expected title was: " + title + " and expected description was: " + description,
                 15);
@@ -82,7 +80,7 @@ public class SearchPage extends MainPage {
 
     public void verifySearchResultsContainsText(String expectedText) {
         var xpathFull = SEARCH_RESULTS_BY_TEXT_TPL.replace("{EXPECTED_TEXT}", expectedText);
-        waitForElementPresent(By.xpath(xpathFull), "No results found with provided text, text was: " + expectedText, 15);
+        waitForElementPresent(xpathFull, "No results found with provided text, text was: " + expectedText, 15);
     }
 
     public void clickArticleTitleWithText(List<WebElement> elements, String text) {
@@ -95,23 +93,23 @@ public class SearchPage extends MainPage {
 
 
     public void waitArticlePageLoaded() {
-        waitForElementPresent(By.id(SEARCH_TOOLBAR), "Toolbar search not found", 10);
+        waitForElementPresent(SEARCH_TOOLBAR, "Toolbar search not found", 10);
     }
 
     public void clickSearchCloseButton() {
-        waitForElementAndClick(By.id(SEARCH_CLOSE_BTN), "Cannot click on X button", 5);
+        waitForElementAndClick(SEARCH_CLOSE_BTN, "Cannot click on X button", 5);
     }
 
     public void clickNavigateUp() {
-        waitForElementAndClick(By.xpath(NAVIGATE_UP), "Could not press Navigate Up", 5);
+        waitForElementAndClick(NAVIGATE_UP, "Could not press Navigate Up", 5);
     }
 
     public void verifySearchCloseButtonNotVisible() {
-        waitForElementNotPresent(By.id(SEARCH_CLOSE_BTN), "No results found", 5);
+        waitForElementNotPresent(SEARCH_CLOSE_BTN, "No results found", 5);
     }
 
     public void assertSearchBoxHasText(String expectedText) {
-            var elementText = waitForElementAndGetAttribute(By.id(SEARCH_TOOLBAR_TEXT), "text", "Could not get text attribute", 5);
+        var elementText = waitForElementAndGetAttribute(SEARCH_TOOLBAR_TEXT, "text", "Could not get text attribute", 5);
         assertEquals(
                 expectedText, elementText,
                 "Expected text for element is: " + expectedText + " but was: " + elementText);

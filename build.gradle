@@ -21,4 +21,17 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+//    systemProperties(System.getProperties())
+}
+
+task androidTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("android")
+    }
+}
+
+task iosTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("ios")
+    }
 }

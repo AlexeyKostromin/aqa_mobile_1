@@ -13,7 +13,6 @@ public class Platform {
     private final static String PLATFORM_IOS = "ios";
     private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
 
-//    private static String platform;
 
     public AppiumDriver getAppiumDriver() throws Exception {
         URL url = new URL(APPIUM_LOCALHOST_URL);
@@ -37,8 +36,7 @@ public class Platform {
 
     private String getPlatformEnv() {
         String platform = System.getenv("PLATFORM");
-//        platform = "android";
-        platform = "ios";
+        String runtimeEnvironment = System.getProperty("runtimeEnv", "local");
         if (platform == null) {
             throw new IllegalStateException("PLATFORM environment variable is not set.");
         }
@@ -90,34 +88,4 @@ public class Platform {
         return app.getAbsolutePath();
     }
 
-//    public AndroidDriver getDriver() throws MalformedURLException {
-//
-//        if (isAndroid()) {
-//            return getAndroidDriver(getCapabilitiesAndroid());
-//        } else if (isIOS()) {
-//            return getIosDriver(getCapabilitiesIOS());
-//        } else {
-//            throw new RuntimeException("Driver could not be determined");
-//        }
-//    }
-//
-//    public AndroidDriver getDriver() throws MalformedURLException {
-////        String platform = System.getenv("PLATFORM");
-//
-//        if (platform.equals(PLATFORM_ANDROID)) {
-//            return getAndroidDriver(capabilities);
-//        } else if (platform.equals(PLATFORM_IOS)) {
-//            return getIosDriver(capabilities);
-//        } else {
-//            throw new RuntimeException("Driver could not be determined");
-//        }
-//    }
-//
-//    public AndroidDriver getAndroidDriver(MutableCapabilities caps) throws MalformedURLException {
-//        return new AndroidDriver(new URL(appiumLocalhostURL), caps);
-//    }
-//
-//    public IOSDriver getIosDriver(MutableCapabilities caps) throws MalformedURLException {
-//        return new IOSDriver(new URL(appiumLocalhostURL), caps);
-//    }
 }

@@ -1,11 +1,13 @@
-package tests;
+package tests.android;
 
 import lib.TestBase;
 import lib.ui.*;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 public class SavedListsTests extends TestBase {
     @Test
+    @Tag("android")
     void saveTwoArticlesToListTest() {
         final String searchText1 = "Java";
         final String expectedTitle1 = "Java (programming language)";
@@ -23,7 +25,7 @@ public class SavedListsTests extends TestBase {
 
         final String listName = "my list1";
         articlePage.saveArticleToNewList(listName);
-        searchPage.clickNavigateUp();//adf
+        searchPage.clickNavigateUp();
 
         searchPage.sendKeysToSearchTextBox(searchText2);
         searchPage.openArticle(expectedTitle2);

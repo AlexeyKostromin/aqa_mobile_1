@@ -1,7 +1,6 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
@@ -11,20 +10,32 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPage {
 
-//    protected AndroidDriver driver;
-//    protected WebDriver driver;
     protected AppiumDriver driver;
 
     public MainPage(AppiumDriver driver) {
         this.driver = driver;
     }
 
-    public WebElement waitForElementPresent(By by, String errorMessage, long timeoutInSeconds) {
+    public By getLocatorByString(String locatorWithType) {
+        String[] locatorWithTypeArray = locatorWithType.split(Pattern.quote(":"), 2);
+        String byType = locatorWithTypeArray[0];
+        String locator = locatorWithTypeArray[1];
+
+        return switch (byType) {
+            case "id" -> By.id(locator);
+            case "xpath" -> By.xpath(locator);
+            default -> throw new IllegalStateException("Could not parse locator. Locator: " + locatorWithType);
+        };
+    }
+
+    public WebElement waitForElementPresent(String locator, String errorMessage, long timeoutInSeconds) {
+        By by = getLocatorByString(locator);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMessage + "\n");
         return wait.until(
@@ -32,7 +43,8 @@ public class MainPage {
         );
     }
 
-    public List<WebElement> waitForElementsPresent(By by, String errorMessage, long timeoutInSeconds) {
+    public List<WebElement> waitForElementsPresent(String locator, String errorMessage, long timeoutInSeconds) {
+        By by = getLocatorByString(locator);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMessage + "\n");
         return wait.until(
@@ -40,17 +52,18 @@ public class MainPage {
         );
     }
 
-    public WebElement waitForElementPresent(By by, String errorMessage) {
-        return waitForElementPresent(by, errorMessage, 5);
+    public WebElement waitForElementPresent(String locator, String errorMessage) {
+        return waitForElementPresent(locator, errorMessage, 5);
     }
 
-    public WebElement waitForElementAndClick(By by, String errorMessage, long timeoutInSeconds) {
-        WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
+    public WebElement waitForElementAndClick(String locator, String errorMessage, long timeoutInSeconds) {
+        WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
         element.click();
         return element;
     }
 
-    public boolean waitForElementNotPresent(By by, String errorMessage, long timeoutInSeconds) {
+    public boolean waitForElementNotPresent(String locator, String errorMessage, long timeoutInSeconds) {
+        By by = getLocatorByString(locator);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMessage + "\n");
         return wait.until(
@@ -58,28 +71,28 @@ public class MainPage {
         );
     }
 
-    public WebElement waitForElementAndSendKeys(By by, String keys, String errorMessage, long timeoutInSeconds) {
-        WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
+    public WebElement waitForElementAndSendKeys(String locator, String keys, String errorMessage, long timeoutInSeconds) {
+        WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
         element.sendKeys(keys);
         return element;
     }
 
-    public String waitForElementAndGetAttribute(By by, String attribute, String errorMessage, long timeoutInSeconds) {
-        WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
+    public String waitForElementAndGetAttribute(String locator, String attribute, String errorMessage, long timeoutInSeconds) {
+        WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
         return element.getAttribute(attribute);
     }
 
     public WebElement getElementByText(String text) {
-        String xpathWithName = String.format("//*[@text='%s']", text);
-        return waitForElementPresent(By.xpath(xpathWithName),
+        String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
+        return waitForElementPresent(xpathWithExpectedText,
                 "Could not find element by text: " + text,
                 10);
     }
 
     public void clickElementByText(String text) {
-        String xpathWithName = String.format("//*[@text='%s']", text);
+        String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
         waitForElementAndClick(
-                By.xpath(xpathWithName),
+                xpathWithExpectedText,
                 "Could not select item with text: " + text,
                 5);
     }
@@ -158,8 +171,8 @@ public class MainPage {
         driver.perform(Arrays.asList(swipe));
     }
 
-    public void swipeElementToLeft(By by, String errorMessage) {
-        WebElement element = waitForElementPresent(by,
+    public void swipeElementToLeft(String locator, String errorMessage) {
+        WebElement element = waitForElementPresent(locator,
                 errorMessage,
                 10);
 
@@ -207,25 +220,5 @@ public class MainPage {
         // Perform the zoom gesture
         driver.perform(Arrays.asList(finger1Sequence, finger2Sequence));
     }
-
-//    public void rotateDeviceToLandscape() {
-//        driver.rotate(ScreenOrientation.LANDSCAPE);
-//    }
-//
-//    public void rotateDeviceToPortrait() {
-//        driver.rotate(ScreenOrientation.PORTRAIT);
-//    }
-//
-//    public void runAppInBackground(Duration duration) {
-//        driver.runAppInBackground(duration);
-//    }
-
-//    public void assertElementHasText(By by, String expectedText) {
-//        WebElement element = waitForElementPresent(by, "Failed to locate element");
-//        String elementText = element.getAttribute("text");
-//        assertEquals(
-//                expectedText, elementText,
-//                "Expected text for element is: " + expectedText + " but was: " + elementText);
-//    }
 
 }
