@@ -2,6 +2,8 @@ package tests.android;
 
 import lib.TestBase;
 import lib.ui.*;
+import lib.ui.factory.SearchPageFactory;
+import lib.ui.factory.WelcomePageFactory;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +16,12 @@ public class SavedListsTests extends TestBase {
         final String searchText2 = "Kotlin";
         final String expectedTitle2 = "Kotlin (programming language)";
 
-        SearchPage searchPage = new SearchPage(driver);
-        searchPage.waitWelcomePageLoaded();
-        searchPage.skipWelcomePage();
+        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        welcomePage.waitForFreeEncyclopediaScreenLoaded();
+        welcomePage.clickSkip();
 
+
+        SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText1);
         searchPage.openArticle(expectedTitle1);
 

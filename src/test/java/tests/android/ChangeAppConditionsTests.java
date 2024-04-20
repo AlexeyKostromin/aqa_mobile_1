@@ -4,6 +4,9 @@ import lib.SpecialPhoneActionsHelper;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
 import lib.TestBase;
+import lib.ui.WelcomePage;
+import lib.ui.factory.SearchPageFactory;
+import lib.ui.factory.WelcomePageFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +18,13 @@ public class ChangeAppConditionsTests extends TestBase {
         final String searchText = "Kotlin";
         final String expectedResult = "General-purpose programming language derived from Java";
 
-        SearchPage searchPage = new SearchPage(driver);
+        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        welcomePage.waitForFreeEncyclopediaScreenLoaded();
+        welcomePage.clickSkip();
 
-        searchPage.waitWelcomePageLoaded();
-        searchPage.skipWelcomePage();
+        SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.verifySearchResultsContainsText(expectedResult);
-
 
         SpecialPhoneActionsHelper specialPhoneActionsHelper = new SpecialPhoneActionsHelper();
         specialPhoneActionsHelper.runAppInBackground(Duration.ofSeconds(3));
@@ -34,10 +37,11 @@ public class ChangeAppConditionsTests extends TestBase {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";
 
-        SearchPage searchPage = new SearchPage(driver);
-        searchPage.waitWelcomePageLoaded();
-        searchPage.skipWelcomePage();
+        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        welcomePage.waitForFreeEncyclopediaScreenLoaded();
+        welcomePage.clickSkip();
 
+        SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
 

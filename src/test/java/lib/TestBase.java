@@ -10,8 +10,7 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        Platform platform = new Platform();
-        driver = platform.getAppiumDriver();
+        driver = Platform.getInstance().getAppiumDriver();
 //        SpecialPhoneActionsHelper specialPhoneActionsHelper = new SpecialPhoneActionsHelper();
 //        specialPhoneActionsHelper.setPortraitOrientation();
     }

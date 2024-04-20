@@ -2,6 +2,7 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import lib.Platform;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,24 +11,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SearchPage extends MainPage {
+abstract public class SearchPage extends MainPage {
 
-    private static final String
-            WELCOME_PAGE_IMAGE = "id:org.wikipedia.alpha:id/imageViewCentered",
-            ONBOARDING_SKIP_BTN = "id:org.wikipedia.alpha:id/fragment_onboarding_skip_button",
-            SEARCH_WIKI_MAIN_TOOLBAR = "xpath://*[@text='Search Wikipedia']",
-            SEARCH_TOOLBAR = "id:org.wikipedia.alpha:id/page_toolbar_button_search",
-            SEARCH_INPUT = "id:org.wikipedia.alpha:id/search_src_text",
-            SEARCH_CLOSE_BTN = "id:org.wikipedia.alpha:id/search_close_btn",
-            SEARCH_TOOLBAR_TEXT = "id:org.wikipedia.alpha:id/search_src_text",
-            PAGE_LIST_ITEM_TITLE = "id:org.wikipedia.alpha:id/page_list_item_title",
-            NAVIGATE_UP = "xpath://android.widget.ImageButton[@content-desc='Navigate up']",
-            ALL_SEARCH_RESULTS = "xpath://*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup",
-            SEARCH_RESULTS_BY_TEXT_TPL = "xpath://*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']",
-            SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL = "xpath://*[@resource-id='org.wikipedia.alpha:id/page_list_item_title' " +
-                    "and @text=\"{TITLE}\"" +
-                    "and following-sibling::*[@resource-id='org.wikipedia.alpha:id/page_list_item_description'" +
-                    "and @text=\"{DESCRIPTION}\"]]";
+    protected static String
+            SEARCH_WIKI_MAIN_TOOLBAR,
+            SEARCH_TOOLBAR,
+            SEARCH_INPUT,
+            SEARCH_CLOSE_BTN,
+            SEARCH_TOOLBAR_TEXT,
+            PAGE_LIST_ITEM_TITLE,
+            NAVIGATE_UP,
+            ALL_SEARCH_RESULTS,
+            SEARCH_RESULTS_BY_TEXT_TPL,
+            SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL;
 
     private static String getXpathForResultsByTitleAndDescription(String title, String description) {
         return SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL
@@ -37,14 +33,6 @@ public class SearchPage extends MainPage {
 
     public SearchPage(AppiumDriver driver) {
         super(driver);
-    }
-
-    public void waitWelcomePageLoaded() {
-        waitForElementPresent(WELCOME_PAGE_IMAGE, "Welcome image page not visible");
-    }
-
-    public void skipWelcomePage() {
-        waitForElementAndClick(ONBOARDING_SKIP_BTN, "Could not click 'Skip' button", 5);
     }
 
     public void performSearchWithText(String value) {
@@ -106,6 +94,18 @@ public class SearchPage extends MainPage {
 
     public void verifySearchCloseButtonNotVisible() {
         waitForElementNotPresent(SEARCH_CLOSE_BTN, "No results found", 5);
+    }
+
+    public String getSearchBoxTextByAttribute(String attribute) {
+        return waitForElementAndGetAttribute(SEARCH_TOOLBAR_TEXT, attribute, "Could not get text by attribute", 5);
+    }
+
+    public String getSearchBoxTextByPlatform() {
+        if (Platform.getInstance().isAndroid()) {
+            return getSearchBoxTextByAttribute("name");
+        } else {
+            return getSearchBoxTextByAttribute("text");
+        }
     }
 
     public void assertSearchBoxHasText(String expectedText) {

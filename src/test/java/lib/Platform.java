@@ -12,10 +12,14 @@ public class Platform {
     private final static String PLATFORM_ANDROID = "android";
     private final static String PLATFORM_IOS = "ios";
     private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
+    private static Platform instance;
 
-    private Platform instance;
+    private Platform() {
+    }
 
-    public Platform getInstance() {
+
+
+    public static Platform getInstance() {
         if (instance == null) {
             instance = new Platform();
         }
@@ -44,6 +48,7 @@ public class Platform {
 
     private String getPlatformEnv() {
         String platform = System.getenv("PLATFORM");
+        platform = "android";
         String runtimeEnvironment = System.getProperty("runtimeEnv", "local");
         if (platform == null) {
             throw new IllegalStateException("PLATFORM environment variable is not set.");

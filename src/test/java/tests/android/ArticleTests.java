@@ -3,6 +3,9 @@ package tests.android;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
 import lib.TestBase;
+import lib.ui.WelcomePage;
+import lib.ui.factory.SearchPageFactory;
+import lib.ui.factory.WelcomePageFactory;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +16,11 @@ public class ArticleTests extends TestBase {
         final String searchText1 = "Intellij IDEA";
         final String expectedResult1 = "Integrated development environment";
 
-        SearchPage searchPage = new SearchPage(driver);
-        searchPage.waitWelcomePageLoaded();
-        searchPage.skipWelcomePage();
+        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        welcomePage.waitForFreeEncyclopediaScreenLoaded();
+        welcomePage.clickSkip();
 
+        SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText1);
         searchPage.openArticle(expectedResult1);
 
@@ -30,10 +34,11 @@ public class ArticleTests extends TestBase {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";
 
-        SearchPage searchPage = new SearchPage(driver);
-        searchPage.waitWelcomePageLoaded();
-        searchPage.skipWelcomePage();
+        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        welcomePage.waitForFreeEncyclopediaScreenLoaded();
+        welcomePage.clickSkip();
 
+        SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
 
