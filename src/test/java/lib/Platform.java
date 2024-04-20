@@ -13,6 +13,14 @@ public class Platform {
     private final static String PLATFORM_IOS = "ios";
     private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
 
+    private Platform instance;
+
+    public Platform getInstance() {
+        if (instance == null) {
+            instance = new Platform();
+        }
+        return instance;
+    }
 
     public AppiumDriver getAppiumDriver() throws Exception {
         URL url = new URL(APPIUM_LOCALHOST_URL);
