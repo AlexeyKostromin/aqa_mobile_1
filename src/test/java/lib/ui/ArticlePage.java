@@ -1,12 +1,11 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
 
-public abstract class ArticlePage extends MainPage {
+public abstract class ArticlePage extends PageBase {
 
     protected static String
             ARTICLE_TITLE,

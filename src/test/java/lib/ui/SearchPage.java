@@ -1,17 +1,15 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import lib.Platform;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-abstract public class SearchPage extends MainPage {
+abstract public class SearchPage extends PageBase {
 
     protected static String
             SEARCH_WIKI_MAIN_TOOLBAR,

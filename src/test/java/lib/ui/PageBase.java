@@ -14,11 +14,11 @@ import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainPage {
+public class PageBase {
 
     protected AppiumDriver driver;
 
-    public MainPage(AppiumDriver driver) {
+    public PageBase(AppiumDriver driver) {
         this.driver = driver;
     }
 

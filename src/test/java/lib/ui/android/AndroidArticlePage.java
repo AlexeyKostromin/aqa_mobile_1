@@ -2,7 +2,6 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePage;
-import lib.ui.MainPage;
 
 
 public class AndroidArticlePage extends ArticlePage {

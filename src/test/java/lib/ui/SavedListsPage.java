@@ -1,10 +1,8 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
 
-public class SavedListsPage extends MainPage {
+public class SavedListsPage extends PageBase {
 
     private static final String
             TOOLTIP_GOT_IT = "xpath://*[@resource-id='org.wikipedia.alpha:id/balloon_card']//*[@text='Got it']";

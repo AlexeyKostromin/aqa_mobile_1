@@ -1,10 +1,8 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
 
-public class NavigationUi extends MainPage {
+public class NavigationUi extends PageBase {
     private static final String
             SAVED_ITEM_LIST_BTN = "id:org.wikipedia.alpha:id/nav_tab_reading_lists";
 

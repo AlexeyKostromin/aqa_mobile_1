@@ -2,9 +2,6 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePage;
-import lib.ui.MainPage;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 
 
 public class iOSArticlePage extends ArticlePage {

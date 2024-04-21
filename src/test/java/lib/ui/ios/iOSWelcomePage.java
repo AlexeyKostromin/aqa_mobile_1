@@ -1,7 +1,6 @@
 package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
-import lib.ui.MainPage;
 import lib.ui.WelcomePage;
 
 

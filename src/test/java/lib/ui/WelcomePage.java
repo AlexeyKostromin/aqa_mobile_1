@@ -3,7 +3,7 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 
 
-abstract public class WelcomePage extends MainPage {
+abstract public class WelcomePage extends PageBase {
 
     protected static String
             STEP_TRY_FREE_ENCYCLOPEDIA,
