@@ -5,13 +5,15 @@ import lib.Platform;
 import lib.ui.WelcomePage;
 import lib.ui.android.AndroidWelcomePage;
 import lib.ui.ios.iOSWelcomePage;
+import lib.ui.strategy.AndroidStrategy;
+import lib.ui.strategy.IOSStrategy;
 
 public class WelcomePageFactory {
     public static WelcomePage getPage(AppiumDriver driver) {
         if (Platform.getInstance().isAndroid()) {
-            return new AndroidWelcomePage(driver);
+            return new AndroidWelcomePage(driver, new AndroidStrategy(driver));
         } else {
-            return new iOSWelcomePage(driver);
+            return new iOSWelcomePage(driver, new IOSStrategy(driver));
         }
     }
 }

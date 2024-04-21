@@ -2,6 +2,7 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePage;
+import lib.ui.strategy.PageActionsStrategy;
 
 
 public class iOSArticlePage extends ArticlePage {
@@ -15,8 +16,8 @@ public class iOSArticlePage extends ArticlePage {
         SNACK_BAR = "id:org.wikipedia.alpha:id/snackbar_action";
     }
 
-    public iOSArticlePage(AppiumDriver driver) {
-        super(driver);
+    public iOSArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver,strategy);
     }
 
 }

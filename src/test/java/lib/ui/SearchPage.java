@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.ui.strategy.PageActionsStrategy;
 import lib.Platform;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
@@ -23,14 +24,14 @@ abstract public class SearchPage extends PageBase {
             SEARCH_RESULTS_BY_TEXT_TPL,
             SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL;
 
+    public SearchPage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
+    }
+
     private static String getXpathForResultsByTitleAndDescription(String title, String description) {
         return SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL
                 .replace("{TITLE}", title)
                 .replace("{DESCRIPTION}", description);
-    }
-
-    public SearchPage(AppiumDriver driver) {
-        super(driver);
     }
 
     public void performSearchWithText(String value) {

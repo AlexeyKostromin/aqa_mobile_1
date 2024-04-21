@@ -1,10 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import lib.ui.strategy.PageActionsStrategy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,14 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class PageBase {
-    private PageActionsStrategy strategy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class zPageBase {
 
     protected AppiumDriver driver;
 
-    public PageBase(AppiumDriver driver, PageActionsStrategy strategy) {
+    public zPageBase(AppiumDriver driver) {
         this.driver = driver;
-        this.strategy = strategy;
     }
 
     public By getLocatorByString(String locatorWithType) {
@@ -86,12 +83,20 @@ public class PageBase {
     }
 
     public WebElement getElementByText(String text) {
-        return strategy.getElementByText(text);
+        String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
+        return waitForElementPresent(xpathWithExpectedText,
+                "Could not find element by text: " + text,
+                10);
     }
 
     public void clickElementByText(String text) {
-        strategy.clickElementByText(text);
+        String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
+        waitForElementAndClick(
+                xpathWithExpectedText,
+                "Could not select item with text: " + text,
+                5);
     }
+
 
 
     public WebElement findElementByTextInList(List<WebElement> elements, String text) {

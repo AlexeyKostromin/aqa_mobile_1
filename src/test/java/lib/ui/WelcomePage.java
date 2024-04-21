@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.ui.strategy.PageActionsStrategy;
 
 
 abstract public class WelcomePage extends PageBase {
@@ -15,8 +16,8 @@ abstract public class WelcomePage extends PageBase {
             STEP_GET_STARTED_BTN;
 
 
-    public WelcomePage(AppiumDriver driver) {
-        super(driver);
+    public WelcomePage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
     }
 
     public void waitForFreeEncyclopediaScreenLoaded() {

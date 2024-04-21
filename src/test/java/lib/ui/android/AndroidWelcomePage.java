@@ -2,11 +2,12 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.WelcomePage;
+import lib.ui.strategy.PageActionsStrategy;
 
 
 public class AndroidWelcomePage extends WelcomePage {
-    public AndroidWelcomePage(AppiumDriver driver) {
-        super(driver);
+    public AndroidWelcomePage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
     }
 
     static {

@@ -48,7 +48,8 @@ public class Platform {
 
     private String getPlatformEnv() {
         String platform = System.getenv("PLATFORM");
-        platform = "ios";
+//        platform = "ios";
+        platform = "android";
         String runtimeEnvironment = System.getProperty("runtimeEnv", "local");
         if (platform == null) {
             throw new IllegalStateException("PLATFORM environment variable is not set.");

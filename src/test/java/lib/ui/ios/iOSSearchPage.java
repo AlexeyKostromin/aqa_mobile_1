@@ -1,12 +1,10 @@
 package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
+import lib.ui.strategy.PageActionsStrategy;
 import lib.ui.SearchPage;
 
 public class iOSSearchPage extends SearchPage {
-    public iOSSearchPage(AppiumDriver driver) {
-        super(driver);
-    }
 
     static {
 //        ONBOARDING_SKIP_BTN = "id:org.wikipedia.alpha:id/fragment_onboarding_skip_button";
@@ -32,4 +30,7 @@ public class iOSSearchPage extends SearchPage {
     }
 
 
+    public iOSSearchPage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
+    }
 }

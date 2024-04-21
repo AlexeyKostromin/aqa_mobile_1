@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.ui.strategy.PageActionsStrategy;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
@@ -15,8 +16,8 @@ public abstract class ArticlePage extends PageBase {
             OK_BTN,
             SNACK_BAR;
 
-    public ArticlePage(AppiumDriver driver) {
-        super(driver);
+    public ArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
     }
 
     private static final String

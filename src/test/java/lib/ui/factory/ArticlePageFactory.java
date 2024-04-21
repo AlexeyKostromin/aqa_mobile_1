@@ -8,13 +8,15 @@ import lib.ui.android.AndroidArticlePage;
 import lib.ui.android.AndroidSearchPage;
 import lib.ui.ios.iOSArticlePage;
 import lib.ui.ios.iOSSearchPage;
+import lib.ui.strategy.AndroidStrategy;
+import lib.ui.strategy.IOSStrategy;
 
 public class ArticlePageFactory {
     public static ArticlePage getPage(AppiumDriver driver) {
         if (Platform.getInstance().isAndroid()) {
-            return new AndroidArticlePage(driver);
+            return new AndroidArticlePage(driver, new AndroidStrategy(driver));
         } else {
-            return new iOSArticlePage(driver);
+            return new iOSArticlePage(driver, new IOSStrategy(driver));
         }
     }
 }

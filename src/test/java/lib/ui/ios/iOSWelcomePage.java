@@ -2,11 +2,12 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.WelcomePage;
+import lib.ui.strategy.PageActionsStrategy;
 
 
 public class iOSWelcomePage extends WelcomePage {
-    public iOSWelcomePage(AppiumDriver driver) {
-        super(driver);
+    public iOSWelcomePage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
     }
 
     static {

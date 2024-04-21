@@ -1,13 +1,14 @@
 package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
+import lib.ui.strategy.PageActionsStrategy;
 import lib.ui.SearchPage;
 
 public class AndroidSearchPage extends SearchPage {
 
-    public AndroidSearchPage(AppiumDriver driver) {
-        super(driver);
-    }
+//    public AndroidSearchPage(AppiumDriver driver) {
+//        super(driver);
+//    }
 
     static {
         SEARCH_WIKI_MAIN_TOOLBAR = "xpath://*[@text='Search Wikipedia']";
@@ -25,5 +26,9 @@ public class AndroidSearchPage extends SearchPage {
                 "and following-sibling::*[@resource-id='org.wikipedia.alpha:id/page_list_item_description'" +
                 "and @text=\"{DESCRIPTION}\"]]";
 
+    }
+
+    public AndroidSearchPage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
     }
 }

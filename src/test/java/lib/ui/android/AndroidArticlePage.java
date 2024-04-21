@@ -2,6 +2,7 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePage;
+import lib.ui.strategy.PageActionsStrategy;
 
 
 public class AndroidArticlePage extends ArticlePage {
@@ -15,8 +16,8 @@ public class AndroidArticlePage extends ArticlePage {
                 SNACK_BAR = "id:org.wikipedia.alpha:id/snackbar_action";
     }
 
-    public AndroidArticlePage(AppiumDriver driver) {
-        super(driver);
+    public AndroidArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver,strategy);
     }
 
 }

@@ -1,14 +1,15 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.ui.strategy.PageActionsStrategy;
 
-public class SavedListsPage extends PageBase {
+public abstract class SavedListsPage extends PageBase {
 
-    private static final String
-            TOOLTIP_GOT_IT = "xpath://*[@resource-id='org.wikipedia.alpha:id/balloon_card']//*[@text='Got it']";
+    protected static String
+            TOOLTIP_GOT_IT;
 
-    public SavedListsPage(AppiumDriver driver) {
-        super(driver);
+    public SavedListsPage(AppiumDriver driver, PageActionsStrategy strategy) {
+        super(driver, strategy);
     }
 
     public void openArticle(String article) {

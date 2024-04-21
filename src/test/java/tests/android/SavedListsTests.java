@@ -2,9 +2,7 @@ package tests.android;
 
 import lib.TestBase;
 import lib.ui.*;
-import lib.ui.factory.ArticlePageFactory;
-import lib.ui.factory.SearchPageFactory;
-import lib.ui.factory.WelcomePageFactory;
+import lib.ui.factory.*;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -38,10 +36,10 @@ public class SavedListsTests extends TestBase {
         searchPage.clickNavigateUp();
         searchPage.clickNavigateUp();
 
-        NavigationUi navigationUi = new NavigationUi(driver);
+        NavigationUi navigationUi = NavigationUIFactory.getPage(driver);
         navigationUi.goToSavedItems();
 
-        SavedListsPage savedListsPage = new SavedListsPage(driver);
+        SavedListsPage savedListsPage = SavedListPageFactory.getPage(driver);
         savedListsPage.openArticle(listName);
         savedListsPage.submitTooltipGotIt();
 
