@@ -5,6 +5,7 @@ import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
 import lib.TestBase;
 import lib.ui.WelcomePage;
+import lib.ui.factory.ArticlePageFactory;
 import lib.ui.factory.SearchPageFactory;
 import lib.ui.factory.WelcomePageFactory;
 import org.junit.jupiter.api.Assertions;
@@ -45,7 +46,7 @@ public class ChangeAppConditionsTests extends TestBase {
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
 
-        ArticlePage articlePage = new ArticlePage(driver);
+        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
         var title_before_rotation = articlePage.getArticleTitle();
 
 

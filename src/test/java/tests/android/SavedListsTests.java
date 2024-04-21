@@ -2,6 +2,7 @@ package tests.android;
 
 import lib.TestBase;
 import lib.ui.*;
+import lib.ui.factory.ArticlePageFactory;
 import lib.ui.factory.SearchPageFactory;
 import lib.ui.factory.WelcomePageFactory;
 import org.junit.jupiter.api.Tag;
@@ -20,12 +21,11 @@ public class SavedListsTests extends TestBase {
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-
         SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText1);
         searchPage.openArticle(expectedTitle1);
 
-        ArticlePage articlePage = new ArticlePage(driver);
+        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
 
         final String listName = "my list1";
         articlePage.saveArticleToNewList(listName);

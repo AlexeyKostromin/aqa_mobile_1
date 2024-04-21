@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
 
-public class ArticlePage extends MainPage {
+public abstract class ArticlePage extends MainPage {
 
-    private static final String
-            ARTICLE_TITLE = "xpath://*[@resource-id='pcs-edit-section-title-description']/preceding-sibling::android.widget.TextView[1]",
-            SAVE_ARTICLE_BNT = "id:org.wikipedia.alpha:id/page_save",
-            ADD_TO_LIST = "xpath://*[@text='Add to list']",
-            NEW_LIST_NAME_INPUT = "id:org.wikipedia.alpha:id/text_input",
-            OK_BTN = "xpath://android.widget.Button[@text='OK']",
-            SNACK_BAR = "id:org.wikipedia.alpha:id/snackbar_action";
+    protected static String
+            ARTICLE_TITLE,
+            SAVE_ARTICLE_BNT,
+            ADD_TO_LIST,
+            NEW_LIST_NAME_INPUT,
+            OK_BTN,
+            SNACK_BAR;
 
     public ArticlePage(AppiumDriver driver) {
         super(driver);

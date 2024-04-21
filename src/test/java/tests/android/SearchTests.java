@@ -64,8 +64,7 @@ public class SearchTests extends TestBase {
 
         SearchPage searchPage = SearchPageFactory.getPage(driver);
         searchPage.performSearchWithText(searchText);
-        var searchResultsList = searchPage.getAllSearchResultsByTitle();
-        searchPage.assertResultsContainsTextInTitle(searchResultsList, searchText);
+        searchPage.verifySearchResultsContainsText(searchText);
     }
 
     @Test

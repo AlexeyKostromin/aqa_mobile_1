@@ -4,6 +4,7 @@ import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
 import lib.TestBase;
 import lib.ui.WelcomePage;
+import lib.ui.factory.ArticlePageFactory;
 import lib.ui.factory.SearchPageFactory;
 import lib.ui.factory.WelcomePageFactory;
 import org.junit.jupiter.api.Tag;
@@ -24,7 +25,7 @@ public class ArticleTests extends TestBase {
         searchPage.performSearchWithText(searchText1);
         searchPage.openArticle(expectedResult1);
 
-        ArticlePage articlePage = new ArticlePage(driver);
+        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
         articlePage.swipeUpToTheEndOfArticle();
     }
 
@@ -42,7 +43,7 @@ public class ArticleTests extends TestBase {
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
 
-        ArticlePage articlePage = new ArticlePage(driver);
+        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
         articlePage.assertArticleTitlePresentInstantly(expectedTitle);
     }
 }

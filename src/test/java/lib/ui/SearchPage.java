@@ -102,9 +102,9 @@ abstract public class SearchPage extends MainPage {
 
     public String getSearchBoxTextByPlatform() {
         if (Platform.getInstance().isAndroid()) {
-            return getSearchBoxTextByAttribute("name");
-        } else {
             return getSearchBoxTextByAttribute("text");
+        } else {
+            return getSearchBoxTextByAttribute("name");
         }
     }
 

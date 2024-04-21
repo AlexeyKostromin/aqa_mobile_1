@@ -26,6 +26,7 @@ public class iOSSearchPage extends SearchPage {
 //                "and @text=\"{TITLE}\"" +
 //                "and following-sibling::*[@resource-id='org.wikipedia.alpha:id/page_list_item_description'" +
 //                "and @text=\"{DESCRIPTION}\"]]";
+//        SEARCH_RESULTS_BY_TITLE_TPL = "xpath://XCUIElementTypeCell[descendant::XCUIElementTypeStaticText[@value=\"{TITLE}\"]]";
         SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL = "xpath://XCUIElementTypeCell[descendant::XCUIElementTypeStaticText[@value=\"{TITLE}\"] " +
                 "and descendant::XCUIElementTypeStaticText[@value=\"{DESCRIPTION}\"]]";
     }
