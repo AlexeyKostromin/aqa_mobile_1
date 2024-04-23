@@ -15,15 +15,16 @@ public class SavedListsTests extends TestBase {
         final String searchText2 = "Kotlin";
         final String expectedTitle2 = "Kotlin (programming language)";
 
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText1);
         searchPage.openArticle(expectedTitle1);
 
-        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
+//        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
+        ArticlePage articlePage = PageFactory.getArticlePage(driver);
 
         final String listName = "my list1";
         articlePage.saveArticleToNewList(listName);
@@ -36,10 +37,10 @@ public class SavedListsTests extends TestBase {
         searchPage.clickNavigateUp();
         searchPage.clickNavigateUp();
 
-        NavigationUi navigationUi = NavigationUIFactory.getPage(driver);
+        NavigationUi navigationUi = PageFactory.getNavigationUiPage(driver);
         navigationUi.goToSavedItems();
 
-        SavedListsPage savedListsPage = SavedListPageFactory.getPage(driver);
+        SavedListsPage savedListsPage = PageFactory.getSavedListsPage(driver);
         savedListsPage.openArticle(listName);
         savedListsPage.submitTooltipGotIt();
 

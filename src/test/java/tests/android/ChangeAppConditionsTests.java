@@ -1,13 +1,11 @@
 package tests.android;
 
 import lib.SpecialPhoneActionsHelper;
+import lib.TestBase;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
-import lib.TestBase;
 import lib.ui.WelcomePage;
-import lib.ui.factory.ArticlePageFactory;
-import lib.ui.factory.SearchPageFactory;
-import lib.ui.factory.WelcomePageFactory;
+import lib.ui.factory.PageFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +17,11 @@ public class ChangeAppConditionsTests extends TestBase {
         final String searchText = "Kotlin";
         final String expectedResult = "General-purpose programming language derived from Java";
 
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.verifySearchResultsContainsText(expectedResult);
 
@@ -38,15 +36,15 @@ public class ChangeAppConditionsTests extends TestBase {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";
 
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
 
-        ArticlePage articlePage = ArticlePageFactory.getPage(driver);
+        ArticlePage articlePage = PageFactory.getArticlePage(driver);
         var title_before_rotation = articlePage.getArticleTitle();
 
 

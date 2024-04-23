@@ -9,13 +9,6 @@ import lib.ui.android.AndroidSearchPage;
 import lib.ui.ios.iOSSearchPage;
 
 public class SearchPageFactory {
-//    public static SearchPage getPage(AppiumDriver driver, PageActionsStrategy strategy) {
-//        if (Platform.getInstance().isAndroid()) {
-//            return new AndroidSearchPage(driver, strategy);
-//        } else {
-//            return new iOSSearchPage(driver, strategy);
-//        }
-//    }
 
     public static SearchPage getPage(AppiumDriver driver) {
         if (Platform.getInstance().isAndroid()) {

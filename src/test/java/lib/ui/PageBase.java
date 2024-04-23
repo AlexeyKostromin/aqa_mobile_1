@@ -93,7 +93,6 @@ public class PageBase {
         strategy.clickElementByText(text);
     }
 
-
     public WebElement findElementByTextInList(List<WebElement> elements, String text) {
         for (WebElement element : elements) {
             var elementText = element.getText();

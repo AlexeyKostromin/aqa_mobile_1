@@ -1,11 +1,9 @@
 package tests.android;
 
-import lib.Platform;
-import lib.ui.SearchPage;
 import lib.TestBase;
+import lib.ui.SearchPage;
 import lib.ui.WelcomePage;
-import lib.ui.factory.SearchPageFactory;
-import lib.ui.factory.WelcomePageFactory;
+import lib.ui.factory.PageFactory;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -22,11 +20,11 @@ public class SearchTests extends TestBase {
     void verifyTextInSearchFieldTest() {
         final String expectedText = "Search Wikipedia";
 
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.clickSearchTextBox();
 //        searchPage.assertSearchBoxHasText(expectedText);
         String elementText = searchPage.getSearchBoxTextByPlatform();
@@ -42,11 +40,11 @@ public class SearchTests extends TestBase {
     void cancelSearchTest() {
         final String searchText = "Kotlin";
         final String expectedResult = "General-purpose programming language derived from Java";
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.verifySearchResultsContainsText(expectedResult);
         searchPage.clickSearchCloseButton();
@@ -58,11 +56,11 @@ public class SearchTests extends TestBase {
     @Tag("ios")
     void searchResultsHasSearchItemTest() {
         final String searchText = "Java";
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.verifySearchResultsContainsText(searchText);
     }
@@ -82,11 +80,11 @@ public class SearchTests extends TestBase {
         final String expectedTitleResult3 = "Facebook F8";
         final String expectedDescriptionResult3 = "Mostly-annual conference held by Facebook, intended for developers and entrepreneurs";
 
-        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
+        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-        SearchPage searchPage = SearchPageFactory.getPage(driver);
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
 
         searchPage.waitForElementByTitleAndDescription(expectedTitleResult1, expectedDescriptionResult1);
