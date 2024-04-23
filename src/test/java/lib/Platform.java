@@ -75,11 +75,22 @@ public class Platform {
         return capabilities;
     }
 
+//    private DesiredCapabilities getCapabilitiesIOS() {
+//        DesiredCapabilities capabilities = new DesiredCapabilities();
+//        capabilities.setCapability("platformName", "iOS");
+//        capabilities.setCapability("deviceName", "iPhone 15");
+//        capabilities.setCapability("platformVersion", "17.4");
+//        capabilities.setCapability("automationName", "XCUITest");
+//        capabilities.setCapability("app", getAppPath());
+//
+//        return capabilities;
+//    }
+
     private DesiredCapabilities getCapabilitiesIOS() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("deviceName", "iPhone 15");
-        capabilities.setCapability("platformVersion", "17.4");
+        capabilities.setCapability("deviceName", "iPhone 14");
+        capabilities.setCapability("platformVersion", "16.0");
         capabilities.setCapability("automationName", "XCUITest");
         capabilities.setCapability("app", getAppPath());
 
@@ -93,6 +104,22 @@ public class Platform {
             appPath = "src/test/resources/apps/wikipedia-app-alpha-universal-release.apk";
         } else if (isIOS()) {
             appPath = "src/test/resources/apps/Wikipedia.app";
+        }
+
+        File app = new File(appPath);
+        if (!app.exists()) {
+            throw new AssertionError("Failed to get application");
+        }
+        return app.getAbsolutePath();
+    }
+
+    private String getAppPath1() {
+        String appPath = "";
+
+        if (isAndroid()) {
+            appPath = "src/test/resources/apps/wikipedia-app-alpha-universal-release.apk";
+        } else if (isIOS()) {
+            appPath = "src/test/resources/apps/SynergySports.app";
         }
 
         File app = new File(appPath);
