@@ -10,6 +10,7 @@ import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.security.PublicKey;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
@@ -119,6 +120,22 @@ public class PageBase {
         driver.perform(Arrays.asList(swipe));
     }
 
+    public void swipeUpTillElementAppear(String locator, String errorMessage, int maxSwipes){
+        int alreadySwiped = 0;
+        while(!isElementLocatedOnTheScreen(locator)){
+            if (alreadySwiped > maxSwipes) {
+                throw new RuntimeException(errorMessage);
+            }
+
+        }
+    }
+
+    public Boolean isElementLocatedOnTheScreen(String locator){
+        int elementLocationByY = waitForElementPresent(locator, "Cannot find element by locator", 1).getLocation().getY();
+        int screenSizeByY = driver.manage().window().getSize().getHeight();
+        return elementLocationByY < screenSizeByY;
+    }
+
     public void scrollUp(int timeOfSwipe) {
         Dimension size = driver.manage().window().getSize();
         int startX = size.width / 2;
@@ -136,7 +153,8 @@ public class PageBase {
         driver.perform(Arrays.asList(swipe));
     }
 
-    public void swipeUpToElement(By by, int maxSwipes, String errorMessage) {
+    public void swipeUpToElement(String locator, int maxSwipes, String errorMessage) {
+        By by = getLocatorByString(locator);
         int swipesCount = 0;
 
         while (driver.findElements(by).size() == 0) {

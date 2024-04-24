@@ -14,6 +14,8 @@ public class iOSArticlePage extends ArticlePage {
         NEW_LIST_NAME_INPUT = "id:org.wikipedia.alpha:id/text_input";
         OK_BTN = "xpath://android.widget.Button[@text='OK']";
         SNACK_BAR = "id:org.wikipedia.alpha:id/snackbar_action";
+//        ABOUT_THIS_ARTICLE_ELEMENT = "//*[@text = 'ABOUT THIS ARTICLE']";
+        ABOUT_THIS_ARTICLE_ELEMENT = "xpath://XCUIElementTypeStaticText[@name='ABOUT THIS ARTICLE']";
     }
 
     public iOSArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {

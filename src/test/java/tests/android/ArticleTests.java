@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 public class ArticleTests extends TestBase {
     @Test
     @Tag("android")
+    @Tag("ios")
     void swipeArticleTest() {
         final String searchText1 = "Intellij IDEA";
         final String expectedResult1 = "Integrated development environment";

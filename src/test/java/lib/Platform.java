@@ -48,8 +48,8 @@ public class Platform {
 
     private String getPlatformEnv() {
         String platform = System.getenv("PLATFORM");
-//        platform = "ios";
-        platform = "android";
+        platform = "ios";
+//        platform = "android";
         String runtimeEnvironment = System.getProperty("runtimeEnv", "local");
         if (platform == null) {
             throw new IllegalStateException("PLATFORM environment variable is not set.");
@@ -103,7 +103,7 @@ public class Platform {
         if (isAndroid()) {
             appPath = "src/test/resources/apps/wikipedia-app-alpha-universal-release.apk";
         } else if (isIOS()) {
-            appPath = "src/test/resources/apps/Wikipedia.app";
+            appPath = "src/test/resources/apps/Wikipedia693.app";
         }
 
         File app = new File(appPath);

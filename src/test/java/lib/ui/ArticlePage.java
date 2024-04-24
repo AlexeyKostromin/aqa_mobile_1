@@ -14,18 +14,19 @@ public abstract class ArticlePage extends PageBase {
             ADD_TO_LIST,
             NEW_LIST_NAME_INPUT,
             OK_BTN,
-            SNACK_BAR;
+            SNACK_BAR,
+            ABOUT_THIS_ARTICLE_ELEMENT;
 
     public ArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 
-    private static final String
-            ABOUT_THIS_ARTICLE_ELEMENT = "//*[@text = 'ABOUT THIS ARTICLE']";
+//    protected static String
+//            ABOUT_THIS_ARTICLE_ELEMENT = "//*[@text = 'ABOUT THIS ARTICLE']";
 
     public void swipeUpToTheEndOfArticle() {
-        swipeUpToElement(By.xpath(ABOUT_THIS_ARTICLE_ELEMENT),
-                20,
+        swipeUpToElement(ABOUT_THIS_ARTICLE_ELEMENT,
+                40,
                 "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
     }
 
