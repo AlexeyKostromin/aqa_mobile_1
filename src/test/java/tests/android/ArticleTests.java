@@ -13,8 +13,8 @@ public class ArticleTests extends TestBase {
     @Tag("android")
     @Tag("ios")
     void swipeArticleTest() {
-        final String searchText1 = "Intellij IDEA";
-        final String expectedResult1 = "Integrated development environment";
+        final String searchText1 = "Gradle";
+        final String expectedResult1 = "Free software build automation tool";
 
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();

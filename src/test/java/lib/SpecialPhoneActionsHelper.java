@@ -11,7 +11,6 @@ public class SpecialPhoneActionsHelper {
     protected AppiumDriver driver;
 
     public SpecialPhoneActionsHelper() throws Exception {
-//        Platform platform = new Platform();
         driver = Platform.getInstance().getAppiumDriver();
     }
 

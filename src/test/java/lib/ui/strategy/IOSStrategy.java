@@ -7,14 +7,21 @@ import org.openqa.selenium.WebElement;
 public class IOSStrategy implements PageActionsStrategy {
     private PageBase pageBase;
 
-    private static final String TEXT_ELEMENT_TPL = "";
+    private static final String TEXT_ELEMENT_TPL = "xpath://XCUIElementTypeStaticText[@name=\"{TEXT}\"]";
 
     public IOSStrategy(AppiumDriver driver) {
         this.pageBase = new PageBase(driver, this);
     }
+
+    private static String getXpathForTextElement(String text) {
+        return TEXT_ELEMENT_TPL
+                .replace("{TEXT}", text);
+    }
+
     @Override
     public WebElement getElementByText(String text) {
-        String xpathWithExpectedText = String.format("xpath://XCUIElementTypeStaticText[@name='%s']", text);
+        String xpathWithExpectedText = getXpathForTextElement(text);
+//        String xpathWithExpectedText = String.format("xpath://XCUIElementTypeStaticText[@name='%s']", text);
         return pageBase.waitForElementPresent(xpathWithExpectedText,
                 "Could not find element by text: " + text,
                 10);
@@ -22,8 +29,8 @@ public class IOSStrategy implements PageActionsStrategy {
 
     @Override
     public void clickElementByText(String text) {
-//        String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
-        String xpathWithExpectedText = String.format("xpath://XCUIElementTypeStaticText[@name='%s']", text);
+        String xpathWithExpectedText = getXpathForTextElement(text);
+//        String xpathWithExpectedText = String.format("xpath://XCUIElementTypeStaticText[@name='%s']", text);
         pageBase.waitForElementAndClick(
                 xpathWithExpectedText,
                 "Could not select item with text: " + text,

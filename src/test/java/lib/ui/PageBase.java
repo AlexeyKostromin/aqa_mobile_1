@@ -104,6 +104,10 @@ public class PageBase {
         throw new AssertionError("Could not find element with text: " + text);
     }
 
+    public void swipeUpQuick() {
+        swipeUp(200);
+    }
+
     public void swipeUp(int timeOfScroll) {
         Dimension size = driver.manage().window().getSize();
         int centerX = size.width / 2;
@@ -120,17 +124,32 @@ public class PageBase {
         driver.perform(Arrays.asList(swipe));
     }
 
-    public void swipeUpTillElementAppear(String locator, String errorMessage, int maxSwipes){
-        int alreadySwiped = 0;
-        while(!isElementLocatedOnTheScreen(locator)){
-            if (alreadySwiped > maxSwipes) {
-                throw new RuntimeException(errorMessage);
-            }
+    public void swipeUpToElement(String locator, int maxSwipes, String errorMessage) {
+        By by = getLocatorByString(locator);
+        int swipesCount = 0;
 
+        while (driver.findElements(by).size() == 0) {
+            swipeUpQuick();
+            ++swipesCount;
+
+            if (swipesCount > maxSwipes) {
+                throw new AssertionError("Could not find element by swiping up.\n" + errorMessage);
+            }
         }
     }
 
-    public Boolean isElementLocatedOnTheScreen(String locator){
+    public void swipeUpTillElementAppear(String locator, int maxSwipes, String errorMessage) {
+        int alreadySwiped = 0;
+        while (!isElementLocatedOnTheScreen(locator)) {
+            if (alreadySwiped > maxSwipes) {
+                throw new RuntimeException(errorMessage);
+            }
+            swipeUpQuick();
+            ++alreadySwiped;
+        }
+    }
+
+    public Boolean isElementLocatedOnTheScreen(String locator) {
         int elementLocationByY = waitForElementPresent(locator, "Cannot find element by locator", 1).getLocation().getY();
         int screenSizeByY = driver.manage().window().getSize().getHeight();
         return elementLocationByY < screenSizeByY;
@@ -153,19 +172,6 @@ public class PageBase {
         driver.perform(Arrays.asList(swipe));
     }
 
-    public void swipeUpToElement(String locator, int maxSwipes, String errorMessage) {
-        By by = getLocatorByString(locator);
-        int swipesCount = 0;
-
-        while (driver.findElements(by).size() == 0) {
-            swipeUp(200);
-            ++swipesCount;
-
-            if (swipesCount > maxSwipes) {
-                throw new AssertionError("Could not find element by swiping up.\n" + errorMessage);
-            }
-        }
-    }
 
     public void swipeElementToLeft(WebElement element) {
         int leftX = element.getLocation().getX();

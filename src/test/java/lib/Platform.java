@@ -11,6 +11,7 @@ import java.net.URL;
 public class Platform {
     private final static String PLATFORM_ANDROID = "android";
     private final static String PLATFORM_IOS = "ios";
+    private final static String RUNTIME_ENV_MAC = "macRemote";
     private static String PLATFORM;
     private static String RUNTIME_ENV;
     //    private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
@@ -63,7 +64,7 @@ public class Platform {
 
     private String getPlatformEnv() {
         PLATFORM = System.getProperty("platform", "ios");
-        RUNTIME_ENV = System.getProperty("runtimeEnv", "macRemote");
+        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
 
         return PLATFORM;
     }
@@ -81,6 +82,7 @@ public class Platform {
         capabilities.setCapability("automationName", "UIAutomator2");
         capabilities.setCapability("appPackage", "org.wikipedia.alpha");
         capabilities.setCapability("appActivity", "org.wikipedia.main.MainActivity");
+        capabilities.setCapability("orientation", "PORTRAIT");
         capabilities.setCapability("app", getAppPath());
 
         return capabilities;
@@ -103,6 +105,7 @@ public class Platform {
         capabilities.setCapability("deviceName", "iPhone 14");
         capabilities.setCapability("platformVersion", "16.0");
         capabilities.setCapability("automationName", "XCUITest");
+        capabilities.setCapability("orientation", "PORTRAIT");
 //        capabilities.setCapability("app", getAppPath());
         capabilities.setCapability("app", getAppPathRemote());
 
@@ -130,7 +133,7 @@ public class Platform {
 
         if (isAndroid()) {
             appPath = "src/test/resources/apps/wikipedia-app-alpha-universal-release.apk";
-        } else if (isIOS() && RUNTIME_ENV.equals("macRemote")) {
+        } else if (isIOS() && RUNTIME_ENV.equals(RUNTIME_ENV_MAC)) {
             String localPath = "/Users/o.kostromin/IdeaProjects/aqa_mobile_1/";
             appPath = localPath + "src/test/resources/apps/Wikipedia693.app";
         } else if (isIOS()) {

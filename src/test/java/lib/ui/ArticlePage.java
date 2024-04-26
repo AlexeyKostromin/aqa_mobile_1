@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -24,10 +25,23 @@ public abstract class ArticlePage extends PageBase {
 //    protected static String
 //            ABOUT_THIS_ARTICLE_ELEMENT = "//*[@text = 'ABOUT THIS ARTICLE']";
 
+//    public void swipeUpToTheEndOfArticle() {
+//        swipeUpToElement(ABOUT_THIS_ARTICLE_ELEMENT,
+//                40,
+//                "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
+//    }
+
     public void swipeUpToTheEndOfArticle() {
-        swipeUpToElement(ABOUT_THIS_ARTICLE_ELEMENT,
-                40,
-                "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
+        if (Platform.getInstance().isAndroid()) {
+            swipeUpToElement(ABOUT_THIS_ARTICLE_ELEMENT,
+                    40,
+                    "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
+        } else if (Platform.getInstance().isIOS()) {
+            swipeUpTillElementAppear(ABOUT_THIS_ARTICLE_ELEMENT,
+                    40,
+                    "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
+        }
+
     }
 
     public void saveArticleToNewList(String listName) {
