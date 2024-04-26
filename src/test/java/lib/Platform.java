@@ -11,12 +11,14 @@ import java.net.URL;
 public class Platform {
     private final static String PLATFORM_ANDROID = "android";
     private final static String PLATFORM_IOS = "ios";
-    private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
+    private static String PLATFORM;
+    private static String RUNTIME_ENV;
+    //    private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
+    private final static String APPIUM_LOCALHOST_URL = "http://192.168.0.200:4723/";
     private static Platform instance;
 
     private Platform() {
     }
-
 
 
     public static Platform getInstance() {
@@ -46,15 +48,24 @@ public class Platform {
         return isPlatform(PLATFORM_IOS);
     }
 
+//    private String getPlatformEnv() {
+//        String platform = System.getenv("PLATFORM");
+//        platform = "ios";
+////        platform = "android";
+////        RUNTIME_ENV = "macLocal";
+//        RUNTIME_ENV = System.getProperty("runtimeEnv", "macLocal");
+//
+//        if (platform == null) {
+//            throw new IllegalStateException("PLATFORM environment variable is not set.");
+//        }
+//        return platform;
+//    }
+
     private String getPlatformEnv() {
-        String platform = System.getenv("PLATFORM");
-        platform = "ios";
-//        platform = "android";
-        String runtimeEnvironment = System.getProperty("runtimeEnv", "local");
-        if (platform == null) {
-            throw new IllegalStateException("PLATFORM environment variable is not set.");
-        }
-        return platform;
+        PLATFORM = System.getProperty("platform", "ios");
+        RUNTIME_ENV = System.getProperty("runtimeEnv", "macRemote");
+
+        return PLATFORM;
     }
 
     private Boolean isPlatform(String expectedPlatform) {
@@ -92,7 +103,8 @@ public class Platform {
         capabilities.setCapability("deviceName", "iPhone 14");
         capabilities.setCapability("platformVersion", "16.0");
         capabilities.setCapability("automationName", "XCUITest");
-        capabilities.setCapability("app", getAppPath());
+//        capabilities.setCapability("app", getAppPath());
+        capabilities.setCapability("app", getAppPathRemote());
 
         return capabilities;
     }
@@ -113,20 +125,23 @@ public class Platform {
         return app.getAbsolutePath();
     }
 
-    private String getAppPath1() {
+    private String getAppPathRemote() {
         String appPath = "";
 
         if (isAndroid()) {
             appPath = "src/test/resources/apps/wikipedia-app-alpha-universal-release.apk";
+        } else if (isIOS() && RUNTIME_ENV.equals("macRemote")) {
+            String localPath = "/Users/o.kostromin/IdeaProjects/aqa_mobile_1/";
+            appPath = localPath + "src/test/resources/apps/Wikipedia693.app";
         } else if (isIOS()) {
-            appPath = "src/test/resources/apps/SynergySports.app";
+            appPath = "src/test/resources/apps/Wikipedia693.app";
         }
 
         File app = new File(appPath);
-        if (!app.exists()) {
-            throw new AssertionError("Failed to get application");
-        }
-        return app.getAbsolutePath();
+//        if (!app.exists()) {
+//            throw new AssertionError("Failed to get application");
+//        }
+        return appPath;
     }
 
 }

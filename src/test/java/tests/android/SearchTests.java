@@ -4,10 +4,7 @@ import lib.TestBase;
 import lib.ui.SearchPage;
 import lib.ui.WelcomePage;
 import lib.ui.factory.PageFactory;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
