@@ -23,7 +23,6 @@ public class SearchTests extends TestBase {
 
         SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.clickSearchTextBox();
-//        searchPage.assertSearchBoxHasText(expectedText);
         String elementText = searchPage.getSearchBoxTextByPlatform();
 
         assertEquals(

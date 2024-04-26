@@ -34,12 +34,10 @@ public class ArticleTests extends TestBase {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";
 
-//        WelcomePage welcomePage = WelcomePageFactory.getPage(driver);
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
 
-//        SearchPage searchPage = SearchPageFactory.getPage(driver);
         SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
