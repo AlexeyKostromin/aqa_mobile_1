@@ -11,16 +11,20 @@ import java.net.URL;
 public class Platform {
     private final static String PLATFORM_ANDROID = "android";
     private final static String PLATFORM_IOS = "ios";
-    private final static String RUNTIME_ENV_MAC = "macRemote";
+    private final static String RUNTIME_ENV_MAC = "macRuntimeEnv";
+    private final static String RUNTIME_ENV_WINDOWS = "windowsRuntimeEnv";
     private static String PLATFORM;
     private static String RUNTIME_ENV;
+    private static String APPIUM_URL;
+
     //    private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
-    private final static String APPIUM_LOCALHOST_URL = "http://192.168.0.200:4723/";
+    private final static String WINDOWS_APPIUM_URL = "http://192.168.0.204:4723/";
+    private final static String MAC_APPIUM_URL = "http://192.168.0.200:4723/";
     private static Platform instance;
 
     private Platform() {
+        initConfig();
     }
-
 
     public static Platform getInstance() {
         if (instance == null) {
@@ -29,16 +33,52 @@ public class Platform {
         return instance;
     }
 
+    private void initConfig() {
+        PLATFORM = System.getProperty("platform", PLATFORM_IOS);
+        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+        setAppiumUrl();
+    }
+
     public AppiumDriver getAppiumDriver() throws Exception {
-        URL url = new URL(APPIUM_LOCALHOST_URL);
+        URL url = new URL(APPIUM_URL);
 
         if (isAndroid()) {
             return new AndroidDriver(url, getCapabilitiesAndroid());
         } else if (isIOS()) {
             return new IOSDriver(url, getCapabilitiesIOS());
         } else {
-            throw new Exception("Cannot detect type of driver. Platform env is: " + getPlatformEnv());
+            throw new Exception("Cannot detect type of driver. Platform env is: " + PLATFORM);
         }
+    }
+
+
+//    private String getPlatformEnv() {
+//        PLATFORM = System.getProperty("platform", "ios");
+//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+//        setAppiumUrl();
+//
+//        return PLATFORM;
+//    }
+
+    private void setAppiumUrl() {
+        if (isWindowsRuntimeEnv()) {
+            APPIUM_URL = WINDOWS_APPIUM_URL;
+        } else if (isMacRuntimeEnv()) {
+            APPIUM_URL = MAC_APPIUM_URL;
+        }
+    }
+
+    //    private Boolean isPlatform(String expectedPlatform) {
+//        String platform = getPlatformEnv();
+//        return platform.equals(expectedPlatform);
+//    }
+
+    private Boolean isPlatform(String expectedPlatform) {
+        return PLATFORM.equals(expectedPlatform);
+    }
+
+    private Boolean isRuntimeEnv(String expectedRuntimeEnv) {
+        return RUNTIME_ENV.equals(expectedRuntimeEnv);
     }
 
     public Boolean isAndroid() {
@@ -49,29 +89,12 @@ public class Platform {
         return isPlatform(PLATFORM_IOS);
     }
 
-//    private String getPlatformEnv() {
-//        String platform = System.getenv("PLATFORM");
-//        platform = "ios";
-////        platform = "android";
-////        RUNTIME_ENV = "macLocal";
-//        RUNTIME_ENV = System.getProperty("runtimeEnv", "macLocal");
-//
-//        if (platform == null) {
-//            throw new IllegalStateException("PLATFORM environment variable is not set.");
-//        }
-//        return platform;
-//    }
-
-    private String getPlatformEnv() {
-        PLATFORM = System.getProperty("platform", "ios");
-        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
-
-        return PLATFORM;
+    public Boolean isWindowsRuntimeEnv() {
+        return isRuntimeEnv(RUNTIME_ENV_WINDOWS);
     }
 
-    private Boolean isPlatform(String expectedPlatform) {
-        String platform = getPlatformEnv();
-        return platform.equals(expectedPlatform);
+    public Boolean isMacRuntimeEnv() {
+        return isRuntimeEnv(RUNTIME_ENV_MAC);
     }
 
     private DesiredCapabilities getCapabilitiesAndroid() {
@@ -133,7 +156,7 @@ public class Platform {
 
         if (isAndroid()) {
             appPath = "src/test/resources/apps/wikipedia-app-alpha-universal-release.apk";
-        } else if (isIOS() && RUNTIME_ENV.equals(RUNTIME_ENV_MAC)) {
+        } else if (isIOS() && isMacRuntimeEnv()) {
             String localPath = "/Users/o.kostromin/IdeaProjects/aqa_mobile_1/";
             appPath = localPath + "src/test/resources/apps/Wikipedia693.app";
         } else if (isIOS()) {

@@ -77,7 +77,13 @@ public class PageBase {
 
     public WebElement waitForElementAndSendKeys(String locator, String keys, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
-        element.sendKeys(keys);
+        element.sendKeys(keys);element.clear();
+        return element;
+    }
+
+    public WebElement waitForElementAndClear(String locator, String keys, String errorMessage, long timeoutInSeconds) {
+        WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
+        element.clear();
         return element;
     }
 

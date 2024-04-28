@@ -18,6 +18,7 @@ public class AndroidSearchPage extends SearchPage {
         SEARCH_TOOLBAR_TEXT = "id:org.wikipedia.alpha:id/search_src_text";
         PAGE_LIST_ITEM_TITLE = "id:org.wikipedia.alpha:id/page_list_item_title";
         NAVIGATE_UP = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
+        CLEAR_SEARCH_BOX_BTN = "id:Clear query";
         ALL_SEARCH_RESULTS = "xpath://*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup";
         ;
         SEARCH_RESULTS_BY_TEXT_TPL = "xpath://*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']";

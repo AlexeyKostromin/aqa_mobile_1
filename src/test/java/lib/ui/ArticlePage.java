@@ -13,6 +13,7 @@ public abstract class ArticlePage extends PageBase {
             ARTICLE_TITLE,
             SAVE_ARTICLE_BNT,
             ADD_TO_LIST,
+            CREATE_NEW_LIST_BTN,
             NEW_LIST_NAME_INPUT,
             OK_BTN,
             SNACK_BAR,
@@ -21,15 +22,6 @@ public abstract class ArticlePage extends PageBase {
     public ArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
-
-//    protected static String
-//            ABOUT_THIS_ARTICLE_ELEMENT = "//*[@text = 'ABOUT THIS ARTICLE']";
-
-//    public void swipeUpToTheEndOfArticle() {
-//        swipeUpToElement(ABOUT_THIS_ARTICLE_ELEMENT,
-//                40,
-//                "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
-//    }
 
     public void swipeUpToTheEndOfArticle() {
         if (Platform.getInstance().isAndroid()) {
@@ -47,6 +39,9 @@ public abstract class ArticlePage extends PageBase {
     public void saveArticleToNewList(String listName) {
         clickSaveArticle();
         clickAddToList();
+        if (Platform.getInstance().isIOS()){
+            clickNewList();
+        }
         setNewListName(listName);
     }
 
@@ -62,6 +57,10 @@ public abstract class ArticlePage extends PageBase {
 
     public void clickSnackBarAction() {
         waitForElementAndClick(SNACK_BAR, "Could not click snackbar action", 5);
+    }
+
+    public void clickNewList() {
+        waitForElementAndClick(CREATE_NEW_LIST_BTN, "Could not click add to list", 5);
     }
 
     public void clickAddToList() {

@@ -20,6 +20,8 @@ abstract public class SearchPage extends PageBase {
             SEARCH_TOOLBAR_TEXT,
             PAGE_LIST_ITEM_TITLE,
             NAVIGATE_UP,
+            CLEAR_SEARCH_BOX_BTN,
+            CANCEL_SEARCH_BTN,
             ALL_SEARCH_RESULTS,
             SEARCH_RESULTS_BY_TEXT_TPL,
             SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL;
@@ -36,11 +38,18 @@ abstract public class SearchPage extends PageBase {
 
     public void performSearchWithText(String value) {
         clickSearchTextBox();
+        clearTextBox();
         sendKeysToSearchTextBox(value);
     }
 
+    public void clearTextBox() {
+        waitForElementAndClear(SEARCH_INPUT, "", "Could not clear search box", 5);
+    }    public void clickCancelSearch() {
+        waitForElementAndClear(CANCEL_SEARCH_BTN, "", "Could not clear search box", 5);
+    }
+
     public void sendKeysToSearchTextBox(String value) {
-        waitForElementAndSendKeys(SEARCH_INPUT, value, "Could not send keys in search window", 5);
+        waitForElementAndSendKeys(SEARCH_INPUT, value, "Could not send keys in search box", 5);
     }
 
     public void clickSearchTextBox() {
@@ -89,6 +98,10 @@ abstract public class SearchPage extends PageBase {
 
     public void clickNavigateUp() {
         waitForElementAndClick(NAVIGATE_UP, "Could not press Navigate Up", 5);
+    }
+
+    public void clickClearText() {
+        waitForElementAndClick(CLEAR_SEARCH_BOX_BTN, "Could not press Clear text btn (x)", 5);
     }
 
     public void verifySearchCloseButtonNotVisible() {

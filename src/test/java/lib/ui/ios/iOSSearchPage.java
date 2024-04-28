@@ -16,7 +16,9 @@ public class iOSSearchPage extends SearchPage {
         SEARCH_TOOLBAR_TEXT = "xpath://XCUIElementTypeSearchField";
 //        PAGE_LIST_ITEM_TITLE = "id:org.wikipedia.alpha:id/page_list_item_title";
         PAGE_LIST_ITEM_TITLE = "xpath://XCUIElementTypeStaticText";
-        NAVIGATE_UP = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
+        NAVIGATE_UP = "id:Back";
+        CLEAR_SEARCH_BOX_BTN = "id:Clear text";
+        CLEAR_SEARCH_BOX_BTN = "xpath://XCUIElementTypeButton[@name='Cancel']";
         ALL_SEARCH_RESULTS = "xpath://*[@resource-id='org.wikipedia.alpha:id/search_results_list']/android.view.ViewGroup";
 //        SEARCH_RESULTS_BY_TEXT_TPL = "xpath://*[@resource-id='org.wikipedia.alpha:id/page_list_item_description' and @text='{EXPECTED_TEXT}']";
         SEARCH_RESULTS_BY_TEXT_TPL = "xpath://XCUIElementTypeStaticText[contains(@name, '{EXPECTED_TEXT}')]";

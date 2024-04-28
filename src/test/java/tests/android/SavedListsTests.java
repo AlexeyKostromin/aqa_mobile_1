@@ -30,12 +30,14 @@ public class SavedListsTests extends TestBase {
         articlePage.saveArticleToNewList(listName);
         searchPage.clickNavigateUp();
 
-        searchPage.sendKeysToSearchTextBox(searchText2);
+//        searchPage.sendKeysToSearchTextBox(searchText2);
+        searchPage.performSearchWithText(searchText2);
         searchPage.openArticle(expectedTitle2);
         articlePage.saveArticleToExistingList(listName);
 
         searchPage.clickNavigateUp();
-        searchPage.clickNavigateUp();
+        searchPage.clickCancelSearch();//
+        searchPage.clickClearText();
 
         NavigationUi navigationUi = PageFactory.getNavigationUiPage(driver);
         navigationUi.goToSavedItems();
