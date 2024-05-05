@@ -20,7 +20,7 @@ abstract public class SearchPage extends PageBase {
             SEARCH_TOOLBAR_TEXT,
             PAGE_LIST_ITEM_TITLE,
             NAVIGATE_UP,
-            CLEAR_SEARCH_BOX_BTN,
+            CLEAR_SEARCH_QUERY_BTN,
             CANCEL_SEARCH_BTN,
             ALL_SEARCH_RESULTS,
             SEARCH_RESULTS_BY_TEXT_TPL,
@@ -44,8 +44,10 @@ abstract public class SearchPage extends PageBase {
 
     public void clearTextBox() {
         waitForElementAndClear(SEARCH_INPUT, "", "Could not clear search box", 5);
-    }    public void clickCancelSearch() {
-        waitForElementAndClear(CANCEL_SEARCH_BTN, "", "Could not clear search box", 5);
+    }
+
+    public void clickCancelSearch() {
+        waitForElementAndClick(CANCEL_SEARCH_BTN, "Could not click cancel search btn", 5);
     }
 
     public void sendKeysToSearchTextBox(String value) {
@@ -100,8 +102,8 @@ abstract public class SearchPage extends PageBase {
         waitForElementAndClick(NAVIGATE_UP, "Could not press Navigate Up", 5);
     }
 
-    public void clickClearText() {
-        waitForElementAndClick(CLEAR_SEARCH_BOX_BTN, "Could not press Clear text btn (x)", 5);
+    public void clickClearQuery() {
+        waitForElementAndClick(CLEAR_SEARCH_QUERY_BTN, "Could not press Clear text btn (x)", 5);
     }
 
     public void verifySearchCloseButtonNotVisible() {
@@ -117,6 +119,14 @@ abstract public class SearchPage extends PageBase {
             return getSearchBoxTextByAttribute("text");
         } else {
             return getSearchBoxTextByAttribute("name");
+        }
+    }
+
+    public void closeSearchMode() {
+        if (Platform.getInstance().isAndroid()) {
+            clickNavigateUp();
+        } else if (Platform.getInstance().isIOS()) {
+            clickCancelSearch();
         }
     }
 

@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -77,7 +78,7 @@ public class PageBase {
 
     public WebElement waitForElementAndSendKeys(String locator, String keys, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
-        element.sendKeys(keys);element.clear();
+        element.sendKeys(keys);
         return element;
     }
 
@@ -191,6 +192,40 @@ public class PageBase {
                 .addAction(finger.createPointerMove(Duration.ofSeconds(0), PointerInput.Origin.viewport(), rightX, middleY))
                 .addAction(finger.createPointerDown(0))
                 .addAction(finger.createPointerMove(Duration.ofMillis(150), PointerInput.Origin.viewport(), leftX, middleY))
+                .addAction(finger.createPointerUp(0));
+
+        driver.perform(Arrays.asList(swipe));
+    }
+
+    public void swipeElementToLeftIOS(WebElement element) {
+        int leftX = element.getLocation().getX();
+        int rightX = leftX + element.getSize().getWidth();
+
+        int upperY = element.getLocation().getY();
+        int lowerY = upperY + element.getSize().getHeight();
+        int middleY = (upperY + lowerY) / 2;
+
+        int offsetX = (-1 * element.getSize().getWidth());
+
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1)
+                .addAction(finger.createPointerMove(Duration.ofSeconds(0), PointerInput.Origin.viewport(), rightX, middleY))
+                .addAction(finger.createPointerDown(0))
+                .addAction(finger.createPointerMove(Duration.ofMillis(150), PointerInput.Origin.viewport(), offsetX, middleY))
+                .addAction(finger.createPointerUp(0));
+
+        driver.perform(Arrays.asList(swipe));
+    }
+
+
+    public void swipeElementToLeftIOS2(WebElement element) {
+        int rightX = element.getLocation().getX() + element.getSize().getWidth();
+        int  middleY = element.getLocation().getY() + element.getSize().getHeight() / 2;
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1)
+                .addAction(finger.createPointerMove(Duration.ofMillis(100), PointerInput.Origin.viewport(), rightX, middleY))
+                .addAction(finger.createPointerDown(100)) // Corrected to remove the incorrect parameter
+                .addAction(finger.createPointerMove(Duration.ofMillis(550), PointerInput.Origin.viewport(), rightX - 200, middleY)) // Adjust offsetX as needed
                 .addAction(finger.createPointerUp(0));
 
         driver.perform(Arrays.asList(swipe));

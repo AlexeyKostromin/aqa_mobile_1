@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
 
 public abstract class SavedListsPage extends PageBase {
@@ -17,7 +18,10 @@ public abstract class SavedListsPage extends PageBase {
     }
 
     public void submitTooltipGotIt() {
-        waitForElementAndClick(TOOLTIP_GOT_IT, "Could not submit Got it", 5);
+        if (Platform.getInstance().isAndroid()){
+            waitForElementAndClick(TOOLTIP_GOT_IT, "Could not submit Got it", 5);
+        }
+
     }
 
     public void verifyArticleDisplays(String article) {
