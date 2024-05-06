@@ -31,11 +31,12 @@ public class GetStartedTest extends TestBase {
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.swipeWelcomeScreen();
 
-        welcomePage.clickNext();
         welcomePage.waitForNewWaysScreenLoaded();
-        welcomePage.clickNext();
+        welcomePage.swipeWelcomeScreen();
+
         welcomePage.waitSearchLanguagesScreenLoaded();
-        welcomePage.clickNext();
+        welcomePage.swipeWelcomeScreen();
+
         welcomePage.waitHelpAppBetterScreenLoaded();
         welcomePage.clickGetStarted();
     }

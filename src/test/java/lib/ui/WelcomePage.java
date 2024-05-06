@@ -51,7 +51,8 @@ abstract public class WelcomePage extends PageBase {
 
     public void swipeWelcomeScreen() {
         var element = waitForElementPresent(STEP_MAIN_WIKIPEDIA, "wiki element not found", 10);
-        swipeElementToLeftIOS(element);
+//        swipeElementToLeftIOS(element);
+        swipeElementToLeft(element);
     }
 
 }
