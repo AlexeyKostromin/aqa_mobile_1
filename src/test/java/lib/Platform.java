@@ -11,13 +11,16 @@ import java.net.URL;
 public class Platform {
     private final static String PLATFORM_ANDROID = "android";
     private final static String PLATFORM_IOS = "ios";
-    private final static String RUNTIME_ENV_MAC = "macRuntimeEnv";
+    private final static String RUNTIME_ENV_LOCALHOST = "localHostRuntimeEnv";
     private final static String RUNTIME_ENV_WINDOWS = "windowsRuntimeEnv";
+    private final static String RUNTIME_ENV_MAC = "macRuntimeEnv";
+
     private static String PLATFORM;
     private static String RUNTIME_ENV;
     private static String APPIUM_URL;
 
     //    private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
+    private final static String LOCALHOST_APPIUM_URL = "http://127.0.0.1:4723/";
     private final static String WINDOWS_APPIUM_URL = "http://192.168.0.204:4723/";
     private final static String MAC_APPIUM_URL = "http://192.168.0.200:4723/";
     private static Platform instance;
@@ -35,7 +38,7 @@ public class Platform {
 
     private void initConfig() {
         PLATFORM = System.getProperty("platform", PLATFORM_IOS);
-        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
         setAppiumUrl();
     }
 
@@ -65,6 +68,8 @@ public class Platform {
             APPIUM_URL = WINDOWS_APPIUM_URL;
         } else if (isMacRuntimeEnv()) {
             APPIUM_URL = MAC_APPIUM_URL;
+        } else if (isLocalHostRuntimeEnv()) {
+            APPIUM_URL = LOCALHOST_APPIUM_URL;
         }
     }
 
@@ -87,6 +92,10 @@ public class Platform {
 
     public Boolean isIOS() {
         return isPlatform(PLATFORM_IOS);
+    }
+
+    public Boolean isLocalHostRuntimeEnv() {
+        return isRuntimeEnv(RUNTIME_ENV_LOCALHOST);
     }
 
     public Boolean isWindowsRuntimeEnv() {
