@@ -139,12 +139,19 @@ public class Platform {
         capabilities.setCapability("automationName", "XCUITest");
         capabilities.setCapability("orientation", "PORTRAIT");
 //        capabilities.setCapability("app", getAppPath());
-        capabilities.setCapability("app", getAppPathRemote());
+        capabilities.setCapability("app", getAppPath());
 
         return capabilities;
     }
 
-    private String getAppPath() {
+    private String getAppPath(){
+        if (isLocalHostRuntimeEnv()){
+            return getAppPathLocal();
+        } else
+            return getAppPathRemote();
+    }
+
+    private String getAppPathLocal() {
         String appPath = "";
 
         if (isAndroid()) {
