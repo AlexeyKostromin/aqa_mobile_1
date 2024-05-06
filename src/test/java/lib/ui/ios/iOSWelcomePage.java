@@ -11,6 +11,7 @@ public class iOSWelcomePage extends WelcomePage {
     }
 
     static {
+        STEP_MAIN_WIKIPEDIA = "id:Wikipedia";
         STEP_TRY_FREE_ENCYCLOPEDIA = "id:The free encyclopedia";
         STEP_SKIP_BTN = "xpath://XCUIElementTypeButton[@name='Skip']";
         STEP_NEXT_BTN = "xpath://XCUIElementTypeButton[@name='Next']";

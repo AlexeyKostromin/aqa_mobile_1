@@ -7,6 +7,7 @@ import lib.ui.strategy.PageActionsStrategy;
 abstract public class WelcomePage extends PageBase {
 
     protected static String
+            STEP_MAIN_WIKIPEDIA,
             STEP_TRY_FREE_ENCYCLOPEDIA,
             STEP_SKIP_BTN,
             STEP_NEXT_BTN,
@@ -46,6 +47,11 @@ abstract public class WelcomePage extends PageBase {
 
     public void clickGetStarted() {
         waitForElementAndClick(STEP_GET_STARTED_BTN, "Cannot click button Get started", 5);
+    }
+
+    public void swipeWelcomeScreen() {
+        var element = waitForElementPresent(STEP_MAIN_WIKIPEDIA, "wiki element not found", 10);
+        swipeElementToLeftIOS(element);
     }
 
 }

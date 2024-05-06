@@ -57,9 +57,6 @@ public class PageBase {
         );
     }
 
-    public WebElement waitForElementPresent(String locator, String errorMessage) {
-        return waitForElementPresent(locator, errorMessage, 5);
-    }
 
     public WebElement waitForElementAndClick(String locator, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
