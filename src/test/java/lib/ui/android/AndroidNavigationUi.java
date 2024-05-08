@@ -7,6 +7,7 @@ import lib.ui.strategy.PageActionsStrategy;
 
 public class AndroidNavigationUi extends NavigationUi {
     static {
+        CONTENTS_ITEM_LIST_BTN = "id:Contents";
         SAVED_ITEM_LIST_BTN = "id:org.wikipedia.alpha:id/nav_tab_reading_lists";
     }
 

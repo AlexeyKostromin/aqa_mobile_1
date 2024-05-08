@@ -1,4 +1,4 @@
-package tests.android;
+package tests.common;
 
 import lib.TestBase;
 import lib.ui.ArticlePage;

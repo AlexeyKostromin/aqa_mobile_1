@@ -19,7 +19,6 @@ public class Platform {
     private static String RUNTIME_ENV;
     private static String APPIUM_URL;
 
-    //    private final static String APPIUM_LOCALHOST_URL = "http://127.0.0.1:4723/";
     private final static String LOCALHOST_APPIUM_URL = "http://127.0.0.1:4723/";
     private final static String WINDOWS_APPIUM_URL = "http://192.168.0.204:4723/";
     private final static String MAC_APPIUM_URL = "http://192.168.0.200:4723/";
@@ -38,11 +37,13 @@ public class Platform {
 
     private void initConfig() {
         PLATFORM = System.getProperty("platform", PLATFORM_IOS);
-        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
+//        PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
+//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
+        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
         setAppiumUrl();
     }
 
-    public AppiumDriver getAppiumDriver() throws Exception {
+    public AppiumDriver setAppiumDriver() throws Exception {
         URL url = new URL(APPIUM_URL);
 
         if (isAndroid()) {
@@ -54,15 +55,6 @@ public class Platform {
         }
     }
 
-
-//    private String getPlatformEnv() {
-//        PLATFORM = System.getProperty("platform", "ios");
-//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
-//        setAppiumUrl();
-//
-//        return PLATFORM;
-//    }
-
     private void setAppiumUrl() {
         if (isWindowsRuntimeEnv()) {
             APPIUM_URL = WINDOWS_APPIUM_URL;
@@ -73,10 +65,6 @@ public class Platform {
         }
     }
 
-    //    private Boolean isPlatform(String expectedPlatform) {
-//        String platform = getPlatformEnv();
-//        return platform.equals(expectedPlatform);
-//    }
 
     private Boolean isPlatform(String expectedPlatform) {
         return PLATFORM.equals(expectedPlatform);
@@ -144,8 +132,8 @@ public class Platform {
         return capabilities;
     }
 
-    private String getAppPath(){
-        if (isLocalHostRuntimeEnv()){
+    private String getAppPath() {
+        if (isLocalHostRuntimeEnv()) {
             return getAppPathLocal();
         } else
             return getAppPathRemote();

@@ -1,4 +1,4 @@
-package tests.iOS;
+package tests.iOSonly;
 
 import lib.TestBase;
 import lib.ui.WelcomePage;
@@ -29,13 +29,13 @@ public class GetStartedTest extends TestBase {
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
 
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
-        welcomePage.swipeWelcomeScreen();
+        welcomePage.swipeOnboardingScreen();
 
         welcomePage.waitForNewWaysScreenLoaded();
-        welcomePage.swipeWelcomeScreen();
+        welcomePage.swipeOnboardingScreen();
 
         welcomePage.waitSearchLanguagesScreenLoaded();
-        welcomePage.swipeWelcomeScreen();
+        welcomePage.swipeOnboardingScreen();
 
         welcomePage.waitHelpAppBetterScreenLoaded();
         welcomePage.clickGetStarted();

@@ -15,9 +15,9 @@ public class iOSWelcomePage extends WelcomePage {
         STEP_TRY_FREE_ENCYCLOPEDIA = "id:The free encyclopedia";
         STEP_SKIP_BTN = "xpath://XCUIElementTypeButton[@name='Skip']";
         STEP_NEXT_BTN = "xpath://XCUIElementTypeButton[@name='Next']";
-        STEP_NEW_WAYS = "id:New ways to explore";
-        STEP_SEARCH_LANGUAGE = "id:Search in nearly 300 languages";
-        STEP_HELP_APP_BETTER = "id:Help make the app better";
-        STEP_GET_STARTED_BTN = "xpath://XCUIElementTypeButton[@name='Get started']";
+        STEP_NEW_WAYS_LABEL = "id:New ways to explore";
+        STEP_SEARCH_LANGUAGE_ADD_PREFFERED_LANG_BTN = "xpath://XCUIElementTypeButton[@name='Add or edit preferred languages']";
+        STEP_HELP_LEARN_MORE_BTN = "xpath://XCUIElementTypeButton[@name='Learn more about data collected']";
+        STEP_HELP_GET_STARTED_BTN = "xpath://XCUIElementTypeButton[@name='Get started']";
     }
 }

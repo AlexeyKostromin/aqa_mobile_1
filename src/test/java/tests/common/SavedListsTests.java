@@ -1,4 +1,4 @@
-package tests.android;
+package tests.common;
 
 import lib.TestBase;
 import lib.ui.*;
@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 public class SavedListsTests extends TestBase {
     @Test
     @Tag("android")
-    @Tag("ios")
-    void saveTwoArticlesToListTest() {
+    void saveTwoArticlesToListAndroidTest() {
         final String searchText1 = "Java";
         final String expectedTitle1 = "Java (programming language)";
         final String searchText2 = "Kotlin";
@@ -56,13 +55,12 @@ public class SavedListsTests extends TestBase {
     }
 
     @Test
-    @Tag("android")
     @Tag("ios")
-    void saveTwoArticlesToListTest1() {
+    void saveTwoArticlesToListIOSTest() {
         final String searchText1 = "Java";
         final String expectedTitle1 = "Java (programming language)";
-//        final String searchText2 = "Kotlin";
-//        final String expectedTitle2 = "Kotlin (programming language)";
+        final String searchText2 = "Kotlin";
+        final String expectedTitle2 = "Kotlin (programming language)";
 
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
@@ -78,11 +76,11 @@ public class SavedListsTests extends TestBase {
         articlePage.saveArticleToNewList(listName);
         searchPage.clickNavigateUp();
 
-//        searchPage.performSearchWithText(searchText2);
-//        searchPage.openArticle(expectedTitle2);
-//        articlePage.saveArticleToExistingList(listName);
+        searchPage.performSearchWithText(searchText2);
+        searchPage.openArticle(expectedTitle2);
+        articlePage.saveArticleToExistingList(listName);
 
-//        searchPage.clickNavigateUp();
+        searchPage.clickNavigateUp();
         searchPage.closeSearchMode();
 
         NavigationUi navigationUi = PageFactory.getNavigationUiPage(driver);
@@ -93,15 +91,7 @@ public class SavedListsTests extends TestBase {
         savedListsPage.submitTooltipGotIt();
 
         savedListsPage.verifyArticleDisplays(expectedTitle1);
-//        savedListsPage.verifyArticleDisplays(expectedTitle2);
-
-        var element = savedListsPage.getElementByText(expectedTitle1);
-//        savedListsPage.swipeElementToLeftIOS(savedListsPage.getElementByText(expectedTitle1));
-        savedListsPage.swipeElementToLeftIOS(element);
-        savedListsPage.waitArticleNotDisplays(expectedTitle1);
-//        savedListsPage.verifyArticleDisplays(expectedTitle2);
-
-        savedListsPage.openArticle(expectedTitle1);
-        articlePage.assertArticleTitle(expectedTitle1);
+        savedListsPage.verifyArticleDisplays(expectedTitle2);
     }
+
 }

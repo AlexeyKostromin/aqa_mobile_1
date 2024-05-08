@@ -2,9 +2,12 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
@@ -214,20 +217,6 @@ public class PageBase {
         driver.perform(Arrays.asList(swipe));
     }
 
-
-    public void swipeElementToLeftIOS2(WebElement element) {
-        int rightX = element.getLocation().getX() + element.getSize().getWidth();
-        int  middleY = element.getLocation().getY() + element.getSize().getHeight() / 2;
-        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-        Sequence swipe = new Sequence(finger, 1)
-                .addAction(finger.createPointerMove(Duration.ofMillis(100), PointerInput.Origin.viewport(), rightX, middleY))
-                .addAction(finger.createPointerDown(100)) // Corrected to remove the incorrect parameter
-                .addAction(finger.createPointerMove(Duration.ofMillis(550), PointerInput.Origin.viewport(), rightX - 200, middleY)) // Adjust offsetX as needed
-                .addAction(finger.createPointerUp(0));
-
-        driver.perform(Arrays.asList(swipe));
-    }
-
     public void swipeElementToLeft(String locator, String errorMessage) {
         WebElement element = waitForElementPresent(locator,
                 errorMessage,
@@ -277,5 +266,18 @@ public class PageBase {
         // Perform the zoom gesture
         driver.perform(Arrays.asList(finger1Sequence, finger2Sequence));
     }
+
+    public void setLandscapeOrientation() {
+        strategy.setLandscapeOrientation();
+    }
+
+    public void setPortraitOrientation() {
+        strategy.setPortraitOrientation();
+    }
+
+    public void runAppInBackground(Duration duration) {
+        strategy.runAppInBackground(duration);
+    }
+
 
 }

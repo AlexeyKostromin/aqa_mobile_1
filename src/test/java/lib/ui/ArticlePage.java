@@ -4,7 +4,6 @@ import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 
 
 public abstract class ArticlePage extends PageBase {
@@ -39,7 +38,7 @@ public abstract class ArticlePage extends PageBase {
     public void saveArticleToNewList(String listName) {
         clickSaveArticle();
         clickAddToList();
-        if (Platform.getInstance().isIOS()){
+        if (Platform.getInstance().isIOS()) {
             clickNewList();
         }
         setNewListName(listName);
@@ -72,13 +71,36 @@ public abstract class ArticlePage extends PageBase {
         waitForElementAndClick(OK_BTN, "Could not press OK in new list dialog", 10);
     }
 
-    public String getArticleTitle() {
+
+    public String getArticleTitle(String title) {
+        var actualTitle = "";
+        if (Platform.getInstance().isAndroid()) {
+            actualTitle = getArticleTitleAndroid();
+        } else if (Platform.getInstance().isIOS()) {
+            actualTitle = getArticleTitleIOS(title);
+        }
+        return actualTitle;
+    }
+
+    private String getArticleTitleAndroid() {
         var element = waitForElementPresent(ARTICLE_TITLE, "Title of opened article was not present", 15);
         return element.getText();
     }
 
+
+    private String getArticleTitleIOS(String expectedTitle) {
+        String javaTitleId = "id:" + expectedTitle;
+        try {
+            waitForElementPresent(javaTitleId, "Title of opened article was not present", 15);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not get title from article, expected title was: " + expectedTitle);
+        }
+        return expectedTitle;
+    }
+
     public void assertArticleTitle(String expectedTitle) {
-        var actualTitle = getArticleTitle();
+        var actualTitle = getArticleTitle(expectedTitle);
+
         Assertions.assertEquals(expectedTitle, actualTitle, "Title of opened article is wrong");
     }
 

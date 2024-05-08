@@ -7,6 +7,7 @@ import lib.ui.strategy.PageActionsStrategy;
 
 public class iOSNavigationUi extends NavigationUi {
     static {
+        CONTENTS_ITEM_LIST_BTN = "id:Table of contents";
         SAVED_ITEM_LIST_BTN = "id:Saved";
     }
 
