@@ -31,19 +31,27 @@ abstract public class WelcomePage extends PageBase {
     }
 
     public void clickNext() {
-        waitForElementAndClick(STEP_NEXT_BTN, "Cannot click button Next", 5);
+//        waitForElementAndClick(STEP_NEXT_BTN, "Cannot click button Next", 5);
+        waitNextBtnClickable().click();
+    }
+
+    private WebElement waitNextBtnClickable() {
+        return waitForElementToBeClickable(STEP_NEXT_BTN, "Next button not clickable", 10);
     }
 
     public void waitForNewWaysScreenLoaded() {
-        waitForElementPresent(STEP_NEW_WAYS_LABEL, "Free encyclopedia screen not loaded", 10);
+        waitForElementToBeClickable(STEP_NEW_WAYS_LABEL, "Free encyclopedia screen not loaded", 10);
+        waitNextBtnClickable();
     }
 
     public void waitSearchLanguagesScreenLoaded() {
-        waitForElementPresent(STEP_SEARCH_LANGUAGE_ADD_PREFFERED_LANG_BTN, "Search language screen not loaded", 10);
+        waitForElementToBeClickable(STEP_SEARCH_LANGUAGE_ADD_PREFFERED_LANG_BTN, "Search language screen not loaded", 10);
+        waitNextBtnClickable();
     }
 
     public void waitHelpAppBetterScreenLoaded() {
-        waitForElementPresent(STEP_HELP_LEARN_MORE_BTN, "Help App Better screen not loaded", 10);
+        waitForElementToBeClickable(STEP_HELP_LEARN_MORE_BTN, "Help App Better screen not loaded", 10);
+        waitForElementToBeClickable(STEP_HELP_GET_STARTED_BTN, "Button Get started not clickable", 5);
     }
 
     public void clickGetStarted() {
@@ -51,15 +59,9 @@ abstract public class WelcomePage extends PageBase {
     }
 
     public void swipeOnboardingScreen() {
-        try { Thread.sleep(1000); } catch (InterruptedException e) { /* Do nothing */ }
-        var element = waitForElementPresent(STEP_MAIN_WIKIPEDIA, "wiki element not found", 10);
+//        try { Thread.sleep(1000); } catch (InterruptedException e) { /* Do nothing */ }
+        var element = waitForElementToBeClickable(STEP_MAIN_WIKIPEDIA, "wiki element not clickaple", 10);
         swipeElementToLeft(element);
     }
-
-//    public void swipeOnboardingScreen() {
-//        try { Thread.sleep(1000); } catch (InterruptedException e) { /* Do nothing */ }
-//        var element = waitForElementPresent(STEP_MAIN_WIKIPEDIA, "wiki element not found", 10);
-//        swipeElementToLeftIOS(element);
-//    }
 
 }

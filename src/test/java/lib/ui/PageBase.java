@@ -60,6 +60,14 @@ public class PageBase {
         );
     }
 
+    public WebElement waitForElementToBeClickable(String locator, String errorMessage, long timeoutInSeconds) {
+        By by = getLocatorByString(locator);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.withMessage(errorMessage + "\n");
+        return wait.until(
+                ExpectedConditions.elementToBeClickable(by)
+        );
+    }
 
     public WebElement waitForElementAndClick(String locator, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
