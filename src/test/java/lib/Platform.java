@@ -7,6 +7,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Objects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Platform {
     private final static String PLATFORM_ANDROID = "android";
@@ -36,10 +40,23 @@ public class Platform {
     }
 
     private void initConfig() {
-        PLATFORM = System.getProperty("platform", PLATFORM_IOS);
+        Logger logger = LogManager.getLogger(Platform.class);
+//        PLATFORM = System.getProperty("platform", PLATFORM_IOS);
 //        PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
+        PLATFORM = System.getenv("PLATFORM");
 //        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
-        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+        RUNTIME_ENV = System.getenv("RUNTIME_ENV");
+        logger.info("Platform: {}", PLATFORM);
+        logger.info("Runtime Environment: {}", RUNTIME_ENV);
+
+        if (!PLATFORM.equals(PLATFORM_IOS)){
+            throw new RuntimeException("platform is not ios!, but was: " + PLATFORM);
+        }
+        if (!Objects.equals(RUNTIME_ENV, RUNTIME_ENV_LOCALHOST)){
+            throw new RuntimeException("runtime is not localhost!, but was: " + RUNTIME_ENV);
+        }
+
         setAppiumUrl();
     }
 

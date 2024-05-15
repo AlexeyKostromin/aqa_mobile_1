@@ -15,13 +15,15 @@ dependencies {
 //            "org.seleniumhq.selenium:selenium-api:4.18.1",
 //            "org.seleniumhq.selenium:selenium-remote-driver:4.18.1",
             "io.appium:java-client:9.2.0",
-            "org.junit.jupiter:junit-jupiter-engine:5.10.0"
+            "org.junit.jupiter:junit-jupiter-engine:5.10.0",
+            'org.apache.logging.log4j:log4j-api:2.17.1',
+            'org.apache.logging.log4j:log4j-core:2.17.1'
     )
 }
 
 tasks.test {
     useJUnitPlatform()
-//    systemProperties(System.getProperties())
+    systemProperties(System.getProperties())
 }
 
 task androidTests(type: Test) {
@@ -33,5 +35,11 @@ task androidTests(type: Test) {
 task iosTests(type: Test) {
     useJUnitPlatform {
         includeTags("ios")
+    }
+}
+
+task iosOnlyTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("iosOnly")
     }
 }
