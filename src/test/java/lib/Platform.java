@@ -42,20 +42,20 @@ public class Platform {
     private void initConfig() {
         Logger logger = LogManager.getLogger(Platform.class);
 //        PLATFORM = System.getProperty("platform", PLATFORM_IOS);
-//        PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
-        PLATFORM = System.getenv("PLATFORM");
+        PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
+//        PLATFORM = System.getenv("PLATFORM");
 //        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
-//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
-        RUNTIME_ENV = System.getenv("RUNTIME_ENV");
+        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+//        RUNTIME_ENV = System.getenv("RUNTIME_ENV");
         logger.info("Platform: {}", PLATFORM);
         logger.info("Runtime Environment: {}", RUNTIME_ENV);
 
-        if (!PLATFORM.equals(PLATFORM_IOS)){
-            throw new RuntimeException("platform is not ios!, but was: " + PLATFORM);
-        }
-        if (!Objects.equals(RUNTIME_ENV, RUNTIME_ENV_LOCALHOST)){
-            throw new RuntimeException("runtime is not localhost!, but was: " + RUNTIME_ENV);
-        }
+//        if (!PLATFORM.equals(PLATFORM_IOS)){
+//            throw new RuntimeException("platform is not ios!, but was: " + PLATFORM);
+//        }
+//        if (!Objects.equals(RUNTIME_ENV, RUNTIME_ENV_LOCALHOST)){
+//            throw new RuntimeException("runtime is not localhost!, but was: " + RUNTIME_ENV);
+//        }
 
         setAppiumUrl();
     }

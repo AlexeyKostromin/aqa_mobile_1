@@ -2,6 +2,10 @@ plugins {
     id("java")
 }
 
+allprojects {
+    gradle.startParameter.warningMode = org.gradle.api.logging.configuration.WarningMode.All
+}
+
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -26,6 +30,31 @@ tasks.test {
     systemProperties(System.getProperties())
 }
 
+//tasks.withType(Test).configureEach {
+//    useJUnitPlatform()
+//    systemProperties(System.getProperties())
+//
+//    include 'com/example/test/**'
+//    exclude 'com/example/exclude/**'
+//    maxParallelForks 5
+//    testLogging {
+//        exceptionFormat "full"
+//        showStackTraces = false
+//    }
+//}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
 task androidTests(type: Test) {
     useJUnitPlatform {
         includeTags("android")
@@ -41,5 +70,11 @@ task iosTests(type: Test) {
 task iosOnlyTests(type: Test) {
     useJUnitPlatform {
         includeTags("iosOnly")
+    }
+}
+
+task androidOnlyTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("androidOnly")
     }
 }

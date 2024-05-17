@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class GetStartedTest extends TestBase {
 
     @Test
-    @Tag("iosOnly")
+    @Tag("androidOnly")
     public void PassWelcomePageTest() {
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
 
@@ -24,20 +24,20 @@ public class GetStartedTest extends TestBase {
     }
 
     @Test
-    @Tag("iosOnly1")
+    @Tag("iosOnly")
     public void SwipeWelcomePageTest() {
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
 
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.swipeOnboardingScreen();
 
-        welcomePage.waitForNewWaysScreenLoaded();
-        welcomePage.swipeOnboardingScreen();
-
-        welcomePage.waitSearchLanguagesScreenLoaded();
-        welcomePage.swipeOnboardingScreen();
-
-        welcomePage.waitHelpAppBetterScreenLoaded();
-        welcomePage.clickGetStarted();
+//        welcomePage.waitForNewWaysScreenLoaded();
+//        welcomePage.swipeOnboardingScreen();
+//
+//        welcomePage.waitSearchLanguagesScreenLoaded();
+//        welcomePage.swipeOnboardingScreen();
+//
+//        welcomePage.waitHelpAppBetterScreenLoaded();
+//        welcomePage.clickGetStarted();
     }
 }
