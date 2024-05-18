@@ -30,7 +30,7 @@ public class Platform {
 
     private final static String LOCALHOST_APPIUM_URL = "http://127.0.0.1:4723/";
     private final static String WINDOWS_APPIUM_URL = "http://192.168.0.204:4723/";
-    private final static String MAC_APPIUM_URL = "http://192.168.0.200:4723/";
+    private final static String MAC_APPIUM_URL = "http://192.168.0.202:4723/";
     private static Platform instance;
 
     private Platform() {

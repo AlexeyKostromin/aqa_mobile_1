@@ -64,7 +64,7 @@ abstract public class SearchPage extends PageBase {
     }
 
     public List<WebElement> getAllSearchResults() {
-        return waitForElementsPresent(ALL_SEARCH_RESULTS, "Could not get search results", 151);
+        return waitForElementsPresent(ALL_SEARCH_RESULTS, "Could not get search results", 15);
     }
 
     public WebElement waitForElementByTitleAndDescription(String title, String description) {
