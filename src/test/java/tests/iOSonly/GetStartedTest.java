@@ -11,6 +11,7 @@ public class GetStartedTest extends TestBase {
     @Test
     @Tag("androidOnly")
     public void PassWelcomePageTest() {
+//        try { Thread.sleep(10000); } catch (InterruptedException e) { /* Do nothing */ }
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
 
         welcomePage.waitForFreeEncyclopediaScreenLoaded();

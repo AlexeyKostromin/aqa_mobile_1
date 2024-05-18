@@ -2,12 +2,17 @@ package lib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Duration;
 import java.util.Objects;
+
+import static io.appium.java_client.remote.AutomationName.ANDROID_UIAUTOMATOR2;
+import static io.appium.java_client.remote.MobilePlatform.ANDROID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,8 +49,8 @@ public class Platform {
 //        PLATFORM = System.getProperty("platform", PLATFORM_IOS);
         PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
 //        PLATFORM = System.getenv("PLATFORM");
-//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
-        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
+        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
+//        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
 //        RUNTIME_ENV = System.getenv("RUNTIME_ENV");
         logger.info("Platform: {}", PLATFORM);
         logger.info("Runtime Environment: {}", RUNTIME_ENV);
@@ -111,7 +116,7 @@ public class Platform {
         return isRuntimeEnv(RUNTIME_ENV_MAC);
     }
 
-    private DesiredCapabilities getCapabilitiesAndroid() {
+    private DesiredCapabilities getCapabilitiesAndroid1() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "Pixel6_API_34");
@@ -125,16 +130,20 @@ public class Platform {
         return capabilities;
     }
 
-//    private DesiredCapabilities getCapabilitiesIOS() {
-//        DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities.setCapability("platformName", "iOS");
-//        capabilities.setCapability("deviceName", "iPhone 15");
-//        capabilities.setCapability("platformVersion", "17.4");
-//        capabilities.setCapability("automationName", "XCUITest");
-//        capabilities.setCapability("app", getAppPath());
-//
-//        return capabilities;
-//    }
+    private UiAutomator2Options getCapabilitiesAndroid() {
+        UiAutomator2Options options = new UiAutomator2Options();
+
+        options.setAutomationName(ANDROID_UIAUTOMATOR2)
+                .setPlatformName(ANDROID)
+                .setPlatformVersion("14.0")
+                .setDeviceName("Pixel7")
+                .setApp(getAppPath())
+                .setAppPackage("org.wikipedia.alpha")
+                .setAppActivity("org.wikipedia.main.MainActivity")
+                .setAvdLaunchTimeout(Duration.ofSeconds(30));   //wait until Android emulator is started
+//                .setCapability("appium:disableIdLocatorAutocompletion", true);
+        return options;
+    }
 
     private DesiredCapabilities getCapabilitiesIOS() {
         DesiredCapabilities capabilities = new DesiredCapabilities();

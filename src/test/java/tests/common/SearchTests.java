@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SearchTests extends TestBase {
     @Test
     @Tag("android")
+    @Tag("androidOnly")
     @Tag("ios")
 //    @Order(1)
     void verifyTextInSearchFieldTest() {

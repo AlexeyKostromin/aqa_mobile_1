@@ -2,9 +2,9 @@ plugins {
     id("java")
 }
 
-allprojects {
-    gradle.startParameter.warningMode = org.gradle.api.logging.configuration.WarningMode.All
-}
+//allprojects {
+//    gradle.startParameter.warningMode = org.gradle.api.logging.configuration.WarningMode.All
+//}
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
