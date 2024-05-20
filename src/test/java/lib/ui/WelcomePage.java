@@ -1,8 +1,9 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
+import lib.PageBase;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 abstract public class WelcomePage extends PageBase {
@@ -18,7 +19,7 @@ abstract public class WelcomePage extends PageBase {
             STEP_HELP_GET_STARTED_BTN;
 
 
-    public WelcomePage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public WelcomePage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 

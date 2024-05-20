@@ -3,6 +3,7 @@ package lib.ui.ios;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.SavedListsPage;
 import lib.ui.strategy.PageActionsStrategy;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSSavedListsPage extends SavedListsPage {
     static {
@@ -10,7 +11,7 @@ public class iOSSavedListsPage extends SavedListsPage {
     }
 
 
-    public iOSSavedListsPage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public iOSSavedListsPage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 }

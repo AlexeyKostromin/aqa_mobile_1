@@ -1,5 +1,7 @@
 package tests.common;
 
+import lib.PageBase;
+import lib.Platform;
 import lib.TestBase;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
@@ -12,13 +14,10 @@ public class ArticleTests extends TestBase {
     @Test
     @Tag("android")
     @Tag("ios")
+    @Tag("mobileWeb")
     void swipeArticleTest() {
         final String searchText1 = "Gradle";
         final String expectedResult1 = "Free software build automation tool";
-
-        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
-        welcomePage.waitForFreeEncyclopediaScreenLoaded();
-        welcomePage.clickSkip();
 
         SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText1);
@@ -34,10 +33,6 @@ public class ArticleTests extends TestBase {
         final String searchText = "Java";
         final String expectedTitle = "Java (programming language)";
 
-        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
-        welcomePage.waitForFreeEncyclopediaScreenLoaded();
-        welcomePage.clickSkip();
-
         SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.performSearchWithText(searchText);
         searchPage.openArticle(expectedTitle);
@@ -45,4 +40,5 @@ public class ArticleTests extends TestBase {
         ArticlePage articlePage = PageFactory.getArticlePage(driver);
         articlePage.assertArticleTitlePresentInstantly(expectedTitle);
     }
+
 }

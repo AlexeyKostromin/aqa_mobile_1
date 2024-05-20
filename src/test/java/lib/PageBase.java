@@ -1,20 +1,13 @@
-package lib.ui;
+package lib;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import lib.ui.strategy.PageActionsStrategy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.security.PublicKey;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +16,9 @@ import java.util.regex.Pattern;
 public class PageBase {
     private PageActionsStrategy strategy;
 
-    protected AppiumDriver driver;
+    protected RemoteWebDriver driver;
 
-    public PageBase(AppiumDriver driver, PageActionsStrategy strategy) {
+    public PageBase(RemoteWebDriver driver, PageActionsStrategy strategy) {
         this.driver = driver;
         this.strategy = strategy;
     }
@@ -38,6 +31,7 @@ public class PageBase {
         return switch (byType) {
             case "id" -> By.id(locator);
             case "xpath" -> By.xpath(locator);
+            case "css" -> By.cssSelector(locator);
             default -> throw new IllegalStateException("Could not parse locator. Locator: " + locatorWithType);
         };
     }
@@ -119,6 +113,12 @@ public class PageBase {
         throw new AssertionError("Could not find element with text: " + text);
     }
 
+    public Boolean isElementLocatedOnTheScreen(String locator) {
+        int elementLocationByY = waitForElementPresent(locator, "Cannot find element by locator", 1).getLocation().getY();
+        int screenSizeByY = driver.manage().window().getSize().getHeight();
+        return elementLocationByY < screenSizeByY;
+    }
+
     public void swipeUpQuick() {
         swipeUp(200);
     }
@@ -164,11 +164,34 @@ public class PageBase {
         }
     }
 
-    public Boolean isElementLocatedOnTheScreen(String locator) {
-        int elementLocationByY = waitForElementPresent(locator, "Cannot find element by locator", 1).getLocation().getY();
-        int screenSizeByY = driver.manage().window().getSize().getHeight();
-        return elementLocationByY < screenSizeByY;
+    public void scrollUpTillElementAppear(String locator, int maxSwipes, String errorMessage) {
+        By by = getLocatorByString(locator);
+        int swipesCount = 0;
+
+        while (driver.findElements(by).size() == 0) {
+            scrollUp(100);
+            ++swipesCount;
+
+            if (swipesCount > maxSwipes) {
+                throw new AssertionError("Could not find element by swiping up.\n" + errorMessage);
+            }
+        }
     }
+
+    public void scrollUpTillElementAppearJs(String locator, int maxSwipes, String errorMessage) {
+        By by = getLocatorByString(locator);
+        int swipesCount = 0;
+
+        while (driver.findElements(by).size() == 0) {
+            scrollWebPageUpJs();
+            ++swipesCount;
+
+            if (swipesCount > maxSwipes) {
+                throw new AssertionError("Could not find element by swiping up.\n" + errorMessage);
+            }
+        }
+    }
+
 
     public void scrollUp(int timeOfSwipe) {
         Dimension size = driver.manage().window().getSize();
@@ -187,6 +210,14 @@ public class PageBase {
         driver.perform(Arrays.asList(swipe));
     }
 
+    public void scrollWebPageUpJs() {
+        if (Platform.getInstance().isMobileWeb()){
+            JavascriptExecutor JSExecutor = (JavascriptExecutor) this.driver;
+            JSExecutor.executeScript("window.scrollBy(0,50)");
+        } else {
+            System.out.println("Method scrollWebPageUpJs() does nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
+    }
 
     public void swipeElementToLeft(WebElement element) {
         int leftX = element.getLocation().getX();
@@ -286,6 +317,19 @@ public class PageBase {
     public void runAppInBackground(Duration duration) {
         strategy.runAppInBackground(duration);
     }
+
+    public void openWikiWebPageForMobileWeb(){
+        openWebPageForMobileWeb("https://en.m.wikipedia.org");
+    }
+
+    public void openWebPageForMobileWeb(String url){
+        if (Platform.getInstance().isMobileWeb()){
+            driver.get(url);
+        } else {
+            System.out.println("Method openWebPageForMobileWeb() do nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
+    }
+
 
 
 }

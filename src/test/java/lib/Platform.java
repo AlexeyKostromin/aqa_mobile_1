@@ -1,25 +1,28 @@
 package lib;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
-import java.util.Objects;
+import java.util.HashMap;
 
 import static io.appium.java_client.remote.AutomationName.ANDROID_UIAUTOMATOR2;
 import static io.appium.java_client.remote.MobilePlatform.ANDROID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Platform {
     private final static String PLATFORM_ANDROID = "android";
     private final static String PLATFORM_IOS = "ios";
+    private final static String PLATFORM_MOBILE_WEB = "mobileWeb";
     private final static String RUNTIME_ENV_LOCALHOST = "localHostRuntimeEnv";
     private final static String RUNTIME_ENV_WINDOWS = "windowsRuntimeEnv";
     private final static String RUNTIME_ENV_MAC = "macRuntimeEnv";
@@ -46,32 +49,30 @@ public class Platform {
 
     private void initConfig() {
         Logger logger = LogManager.getLogger(Platform.class);
+
 //        PLATFORM = System.getProperty("platform", PLATFORM_IOS);
-        PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
+//        PLATFORM = System.getProperty("platform", PLATFORM_ANDROID);
+        PLATFORM = System.getProperty("platform", PLATFORM_MOBILE_WEB);
 //        PLATFORM = System.getenv("PLATFORM");
         RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_LOCALHOST);
 //        RUNTIME_ENV = System.getProperty("runtimeEnv", RUNTIME_ENV_MAC);
 //        RUNTIME_ENV = System.getenv("RUNTIME_ENV");
+
         logger.info("Platform: {}", PLATFORM);
         logger.info("Runtime Environment: {}", RUNTIME_ENV);
-
-//        if (!PLATFORM.equals(PLATFORM_IOS)){
-//            throw new RuntimeException("platform is not ios!, but was: " + PLATFORM);
-//        }
-//        if (!Objects.equals(RUNTIME_ENV, RUNTIME_ENV_LOCALHOST)){
-//            throw new RuntimeException("runtime is not localhost!, but was: " + RUNTIME_ENV);
-//        }
 
         setAppiumUrl();
     }
 
-    public AppiumDriver setAppiumDriver() throws Exception {
+    public RemoteWebDriver getDriver() throws Exception {
         URL url = new URL(APPIUM_URL);
 
         if (isAndroid()) {
             return new AndroidDriver(url, getCapabilitiesAndroid());
         } else if (isIOS()) {
             return new IOSDriver(url, getCapabilitiesIOS());
+        } else if (isMobileWeb()) {
+            return new ChromeDriver(getMobileWebChromeOptions());
         } else {
             throw new Exception("Cannot detect type of driver. Platform env is: " + PLATFORM);
         }
@@ -87,6 +88,9 @@ public class Platform {
         }
     }
 
+    public String getPlatformVar(){
+        return PLATFORM;
+    }
 
     private Boolean isPlatform(String expectedPlatform) {
         return PLATFORM.equals(expectedPlatform);
@@ -102,6 +106,10 @@ public class Platform {
 
     public Boolean isIOS() {
         return isPlatform(PLATFORM_IOS);
+    }
+
+    public Boolean isMobileWeb() {
+        return isPlatform(PLATFORM_MOBILE_WEB);
     }
 
     public Boolean isLocalHostRuntimeEnv() {
@@ -156,6 +164,22 @@ public class Platform {
         capabilities.setCapability("app", getAppPath());
 
         return capabilities;
+    }
+
+    private ChromeOptions getMobileWebChromeOptions(){
+        HashMap<String, Object> deviceMetrics = new HashMap<>();
+        deviceMetrics.put("width", 360);
+        deviceMetrics.put("height", 640);
+        deviceMetrics.put("pixelRation", 3.0);
+
+        HashMap<String, Object> mobileEmulation = new HashMap<>();
+        mobileEmulation.put("deviceMetrics", deviceMetrics);
+        mobileEmulation.put("useragent", deviceMetrics);
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("window-size=500,900");
+
+        return chromeOptions;
     }
 
     private String getAppPath() {

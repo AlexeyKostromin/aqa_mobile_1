@@ -3,6 +3,7 @@ package lib.ui.ios;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.strategy.PageActionsStrategy;
 import lib.ui.SearchPage;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSSearchPage extends SearchPage {
 
@@ -23,7 +24,7 @@ public class iOSSearchPage extends SearchPage {
     }
 
 
-    public iOSSearchPage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public iOSSearchPage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 }

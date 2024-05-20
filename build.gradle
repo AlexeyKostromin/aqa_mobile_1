@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     testImplementation(
-            "org.seleniumhq.selenium:selenium-java:4.18.1",
+            "org.seleniumhq.selenium:selenium-java:4.21.0",
 //            "org.seleniumhq.selenium:selenium-api:4.18.1",
 //            "org.seleniumhq.selenium:selenium-remote-driver:4.18.1",
             "io.appium:java-client:9.2.0",
@@ -30,18 +30,6 @@ tasks.test {
     systemProperties(System.getProperties())
 }
 
-//tasks.withType(Test).configureEach {
-//    useJUnitPlatform()
-//    systemProperties(System.getProperties())
-//
-//    include 'com/example/test/**'
-//    exclude 'com/example/exclude/**'
-//    maxParallelForks 5
-//    testLogging {
-//        exceptionFormat "full"
-//        showStackTraces = false
-//    }
-//}
 
 tasks.withType(Test) {
     useJUnitPlatform()
@@ -76,5 +64,11 @@ task iosOnlyTests(type: Test) {
 task androidOnlyTests(type: Test) {
     useJUnitPlatform {
         includeTags("androidOnly")
+    }
+}
+
+task mobileWebTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("mobileWeb")
     }
 }

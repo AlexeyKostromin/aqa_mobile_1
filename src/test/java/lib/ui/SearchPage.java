@@ -1,10 +1,11 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
+import lib.PageBase;
 import lib.ui.strategy.PageActionsStrategy;
 import lib.Platform;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ abstract public class SearchPage extends PageBase {
             SEARCH_RESULTS_BY_TEXT_TPL,
             SEARCH_RESULTS_BY_TITLE_AND_DESCRIPTION_TPL;
 
-    public SearchPage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public SearchPage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 
@@ -114,11 +115,14 @@ abstract public class SearchPage extends PageBase {
         return waitForElementAndGetAttribute(SEARCH_TOOLBAR_TEXT, attribute, "Could not get text by attribute", 5);
     }
 
+
     public String getSearchBoxTextByPlatform() {
         if (Platform.getInstance().isAndroid()) {
             return getSearchBoxTextByAttribute("text");
-        } else {
+        } else if (Platform.getInstance().isIOS()) {
             return getSearchBoxTextByAttribute("name");
+        } else Platform.getInstance().isMobileWeb(); {
+            return getSearchBoxTextByAttribute("aria-label");
         }
     }
 

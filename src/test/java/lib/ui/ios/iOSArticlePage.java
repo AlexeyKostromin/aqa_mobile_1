@@ -3,6 +3,7 @@ package lib.ui.ios;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePage;
 import lib.ui.strategy.PageActionsStrategy;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 public class iOSArticlePage extends ArticlePage {
@@ -20,7 +21,7 @@ public class iOSArticlePage extends ArticlePage {
         ABOUT_THIS_ARTICLE_ELEMENT = "xpath://XCUIElementTypeStaticText[@name='ABOUT THIS ARTICLE']";
     }
 
-    public iOSArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public iOSArticlePage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver,strategy);
     }
 

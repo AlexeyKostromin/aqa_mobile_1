@@ -3,10 +3,11 @@ package lib.ui.ios;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.WelcomePage;
 import lib.ui.strategy.PageActionsStrategy;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 public class iOSWelcomePage extends WelcomePage {
-    public iOSWelcomePage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public iOSWelcomePage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 

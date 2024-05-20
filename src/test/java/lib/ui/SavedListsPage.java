@@ -1,15 +1,16 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
+import lib.PageBase;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public abstract class SavedListsPage extends PageBase {
 
     protected static String
             TOOLTIP_GOT_IT;
 
-    public SavedListsPage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public SavedListsPage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 

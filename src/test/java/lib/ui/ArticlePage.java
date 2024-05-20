@@ -1,9 +1,10 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
+import lib.PageBase;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 public abstract class ArticlePage extends PageBase {
@@ -18,7 +19,7 @@ public abstract class ArticlePage extends PageBase {
             SNACK_BAR,
             ABOUT_THIS_ARTICLE_ELEMENT;
 
-    public ArticlePage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public ArticlePage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 
@@ -31,8 +32,12 @@ public abstract class ArticlePage extends PageBase {
             swipeUpTillElementAppear(ABOUT_THIS_ARTICLE_ELEMENT,
                     40,
                     "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
-        }
+        } else if (Platform.getInstance().isMobileWeb()) {
 
+            scrollUpTillElementAppear(ABOUT_THIS_ARTICLE_ELEMENT,
+                    40,
+                    "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
+        }
     }
 
     public void saveArticleToNewList(String listName) {
@@ -78,6 +83,8 @@ public abstract class ArticlePage extends PageBase {
             actualTitle = getArticleTitleAndroid();
         } else if (Platform.getInstance().isIOS()) {
             actualTitle = getArticleTitleIOS(title);
+        } else if (Platform.getInstance().isMobileWeb()) {
+            actualTitle = getArticleTitleMobileWeb();
         }
         return actualTitle;
     }
@@ -96,6 +103,10 @@ public abstract class ArticlePage extends PageBase {
             throw new RuntimeException("Could not get title from article, expected title was: " + expectedTitle);
         }
         return expectedTitle;
+    }
+
+    private String getArticleTitleMobileWeb() {
+        return getArticleTitleAndroid();
     }
 
     public void assertArticleTitle(String expectedTitle) {

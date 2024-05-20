@@ -4,6 +4,7 @@ import lib.TestBase;
 import lib.ui.SearchPage;
 import lib.ui.WelcomePage;
 import lib.ui.factory.PageFactory;
+import lib.ui.mobileWeb.SearchPageMW;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +22,24 @@ public class SearchTests extends TestBase {
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
         welcomePage.waitForFreeEncyclopediaScreenLoaded();
         welcomePage.clickSkip();
+
+        SearchPage searchPage = PageFactory.getSearchPage(driver);
+        searchPage.clickSearchTextBox();
+        String elementText = searchPage.getSearchBoxTextByPlatform();
+
+        assertEquals(
+                expectedText, elementText,
+                "Expected text for element is: " + expectedText + " but was: " + elementText);
+    }
+
+    @Test
+    @Tag("android")
+    @Tag("androidOnly")
+    @Tag("ios")
+    @Tag("mobileWeb")
+//    @Order(1)
+    void verifyTextInSearchFieldTestWeb() {
+        final String expectedText = "Search Wikipedia";
 
         SearchPage searchPage = PageFactory.getSearchPage(driver);
         searchPage.clickSearchTextBox();

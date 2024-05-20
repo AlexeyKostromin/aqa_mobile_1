@@ -1,10 +1,10 @@
 package lib.ui.strategy;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
-import lib.ui.PageBase;
+import lib.PageBase;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
@@ -14,7 +14,7 @@ public class IOSStrategy implements PageActionsStrategy {
 
     private static final String TEXT_ELEMENT_TPL = "xpath://XCUIElementTypeStaticText[@name=\"{TEXT}\"]";
 
-    public IOSStrategy(AppiumDriver driver) {
+    public IOSStrategy(RemoteWebDriver driver) {
         this.pageBase = new PageBase(driver, this);
         IOSDriver = ((IOSDriver) driver);
     }

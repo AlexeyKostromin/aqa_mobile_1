@@ -1,14 +1,15 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
+import lib.PageBase;
 import lib.ui.strategy.PageActionsStrategy;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public abstract class NavigationUi extends PageBase {
     protected static String
             CONTENTS_ITEM_LIST_BTN,
             SAVED_ITEM_LIST_BTN;
 
-    public NavigationUi(AppiumDriver driver, PageActionsStrategy strategy) {
+    public NavigationUi(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver,strategy);
     }
 

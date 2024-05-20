@@ -3,6 +3,7 @@ package lib.ui.android;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.strategy.PageActionsStrategy;
 import lib.ui.SearchPage;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidSearchPage extends SearchPage {
 
@@ -26,7 +27,7 @@ public class AndroidSearchPage extends SearchPage {
 
     }
 
-    public AndroidSearchPage(AppiumDriver driver, PageActionsStrategy strategy) {
+    public AndroidSearchPage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
     }
 }

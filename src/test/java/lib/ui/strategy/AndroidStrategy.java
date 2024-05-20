@@ -1,10 +1,10 @@
 package lib.ui.strategy;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import lib.ui.PageBase;
+import lib.PageBase;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
@@ -12,7 +12,7 @@ public class AndroidStrategy implements PageActionsStrategy {
     private PageBase pageBase;
     private AndroidDriver AndroidDriver;
 
-    public AndroidStrategy(AppiumDriver driver) {
+    public AndroidStrategy(RemoteWebDriver driver) {
         this.pageBase = new PageBase(driver, this);
         AndroidDriver = ((AndroidDriver) driver);
     }
