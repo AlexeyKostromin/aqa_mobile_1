@@ -1,11 +1,11 @@
 package lib.ui;
 
-import lib.PageBase;
+import lib.BasePage;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public abstract class SavedListsPage extends PageBase {
+public abstract class SavedListsPage extends BasePage {
 
     protected static String
             TOOLTIP_GOT_IT;

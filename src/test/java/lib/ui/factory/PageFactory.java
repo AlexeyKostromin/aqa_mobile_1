@@ -1,5 +1,6 @@
 package lib.ui.factory;
 
+import lib.BasePage;
 import lib.Platform;
 import lib.ui.*;
 import lib.ui.android.*;
@@ -12,6 +13,17 @@ import lib.ui.strategy.MobileWebStrategy;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class PageFactory {
+
+    public static BasePage getBasePage(RemoteWebDriver driver) {
+        if (Platform.getInstance().isAndroid()) {
+            return new BasePage(driver, new AndroidStrategy(driver));
+        } else if (Platform.getInstance().isIOS()){
+            return new BasePage(driver, new IOSStrategy(driver));
+        } else {
+            return new BasePage(driver, new MobileWebStrategy(driver));
+        }
+    }
+
     public static WelcomePage getWelcomePage(RemoteWebDriver driver) {
         if (Platform.getInstance().isAndroid()) {
             return new AndroidWelcomePage(driver, new AndroidStrategy(driver));

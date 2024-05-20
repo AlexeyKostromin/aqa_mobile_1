@@ -1,6 +1,6 @@
 package lib.ui;
 
-import lib.PageBase;
+import lib.BasePage;
 import lib.ui.strategy.PageActionsStrategy;
 import lib.Platform;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-abstract public class SearchPage extends PageBase {
+abstract public class SearchPage extends BasePage {
 
     protected static String
             SEARCH_WIKI_MAIN_TOOLBAR,

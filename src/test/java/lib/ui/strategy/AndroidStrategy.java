@@ -1,7 +1,7 @@
 package lib.ui.strategy;
 
 import io.appium.java_client.android.AndroidDriver;
-import lib.PageBase;
+import lib.BasePage;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -9,18 +9,18 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.time.Duration;
 
 public class AndroidStrategy implements PageActionsStrategy {
-    private PageBase pageBase;
+    private BasePage basePage;
     private AndroidDriver AndroidDriver;
 
     public AndroidStrategy(RemoteWebDriver driver) {
-        this.pageBase = new PageBase(driver, this);
+        this.basePage = new BasePage(driver, this);
         AndroidDriver = ((AndroidDriver) driver);
     }
 
     @Override
     public WebElement getElementByText(String text) {
         String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
-        return pageBase.waitForElementPresent(xpathWithExpectedText,
+        return basePage.waitForElementPresent(xpathWithExpectedText,
                 "Could not find element by text: " + text,
                 10);
     }
@@ -28,7 +28,7 @@ public class AndroidStrategy implements PageActionsStrategy {
     @Override
     public void clickElementByText(String text) {
         String xpathWithExpectedText = String.format("xpath://*[@text='%s']", text);
-        pageBase.waitForElementAndClick(
+        basePage.waitForElementAndClick(
                 xpathWithExpectedText,
                 "Could not select item with text: " + text,
                 5);

@@ -1,7 +1,7 @@
 package lib.ui.strategy;
 
 import io.appium.java_client.ios.IOSDriver;
-import lib.PageBase;
+import lib.BasePage;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -9,13 +9,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.time.Duration;
 
 public class IOSStrategy implements PageActionsStrategy {
-    private PageBase pageBase;
+    private BasePage basePage;
     private IOSDriver IOSDriver;
 
     private static final String TEXT_ELEMENT_TPL = "xpath://XCUIElementTypeStaticText[@name=\"{TEXT}\"]";
 
     public IOSStrategy(RemoteWebDriver driver) {
-        this.pageBase = new PageBase(driver, this);
+        this.basePage = new BasePage(driver, this);
         IOSDriver = ((IOSDriver) driver);
     }
 
@@ -27,7 +27,7 @@ public class IOSStrategy implements PageActionsStrategy {
     @Override
     public WebElement getElementByText(String text) {
         String xpathWithExpectedText = getXpathForTextElement(text);
-        return pageBase.waitForElementPresent(xpathWithExpectedText,
+        return basePage.waitForElementPresent(xpathWithExpectedText,
                 "Could not find element by text: " + text,
                 10);
     }
@@ -35,7 +35,7 @@ public class IOSStrategy implements PageActionsStrategy {
     @Override
     public void clickElementByText(String text) {
         String xpathWithExpectedText = getXpathForTextElement(text);
-        pageBase.waitForElementAndClick(
+        basePage.waitForElementAndClick(
                 xpathWithExpectedText,
                 "Could not select item with text: " + text,
                 5);

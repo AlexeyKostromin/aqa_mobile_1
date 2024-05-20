@@ -1,12 +1,12 @@
 package lib.ui;
 
-import lib.PageBase;
+import lib.BasePage;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
-abstract public class WelcomePage extends PageBase {
+abstract public class WelcomePage extends BasePage {
 
     protected static String
             STEP_MAIN_WIKIPEDIA,

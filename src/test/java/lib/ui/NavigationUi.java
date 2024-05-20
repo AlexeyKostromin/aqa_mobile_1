@@ -1,10 +1,10 @@
 package lib.ui;
 
-import lib.PageBase;
+import lib.BasePage;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public abstract class NavigationUi extends PageBase {
+public abstract class NavigationUi extends BasePage {
     protected static String
             CONTENTS_ITEM_LIST_BTN,
             SAVED_ITEM_LIST_BTN;

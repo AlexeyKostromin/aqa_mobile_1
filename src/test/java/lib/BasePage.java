@@ -13,12 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class PageBase {
+public class BasePage {
     private PageActionsStrategy strategy;
 
     protected RemoteWebDriver driver;
 
-    public PageBase(RemoteWebDriver driver, PageActionsStrategy strategy) {
+    public BasePage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         this.driver = driver;
         this.strategy = strategy;
     }

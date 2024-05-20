@@ -1,17 +1,16 @@
 package lib.ui.strategy;
 
-import io.appium.java_client.ios.IOSDriver;
-import lib.PageBase;
+import lib.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
 public class MobileWebStrategy implements PageActionsStrategy{
-    private PageBase pageBase;
+    private BasePage basePage;
     private RemoteWebDriver webDriver;
     public MobileWebStrategy(RemoteWebDriver driver) {
-        this.pageBase = new PageBase(driver, this);
+        this.basePage = new BasePage(driver, this);
         webDriver = ((RemoteWebDriver) driver);
     }
 
@@ -23,7 +22,7 @@ public class MobileWebStrategy implements PageActionsStrategy{
     @Override
     public void clickElementByText(String text) {
         String xpathWithExpectedText = String.format("xpath://*[contains(text(), '%s')]", text);
-        pageBase.waitForElementAndClick(
+        basePage.waitForElementAndClick(
                 xpathWithExpectedText,
                 "Could not select item with text: " + text,
                 5);

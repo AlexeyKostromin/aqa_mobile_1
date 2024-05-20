@@ -35,8 +35,8 @@ public class TestBase {
     }
     private void openWikiWebPage() {
         if (Platform.getInstance().isMobileWeb()) {
-            SearchPage searchPage = PageFactory.getSearchPage(driver);
-            searchPage.openWikiWebPageForMobileWeb();
+            BasePage basePage = PageFactory.getBasePage(driver);
+            basePage.openWikiWebPageForMobileWeb();
         }
     }
 }

@@ -15,30 +15,9 @@ public class SearchTests extends TestBase {
     @Tag("android")
     @Tag("androidOnly")
     @Tag("ios")
-//    @Order(1)
-    void verifyTextInSearchFieldTest() {
-        final String expectedText = "Search Wikipedia";
-
-        WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
-        welcomePage.waitForFreeEncyclopediaScreenLoaded();
-        welcomePage.clickSkip();
-
-        SearchPage searchPage = PageFactory.getSearchPage(driver);
-        searchPage.clickSearchTextBox();
-        String elementText = searchPage.getSearchBoxTextByPlatform();
-
-        assertEquals(
-                expectedText, elementText,
-                "Expected text for element is: " + expectedText + " but was: " + elementText);
-    }
-
-    @Test
-    @Tag("android")
-    @Tag("androidOnly")
-    @Tag("ios")
     @Tag("mobileWeb")
 //    @Order(1)
-    void verifyTextInSearchFieldTestWeb() {
+    void verifyTextInSearchFieldTest() {
         final String expectedText = "Search Wikipedia";
 
         SearchPage searchPage = PageFactory.getSearchPage(driver);

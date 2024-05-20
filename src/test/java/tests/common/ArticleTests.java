@@ -1,11 +1,8 @@
 package tests.common;
 
-import lib.PageBase;
-import lib.Platform;
 import lib.TestBase;
 import lib.ui.ArticlePage;
 import lib.ui.SearchPage;
-import lib.ui.WelcomePage;
 import lib.ui.factory.PageFactory;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

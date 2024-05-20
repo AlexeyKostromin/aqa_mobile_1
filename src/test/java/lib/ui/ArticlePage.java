@@ -1,13 +1,13 @@
 package lib.ui;
 
-import lib.PageBase;
+import lib.BasePage;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
-public abstract class ArticlePage extends PageBase {
+public abstract class ArticlePage extends BasePage {
 
     protected static String
             ARTICLE_TITLE,
