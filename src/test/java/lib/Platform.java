@@ -166,18 +166,20 @@ public class Platform {
         return capabilities;
     }
 
-    private ChromeOptions getMobileWebChromeOptions(){
+    private ChromeOptions getMobileWebChromeOptions() {
         HashMap<String, Object> deviceMetrics = new HashMap<>();
         deviceMetrics.put("width", 360);
-        deviceMetrics.put("height", 640);
-        deviceMetrics.put("pixelRation", 3.0);
+        deviceMetrics.put("height", 800);
+        deviceMetrics.put("pixelRatio", 3.0);
 
         HashMap<String, Object> mobileEmulation = new HashMap<>();
         mobileEmulation.put("deviceMetrics", deviceMetrics);
-        mobileEmulation.put("useragent", deviceMetrics);
+//        mobileEmulation.put("userAgent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0");
+        mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 14; Pixel 7 Build/AP1A.240505.005) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.8 Mobile Safari/537.36");
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("window-size=500,900");
+        chromeOptions.addArguments("window-size=360,800");
+        chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
 
         return chromeOptions;
     }

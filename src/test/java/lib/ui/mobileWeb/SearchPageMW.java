@@ -8,6 +8,7 @@ public class SearchPageMW extends SearchPage {
     static {
         SEARCH_WIKI_MAIN_TOOLBAR = "xpath://button[@id='searchIcon']";
         SEARCH_INPUT = "xpath://input[@class='search mf-icon-search']";
+        SEARCH_TOOLBAR_TEXT = SEARCH_INPUT;
         SEARCH_RESULTS_BY_TEXT_TPL = "xpath://h3[contains(., '{EXPECTED_TEXT}')]";
     }
 
