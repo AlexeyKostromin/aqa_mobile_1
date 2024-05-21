@@ -21,4 +21,13 @@ public abstract class NavigationUi extends BasePage {
         waitForElementAndClick(CONTENTS_ITEM_LIST_BTN, "Could not press Navigate Up", 5);
     }
 
+    public void openHamburgerMenu() {
+    }
+
+    public AuthorizationPage goToAuthPage() {
+        return null;
+    }
+    public void goToWatchlist() {
+    }
+
 }

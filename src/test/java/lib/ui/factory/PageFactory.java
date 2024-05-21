@@ -6,6 +6,8 @@ import lib.ui.*;
 import lib.ui.android.*;
 import lib.ui.ios.*;
 import lib.ui.mobileWeb.ArticlePageMW;
+import lib.ui.mobileWeb.NavigationUiMW;
+import lib.ui.mobileWeb.SavedListsPageMW;
 import lib.ui.mobileWeb.SearchPageMW;
 import lib.ui.strategy.AndroidStrategy;
 import lib.ui.strategy.IOSStrategy;
@@ -21,6 +23,16 @@ public class PageFactory {
             return new BasePage(driver, new IOSStrategy(driver));
         } else {
             return new BasePage(driver, new MobileWebStrategy(driver));
+        }
+    }
+
+    public static AuthorizationPage getAuthorizationPage(RemoteWebDriver driver) {
+        if (Platform.getInstance().isAndroid()) {
+            return new AuthorizationPage(driver, new AndroidStrategy(driver));
+        } else if (Platform.getInstance().isIOS()){
+            return new AuthorizationPage(driver, new IOSStrategy(driver));
+        } else {
+            return new AuthorizationPage(driver, new MobileWebStrategy(driver));
         }
     }
 
@@ -55,16 +67,20 @@ public class PageFactory {
     public static NavigationUi getNavigationUiPage(RemoteWebDriver driver) {
         if (Platform.getInstance().isAndroid()) {
             return new AndroidNavigationUi(driver, new AndroidStrategy(driver));
-        } else {
+        } else if (Platform.getInstance().isIOS()) {
             return new iOSNavigationUi(driver, new IOSStrategy(driver));
+        } else {
+            return new NavigationUiMW(driver, new MobileWebStrategy(driver));
         }
     }
 
     public static SavedListsPage getSavedListsPage(RemoteWebDriver driver) {
         if (Platform.getInstance().isAndroid()) {
             return new AndroidSavedListsPage(driver, new AndroidStrategy(driver));
-        } else {
+        } else if (Platform.getInstance().isIOS()){
             return new iOSSavedListsPage(driver, new IOSStrategy(driver));
+        } else {
+            return new SavedListsPageMW(driver, new MobileWebStrategy(driver));
         }
     }
 

@@ -36,6 +36,16 @@ public class BasePage {
         };
     }
 
+    public List<WebElement> getElements(String locator) {
+        By by = getLocatorByString(locator);
+        return driver.findElements(by);
+    }
+
+    public Boolean isElementPresent(String locator) {
+        return getElements(locator).size() > 0;
+    }
+
+
     public WebElement waitForElementPresent(String locator, String errorMessage, long timeoutInSeconds) {
         By by = getLocatorByString(locator);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
@@ -64,7 +74,8 @@ public class BasePage {
     }
 
     public WebElement waitForElementAndClick(String locator, String errorMessage, long timeoutInSeconds) {
-        WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
+//        WebElement element = waitForElementPresent(locator, errorMessage, timeoutInSeconds);
+        WebElement element = waitForElementToBeClickable(locator, errorMessage, timeoutInSeconds);
         element.click();
         return element;
     }
@@ -99,8 +110,29 @@ public class BasePage {
         return strategy.getElementByText(text);
     }
 
+    public void clickElement(WebElement element) {
+        element.click();
+    }
+
     public void clickElementByText(String text) {
         strategy.clickElementByText(text);
+    }
+
+    public void tryClickElementWithAttempts(String locator, String errorMessage, int attempts) {
+        int currentAttempts = 0;
+        boolean needModeAttempts = true;
+
+        while (needModeAttempts) {
+            try {
+                waitForElementAndClick(locator, errorMessage, 1);
+                needModeAttempts = false;
+            } catch (Exception e) {
+                if (currentAttempts > attempts) {
+                    waitForElementAndClick(locator, errorMessage, 1);
+                }
+            }
+            ++currentAttempts;
+        }
     }
 
     public WebElement findElementByTextInList(List<WebElement> elements, String text) {
@@ -211,7 +243,7 @@ public class BasePage {
     }
 
     public void scrollWebPageUpJs() {
-        if (Platform.getInstance().isMobileWeb()){
+        if (Platform.getInstance().isMobileWeb()) {
             JavascriptExecutor JSExecutor = (JavascriptExecutor) this.driver;
             JSExecutor.executeScript("window.scrollBy(0,50)");
         } else {
@@ -318,18 +350,17 @@ public class BasePage {
         strategy.runAppInBackground(duration);
     }
 
-    public void openWikiWebPageForMobileWeb(){
+    public void openWikiWebPageForMobileWeb() {
         openWebPageForMobileWeb("https://en.m.wikipedia.org");
     }
 
-    public void openWebPageForMobileWeb(String url){
-        if (Platform.getInstance().isMobileWeb()){
+    public void openWebPageForMobileWeb(String url) {
+        if (Platform.getInstance().isMobileWeb()) {
             driver.get(url);
         } else {
             System.out.println("Method openWebPageForMobileWeb() do nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
-
 
 
 }

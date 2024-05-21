@@ -77,9 +77,9 @@ abstract public class SearchPage extends BasePage {
                 15);
     }
 
-    public void verifySearchResultsContainsText(String expectedText) {
+    public WebElement verifySearchResultsContainsText(String expectedText) {
         var xpathFull = SEARCH_RESULTS_BY_TEXT_TPL.replace("{EXPECTED_TEXT}", expectedText);
-        waitForElementPresent(xpathFull, "No results found with provided text, text was: " + expectedText, 15);
+        return waitForElementPresent(xpathFull, "No results found with provided text, text was: " + expectedText, 15);
     }
 
     public void clickArticleTitleWithText(List<WebElement> elements, String text) {
@@ -88,6 +88,10 @@ abstract public class SearchPage extends BasePage {
 
     public void openArticle(String article) {
         clickElementByText(article);
+    }
+
+    public void openArticle(WebElement element) {
+        clickElement(element);
     }
 
 

@@ -6,9 +6,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
-public class MobileWebStrategy implements PageActionsStrategy{
+public class MobileWebStrategy implements PageActionsStrategy {
     private BasePage basePage;
     private RemoteWebDriver webDriver;
+
     public MobileWebStrategy(RemoteWebDriver driver) {
         this.basePage = new BasePage(driver, this);
         webDriver = ((RemoteWebDriver) driver);

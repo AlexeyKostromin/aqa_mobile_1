@@ -17,7 +17,9 @@ public abstract class ArticlePage extends BasePage {
             NEW_LIST_NAME_INPUT,
             OK_BTN,
             SNACK_BAR,
-            ABOUT_THIS_ARTICLE_ELEMENT;
+            ABOUT_THIS_ARTICLE_ELEMENT,
+            OPTIONS_ADD_TO_MY_LIST_BUTTON,
+            OPTIONS_REMOVE_FROM_MY_LIST_BUTTON;
 
     public ArticlePage(RemoteWebDriver driver, PageActionsStrategy strategy) {
         super(driver, strategy);
@@ -38,6 +40,10 @@ public abstract class ArticlePage extends BasePage {
                     40,
                     "Could no swipe to element with text: 'ABOUT THIS ARTICLE'");
         }
+    }
+
+    public void saveArticle() {
+        clickSaveArticle();
     }
 
     public void saveArticleToNewList(String listName) {
@@ -74,6 +80,17 @@ public abstract class ArticlePage extends BasePage {
     public void setNewListName(String text) {
         waitForElementAndSendKeys(NEW_LIST_NAME_INPUT, text, "Could not set name for a new list", 10);
         waitForElementAndClick(OK_BTN, "Could not press OK in new list dialog", 10);
+    }
+
+    public void removeArticleFromSavedIfWasAdded() {
+        if (isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+            waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
+                    "Cannot click remove article from my list button",
+                    1);
+        }
+        waitForElementToBeClickable(OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                "Cannot find add to my list button after removing it from this list before ",
+                5);
     }
 
 
