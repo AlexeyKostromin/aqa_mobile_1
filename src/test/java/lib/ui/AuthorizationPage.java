@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.BasePage;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -16,15 +17,18 @@ public class AuthorizationPage extends BasePage {
         super(driver, strategy);
     }
 
+    @Step("Click Auth Button")
     public void clickAuthButton(){
         waitForElementAndClick(LOGIN_BUTTON, "Cannot find and click auth button", 5);
     }
 
+    @Step("Enter login data, username: {userName} and password: {password}")
     public void enterLoginData(String userName, String password){
         waitForElementAndSendKeys(USERNAME_INPUT, userName, "Cannot enter username", 5);
         waitForElementAndSendKeys(PASSWORD_INPUT, password, "Cannot enter password", 5);
     }
 
+    @Step("Submit login form")
     public void submitForm(){
         waitForElementAndClick(SUBMIT_BUTTON, "Cannot click on submit bnt", 5);
     }

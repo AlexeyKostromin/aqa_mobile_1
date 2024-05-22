@@ -1,6 +1,10 @@
 package lib;
 
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import lib.ui.strategy.PageActionsStrategy;
+//import org.apache.logging.log4j.core.util.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
@@ -8,9 +12,15 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class BasePage {
@@ -337,19 +347,19 @@ public class BasePage {
         // Perform the zoom gesture
         driver.perform(Arrays.asList(finger1Sequence, finger2Sequence));
     }
-
+    @Step("Rotate screen to landscape mode")
     public void setLandscapeOrientation() {
         strategy.setLandscapeOrientation();
     }
-
+    @Step("Rotate screen to portrait mode")
     public void setPortraitOrientation() {
         strategy.setPortraitOrientation();
     }
-
+    @Step("Run app in background")
     public void runAppInBackground(Duration duration) {
         strategy.runAppInBackground(duration);
     }
-
+    @Step("Open Wiki Web Page For Mobile Web")
     public void openWikiWebPageForMobileWeb() {
         openWebPageForMobileWeb("https://en.m.wikipedia.org");
     }
@@ -360,6 +370,45 @@ public class BasePage {
         } else {
             System.out.println("Method openWebPageForMobileWeb() do nothing for platform " + Platform.getInstance().getPlatformVar());
         }
+    }
+
+    public void createAllurePropertyFile(){
+        String path = System.getProperty("allure.results.directory");
+        try {
+            Properties props = new Properties();
+            FileOutputStream fos = new FileOutputStream(path + "/environment.properties");
+            props.setProperty("Platform", Platform.getInstance().getPlatformVar());
+            props.setProperty("Runtime Environment", Platform.getInstance().getRuntimeEnvVar());
+            props.store(fos, "See documentation");
+            fos.close();
+        } catch (Exception e) {
+            System.err.println("IO problem when writing allure properties file");
+            e.printStackTrace();
+        }
+    }
+
+    public String takeScreenshot(String name){
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String path = System.getProperty("user.dir") + "/" + name + "_screenshot.png";
+        try {
+            FileUtils.copyFile(source, new File((path)));
+            System.out.println("Screenshot was taken: " + path);
+        } catch (Exception e) {
+            System.out.println("Cannot take screenshot. Error: " + e.getMessage());
+        }
+        return path;
+    }
+
+    @Attachment
+    public static byte[] screenshot(String path) {
+        byte[] bytes = new byte[0];
+        try {
+            bytes = Files.readAllBytes(Paths.get(path));
+        } catch (IOException e) {
+            System.out.println("Cannot get bytes from screenshot. Error: " + e.getMessage());
+        }
+        return bytes;
     }
 
 

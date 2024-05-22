@@ -1,11 +1,12 @@
 package tests.common;
 
+import io.qameta.allure.Description;
 import lib.TestBase;
 import lib.ui.SearchPage;
 import lib.ui.WelcomePage;
 import lib.ui.factory.PageFactory;
-import lib.ui.mobileWeb.SearchPageMW;
 import org.junit.jupiter.api.*;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,8 +17,10 @@ public class SearchTests extends TestBase {
     @Tag("androidOnly")
     @Tag("ios")
     @Tag("mobileWeb")
+    @DisplayName("Verify label in search field has correct text")
+    @Description("Open search page and ensure that label in search field has text Search Wikipedia")
 //    @Order(1)
-    void verifyTextInSearchFieldTest() {
+    void verifyLabelTextInSearchFieldTest() {
         final String expectedText = "Search Wikipedia";
 
         SearchPage searchPage = PageFactory.getSearchPage(driver);
@@ -32,6 +35,7 @@ public class SearchTests extends TestBase {
     @Test
     @Tag("android")
     @Tag("ios")
+    @DisplayName("Cancel search")
     void cancelSearchTest() {
         final String searchText = "Kotlin";
         final String expectedResult = "General-purpose programming language derived from Java";
@@ -49,6 +53,7 @@ public class SearchTests extends TestBase {
     @Test
     @Tag("android")
     @Tag("ios")
+    @DisplayName("Verify search results by text")
     void searchResultsHasSearchItemTest() {
         final String searchText = "Java";
         WelcomePage welcomePage = PageFactory.getWelcomePage(driver);
@@ -63,6 +68,7 @@ public class SearchTests extends TestBase {
     @Test
     @Tag("android")
     @Tag("ios")
+    @DisplayName("Verify search results by title and description")
     void searchResultsHasSearchItemByTitleAndDescriptionTest() {
         final String searchText = "facebook";
 

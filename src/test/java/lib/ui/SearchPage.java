@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.BasePage;
 import lib.ui.strategy.PageActionsStrategy;
 import lib.Platform;
@@ -37,24 +38,29 @@ abstract public class SearchPage extends BasePage {
                 .replace("{DESCRIPTION}", description);
     }
 
+    @Step("Perform search with text: {value}")
     public void performSearchWithText(String value) {
         clickSearchTextBox();
         clearTextBox();
         sendKeysToSearchTextBox(value);
     }
 
+    @Step("Clear text box")
     public void clearTextBox() {
         waitForElementAndClear(SEARCH_INPUT, "", "Could not clear search box", 5);
     }
 
+    @Step("Click cancel search")
     public void clickCancelSearch() {
         waitForElementAndClick(CANCEL_SEARCH_BTN, "Could not click cancel search btn", 5);
     }
 
+    @Step("Send Keys To Search Tex tBox {value}")
     public void sendKeysToSearchTextBox(String value) {
         waitForElementAndSendKeys(SEARCH_INPUT, value, "Could not send keys in search box", 5);
     }
 
+    @Step("Click Search Tex tBox")
     public void clickSearchTextBox() {
         waitForElementAndClick(SEARCH_WIKI_MAIN_TOOLBAR, "Could not click 'Search Wikipedia' text box", 5
         );
@@ -68,6 +74,7 @@ abstract public class SearchPage extends BasePage {
         return waitForElementsPresent(ALL_SEARCH_RESULTS, "Could not get search results", 15);
     }
 
+    @Step("Search for element:by title: {title} and description: {description}")
     public WebElement waitForElementByTitleAndDescription(String title, String description) {
         var xpathFull = getXpathForResultsByTitleAndDescription(title, description);
         return waitForElementPresent(
@@ -77,6 +84,7 @@ abstract public class SearchPage extends BasePage {
                 15);
     }
 
+    @Step("Verify Search Results Contains Text: {expectedText}")
     public WebElement verifySearchResultsContainsText(String expectedText) {
         var xpathFull = SEARCH_RESULTS_BY_TEXT_TPL.replace("{EXPECTED_TEXT}", expectedText);
         return waitForElementPresent(xpathFull, "No results found with provided text, text was: " + expectedText, 15);
@@ -85,11 +93,12 @@ abstract public class SearchPage extends BasePage {
     public void clickArticleTitleWithText(List<WebElement> elements, String text) {
         findElementByTextInList(elements, text).click();
     }
-
+    @Step("Open article: {article}")
     public void openArticle(String article) {
         clickElementByText(article);
     }
 
+    @Step("Open article by element")
     public void openArticle(WebElement element) {
         clickElement(element);
     }
@@ -99,10 +108,12 @@ abstract public class SearchPage extends BasePage {
         waitForElementPresent(SEARCH_TOOLBAR, "Toolbar search not found", 10);
     }
 
+    @Step("Click Search Close Button")
     public void clickSearchCloseButton() {
         waitForElementAndClick(SEARCH_CLOSE_BTN, "Cannot click on X button", 5);
     }
 
+    @Step("Click Navigate Up")
     public void clickNavigateUp() {
         waitForElementAndClick(NAVIGATE_UP, "Could not press Navigate Up", 5);
     }
@@ -111,6 +122,7 @@ abstract public class SearchPage extends BasePage {
         waitForElementAndClick(CLEAR_SEARCH_QUERY_BTN, "Could not press Clear text btn (x)", 5);
     }
 
+    @Step("Verify Search Close Button Not Visible")
     public void verifySearchCloseButtonNotVisible() {
         waitForElementNotPresent(SEARCH_CLOSE_BTN, "No results found", 5);
     }
@@ -119,7 +131,7 @@ abstract public class SearchPage extends BasePage {
         return waitForElementAndGetAttribute(SEARCH_TOOLBAR_TEXT, attribute, "Could not get text by attribute", 5);
     }
 
-
+    @Step("Get text from search box depending of a platform")
     public String getSearchBoxTextByPlatform() {
         if (Platform.getInstance().isAndroid()) {
             return getSearchBoxTextByAttribute("text");
@@ -130,6 +142,7 @@ abstract public class SearchPage extends BasePage {
         }
     }
 
+    @Step("Close search mode")
     public void closeSearchMode() {
         if (Platform.getInstance().isAndroid()) {
             clickNavigateUp();

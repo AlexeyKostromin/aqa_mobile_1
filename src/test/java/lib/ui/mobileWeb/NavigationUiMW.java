@@ -1,5 +1,6 @@
 package lib.ui.mobileWeb;
 
+import io.qameta.allure.Step;
 import lib.ui.AuthorizationPage;
 import lib.ui.NavigationUi;
 import lib.ui.factory.PageFactory;
@@ -25,13 +26,21 @@ public class NavigationUiMW extends NavigationUi {
         waitForElementAndClick(HAMBURGER_MENU, "Cannot click on hamburger menu", 5);
     }
 
+    @Step("Go to Auth page")
     public AuthorizationPage goToAuthPage() {
         openHamburgerMenu();
         waitForElementAndClick(HAMBURGER_MENU_LOGIN, "Cannot click on login in hamburger menu", 5);
         return PageFactory.getAuthorizationPage(driver);
     }
-    public void goToWatchlist() {
+
+    @Override
+    public void goToSavedItems() {
         openHamburgerMenu();
         waitForElementAndClick(HAMBURGER_MENU_WATCHLIST, "Cannot click on watchlist in hamburger menu", 5);
     }
+
+//    public void goToWatchlist() {
+//        openHamburgerMenu();
+//        waitForElementAndClick(HAMBURGER_MENU_WATCHLIST, "Cannot click on watchlist in hamburger menu", 5);
+//    }
 }

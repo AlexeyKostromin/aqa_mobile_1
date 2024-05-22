@@ -1,5 +1,6 @@
 package lib.ui.mobileWeb;
 
+import io.qameta.allure.Step;
 import lib.ui.SavedListsPage;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -23,6 +24,7 @@ public class SavedListsPageMW extends SavedListsPage {
         return REMOVE_FROM_SAVED_BUTTON_STATUS_TPL.replace("{TITLE}", articleTitle);
     }
 
+    @Step("Remove article from saved list")
     @Override
     public void removeArticleFromSaved(String articleTitle) {
         var xpathFull = getXpathForRemoveButtonByTitle(articleTitle);
@@ -31,6 +33,8 @@ public class SavedListsPageMW extends SavedListsPage {
         waitForElementToBeClickable(xpathButtonStatus, "Status was not changed to Unwatched", 5);
         driver.navigate().refresh();
     }
+
+    @Step("Wait Article Not Displays")
     @Override
     public void waitArticleNotDisplays(String article) {
         String xpathFull = String.format("xpath://*[contains(text(), '%s')]", article);

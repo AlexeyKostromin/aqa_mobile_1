@@ -1,5 +1,6 @@
 package lib.ui.mobileWeb;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import lib.ui.ArticlePage;
 import lib.ui.strategy.PageActionsStrategy;
@@ -21,6 +22,7 @@ public class ArticlePageMW extends ArticlePage {
         super(driver, strategy);
     }
 
+    @Step("Save article")
     @Override
     public void saveArticle() {
         removeArticleFromSavedIfWasAdded();

@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.BasePage;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
@@ -25,7 +26,10 @@ public abstract class ArticlePage extends BasePage {
         super(driver, strategy);
     }
 
+    @Step("Swipe up to the end of the article")
     public void swipeUpToTheEndOfArticle() {
+        screenshot(takeScreenshot("articleTitle"));
+
         if (Platform.getInstance().isAndroid()) {
             swipeUpToElement(ABOUT_THIS_ARTICLE_ELEMENT,
                     40,
@@ -42,10 +46,12 @@ public abstract class ArticlePage extends BasePage {
         }
     }
 
+    @Step("Save article")
     public void saveArticle() {
         clickSaveArticle();
     }
 
+    @Step("Save article to new list {listName}")
     public void saveArticleToNewList(String listName) {
         clickSaveArticle();
         clickAddToList();
@@ -55,12 +61,14 @@ public abstract class ArticlePage extends BasePage {
         setNewListName(listName);
     }
 
+    @Step("Save article to existing list {listName}")
     public void saveArticleToExistingList(String listName) {
         clickSaveArticle();
         clickAddToList();
         clickElementByText(listName);
     }
 
+    @Step("Click save article")
     public void clickSaveArticle() {
         waitForElementAndClick(SAVE_ARTICLE_BNT, "Could not click add save article", 5);
     }
@@ -82,19 +90,23 @@ public abstract class ArticlePage extends BasePage {
         waitForElementAndClick(OK_BTN, "Could not press OK in new list dialog", 10);
     }
 
+    @Step("Remove article from saved list if it was already there")
     public void removeArticleFromSavedIfWasAdded() {
         if (isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
             waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
                     "Cannot click remove article from my list button",
                     1);
         }
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         waitForElementToBeClickable(OPTIONS_ADD_TO_MY_LIST_BUTTON,
                 "Cannot find add to my list button after removing it from this list before ",
                 5);
     }
 
-
+    @Step("Get article title {title}")
     public String getArticleTitle(String title) {
+        screenshot(takeScreenshot("articleTitle"));
+
         var actualTitle = "";
         if (Platform.getInstance().isAndroid()) {
             actualTitle = getArticleTitleAndroid();
@@ -126,12 +138,14 @@ public abstract class ArticlePage extends BasePage {
         return getArticleTitleAndroid();
     }
 
+    @Step("Assert opened article title to expected, expected id {expectedTitle}")
     public void assertArticleTitle(String expectedTitle) {
         var actualTitle = getArticleTitle(expectedTitle);
 
         Assertions.assertEquals(expectedTitle, actualTitle, "Title of opened article is wrong");
     }
 
+    @Step("Assert opened article title displays instantly")
     public void assertArticleTitlePresentInstantly(String title) {
         var element = waitForElementPresent(
                 ARTICLE_TITLE,

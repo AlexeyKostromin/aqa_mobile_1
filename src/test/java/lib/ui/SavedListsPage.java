@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.BasePage;
 import lib.Platform;
 import lib.ui.strategy.PageActionsStrategy;
@@ -27,10 +28,12 @@ public abstract class SavedListsPage extends BasePage {
         }
     }
 
+    @Step("Verify article with title: {article} displays")
     public void verifyArticleDisplays(String article) {
         getElementByText(article);
     }
 
+    @Step("Verify article with title: {article} NOT displays")
     public void waitArticleNotDisplays(String article) {
         String xpathFull = String.format("xpath://*[@text='%s']", article);
         waitForElementNotPresent(xpathFull,
@@ -38,10 +41,12 @@ public abstract class SavedListsPage extends BasePage {
                 10);
     }
 
+    @Step("Remove article from saved list by Swipe")
     public void removeArticleFromSaved(WebElement element) {
         swipeElementToLeft(element);
     }
 
+    @Step("Remove article from saved list")
     public void removeArticleFromSaved(String articleTitle) {
 
     }

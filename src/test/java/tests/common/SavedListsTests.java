@@ -1,14 +1,20 @@
 package tests.common;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Features;
 import lib.TestBase;
 import lib.ui.*;
 import lib.ui.factory.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Epic("Tests for articles")
 public class SavedListsTests extends TestBase {
     @Test
     @Tag("android")
+    @DisplayName("Save two articles and then remove one from saved")
     void saveTwoArticlesToListAndroidTest() {
         final String searchText1 = "Java";
         final String expectedTitle1 = "Java (programming language)";
@@ -56,6 +62,7 @@ public class SavedListsTests extends TestBase {
 
     @Test
     @Tag("ios")
+    @DisplayName("Save two articles and verify their presence in saved list")
     void saveTwoArticlesToListIOSTest() {
         final String searchText1 = "Java";
         final String expectedTitle1 = "Java (programming language)";
@@ -95,7 +102,9 @@ public class SavedListsTests extends TestBase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search"), @Feature(value = "Article"), @Feature(value = "Favorites")})
     @Tag("mobileWeb")
+    @DisplayName("Save two articles and then remove one from saved")
     void saveTwoArticlesToListMobileWebTest() {
         final String userName = "Dejorden";
         final String userPassword = "Done95:end";
@@ -124,7 +133,8 @@ public class SavedListsTests extends TestBase {
         searchPage.openArticle(result);
         articlePage.saveArticle();
 
-        navigationUi.goToWatchlist();
+//        navigationUi.goToWatchlist();
+        navigationUi.goToSavedItems();
         SavedListsPage savedListsPage = PageFactory.getSavedListsPage(driver);
 
         savedListsPage.verifyArticleDisplays(searchText1 + expectedTitle1);

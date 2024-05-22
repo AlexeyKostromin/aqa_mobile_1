@@ -92,6 +92,10 @@ public class Platform {
         return PLATFORM;
     }
 
+    public String getRuntimeEnvVar(){
+        return RUNTIME_ENV;
+    }
+
     private Boolean isPlatform(String expectedPlatform) {
         return PLATFORM.equals(expectedPlatform);
     }

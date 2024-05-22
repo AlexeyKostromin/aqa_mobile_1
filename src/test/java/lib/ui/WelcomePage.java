@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.BasePage;
 import lib.ui.strategy.PageActionsStrategy;
 import org.openqa.selenium.WebElement;
@@ -23,14 +24,17 @@ abstract public class WelcomePage extends BasePage {
         super(driver, strategy);
     }
 
+    @Step("Wait Free Encyclopedia Screen loaded")
     public void waitForFreeEncyclopediaScreenLoaded() {
         waitForElementPresent(STEP_TRY_FREE_ENCYCLOPEDIA, "Free encyclopedia screen not loaded", 10);
     }
 
+    @Step("click Skip")
     public void clickSkip() {
         waitForElementAndClick(STEP_SKIP_BTN, "Cannot click button Next", 5);
     }
 
+    @Step("click Next")
     public void clickNext() {
 //        waitForElementAndClick(STEP_NEXT_BTN, "Cannot click button Next", 5);
         waitNextBtnClickable().click();
@@ -59,6 +63,7 @@ abstract public class WelcomePage extends BasePage {
         waitForElementAndClick(STEP_HELP_GET_STARTED_BTN, "Cannot click button Get started", 5);
     }
 
+    @Step("Swipe Onboarding Screen")
     public void swipeOnboardingScreen() {
 //        try { Thread.sleep(1000); } catch (InterruptedException e) { /* Do nothing */ }
         var element = waitForElementToBeClickable(STEP_MAIN_WIKIPEDIA, "wiki element not clickaple", 10);
